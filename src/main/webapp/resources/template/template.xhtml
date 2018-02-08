@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="assets/img/favicon.ico"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+        <ui:insert name="title">
+            <title>BIRDS::HOME PAGE</title>
+        </ui:insert>
+
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+
+        <ui:insert name="css">
+            <!-- Bootstrap core CSS     -->
+            <h:outputStylesheet name="bootstrap.min.css" library="css"/>
+
+            <!-- Animation library for notifications   -->
+            <h:outputStylesheet name="animate.min.css" library="css"/>
+
+            <!--  Light Bootstrap Table core CSS    -->
+            <h:outputStylesheet name="light-bootstrap-dashboard.css" library="css"/>
+
+            <!--Custom Styles for accordion menu-->
+            <h:outputStylesheet name="custom-styles.css" library="css"/>
+
+
+
+            <!--     Fonts and icons     -->
+            <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+            <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'/>
+            <link href="../resources/css/pe-icon-7-stroke.css" rel="stylesheet" />
+        </ui:insert>
+
+    </h:head>
+
+    <h:body>
+        <div class="wrapper">
+            <div class="sidebar" data-color="green" data-image="resources/img/sidebar-5.jpg">
+
+                <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+                -->
+
+                <div class="sidebar-wrapper">
+                    <div class="logo">
+                        <a href="#" class="simple-text">
+                            BiRDS App
+                        </a>
+                    </div>
+
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="#">
+                                <i class="pe-7s-graph"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <!--   
+                            <li>
+                               <a href="#">
+                                   <i class="pe-7s-graph1"></i>
+                                   <p>Dashboard 2</p>
+                               </a>
+                           </li>-->
+
+                    </ul>
+
+                    <ui:insert name="left">
+                        <h:form>
+                            <div class="arrowlistmenu">
+                                <h:panelGroup rendered="true">
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">System User</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Add New User" action="#"/></li>
+                                            <li><h:commandLink value="Manage Users" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">Office Registration</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="District Office" action="#"/></li>
+                                            <li><h:commandLink value="Center Office" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">Registration Approval</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Registration" action="#"/></li>
+                                            <li><h:commandLink value="Death Registration" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">Certificate Request</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Certificate" action="#"/></li>
+                                            <li><h:commandLink value="Death Certificate" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="true">
+                                        <h3 class="menuheader expandable">Statistical Reports</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Statistics" action="#"/></li>
+                                            <li><h:commandLink value="Death Statistics" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">General Search</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Records" action="#"/></li>
+                                            <li><h:commandLink value="Death Records" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="false"> <!-- District Admin Controls-->
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">System User</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Manage User Accounts" action="#"/></li>
+                                            <li><h:commandLink value="Assign Officer a Station" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">Registration Approval</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Registration" action="#"/></li>
+                                            <li><h:commandLink value="Death Registration" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">Cert. Request Approval</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Certificate" action="#"/></li>
+                                            <li><h:commandLink value="Death Certificate" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">General Search</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Records" action="#"/></li>
+                                            <li><h:commandLink value="Death Records" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+
+                                <h:panelGroup rendered="false"> <!-- Registrar Controls-->
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">System User</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Edit My Account" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">Registration Forms</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Registration" action="#"/></li>
+                                            <li><h:commandLink value="Death Registration" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">Cert. Request Forms</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Certificate" action="#"/></li>
+                                            <li><h:commandLink value="Death Certificate" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h3 class="menuheader expandable">General Search</h3>
+                                        <ul class="categoryitems nav">
+                                            <li><h:commandLink value="Birth Records" action="#"/></li>
+                                            <li><h:commandLink value="Death Records" action="#"/></li>
+                                        </ul>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                            </div>
+                        </h:form>
+                    </ui:insert>
+                </div>   
+            </div>
+
+            <div class="main-panel">
+                <ui:insert name="content">
+                    <!--Page content goes here-->
+                    <nav class="navbar navbar-default navbar-fixed">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="#">
+                                    <i class="fa fa-dashboard" style="margin-right: 10px"></i>
+                                    Dashboard
+                                </a>
+                            </div>
+                            <div class="collapse navbar-collapse">
+
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <p>
+                                                Account
+                                                <b class="caret"></b>
+                                            </p>
+
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Username</a></li>
+                                            <li><a href="#">Email Address</a></li>
+                                            <li><a href="#">Account Type</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Change Password</a></li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="#" class="btn btn-danger" style="background:#ff6e77">
+                                                    <i class="fa fa-lock"></i>
+                                                    Log-out
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="separator hidden-lg"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+
+
+                    <!--Main content to display--> 
+                    <div class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--Main content to display--> 
+
+
+                    <!--Application Footer goes here-->
+                    <footer class="footer">
+                        <div class="container-fluid">
+                            <p class="copyright pull-right">
+                                &copy; <script>document.write(new Date().getFullYear());</script> <a href="http://www.uregina.ca" target="_blank">University of Regina</a> - Birth and Death Registry Automation System
+                            </p>
+                        </div>
+                    </footer>
+                    <!--Application Footer goes here-->
+                </ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+    <ui:insert name="javascript">
+        <h:outputScript name="jquery.3.2.1.min.js" library="javascript"/>
+        <h:outputScript name="bootstrap.min.js" library="javascript"/>
+        <h:outputScript name="chartist.min.js" library="javascript"/>
+        <h:outputScript name="bootstrap-notify.js" library="javascript"/>
+        <h:outputScript name="light-bootstrap-dashboard.js" library="javascript"/>
+        <h:outputScript name="animatedcollapse.js" library="javascript"/>
+        <h:outputScript name="collapsibledivs.js" library="javascript"/>
+        <h:outputScript name="ddaccordion.js" library="javascript"/>
+        <h:outputScript name="ddaccordmenu.js" library="javascript"/>
+    </ui:insert>
+</html>
+

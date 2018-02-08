@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7-Feb-2018, 1:18:29 PM
+    Author     : Iddrisu Sibdow SIAJ
+*/
+
+.arrowlistmenu{
+    width: auto; /*width of accordion menu*/
+}
+
+.arrowlistmenu .menuheader{ /*CSS class for menu headers in general (expanding or not!)*/
+    font: bold 14px Arial;
+    color: white;
+    background: black url(img/system/titlebar.png) repeat-x center left;
+    margin-bottom: 10px; /*bottom spacing between header and rest of content*/
+    text-transform: uppercase;
+    padding: 4px 0 4px 10px; /*header text is indented 10px*/
+    cursor: hand;
+    cursor: pointer;
+    /*height: 30px;*/
+}
+
+.arrowlistmenu .openheader{ /*CSS class to apply to expandable header when it's expanded*/
+    background-image: url(img/system/titlebar-active.png);
+}
+
+.arrowlistmenu ul{ /*CSS for UL of each sub menu*/
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 8px; /*bottom spacing between each UL and rest of content*/
+}
+
+.arrowlistmenu ul li{
+    padding-bottom: 2px; /*bottom spacing between menu items*/
+}
+
+.arrowlistmenu ul li a{
+    color: #A70303;
+    background: url(img/system/arrowbullet.png) no-repeat center left; /*custom bullet list image*/
+    display: block;
+    padding: 2px 0;
+    padding-left: 19px; /*link text is indented 19px*/
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px solid #dadada;
+    font-size: 90%;
+}
+
+.arrowlistmenu ul li a:visited{
+    color: #A70303;
+}
+
+.arrowlistmenu ul li a:hover{ /*hover state CSS*/
+    color: #A70303;
+    background-color: #F3F3F3;
+}
