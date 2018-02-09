@@ -41,9 +41,9 @@
 
     <h:body>
         <div class="wrapper">
-            
+
             <div class="sidebar" data-color="green" data-image="../../resources/img/sidebar-5.jpg">
-            
+
 
                 <!--
 
@@ -72,112 +72,119 @@
                     <ui:insert name="left">
                         <h:form>
                             <div class="arrowlistmenu">
-                                <h:panelGroup rendered="true">
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">System User</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Add New User" action="#"/></li>
-                                            <li><h:commandLink value="Manage Users" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">Office Registration</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="District Office" action="#"/></li>
-                                            <li><h:commandLink value="Center Office" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">Registration Approval</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Registration" action="#"/></li>
-                                            <li><h:commandLink value="Death Registration" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">Certificate Request</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Certificate" action="#"/></li>
-                                            <li><h:commandLink value="Death Certificate" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
+                                <ui:insert name="reg_admin">
                                     <h:panelGroup rendered="true">
-                                        <h3 class="menuheader expandable">Statistical Reports</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Statistics" action="#"/></li>
-                                            <li><h:commandLink value="Death Statistics" action="#"/></li>
-                                        </ul>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">System User</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Add New User" action="#"/></li>
+                                                <li><h:commandLink value="Manage Users" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">Office Registration</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="District Office" action="#"/></li>
+                                                <li><h:commandLink value="Center Office" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">Registration Approval</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Registration" action="#"/></li>
+                                                <li><h:commandLink value="Death Registration" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">Certificate Request</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Certificate" action="#"/></li>
+                                                <li><h:commandLink value="Death Certificate" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup rendered="true">
+                                            <h3 class="menuheader expandable">Statistical Reports</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Statistics" action="#"/></li>
+                                                <li><h:commandLink value="Death Statistics" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">General Search</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Records" action="#"/></li>
+                                                <li><h:commandLink value="Death Records" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
                                     </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">General Search</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Records" action="#"/></li>
-                                            <li><h:commandLink value="Death Records" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                </h:panelGroup>
+                                </ui:insert>
 
-                                <h:panelGroup rendered="false"> <!-- District Admin Controls-->
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">System User</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Manage User Accounts" action="#"/></li>
-                                            <li><h:commandLink value="Assign Officer a Station" action="#"/></li>
-                                        </ul>
+
+                                <ui:insert name="dist_admin">
+                                    <h:panelGroup rendered="true"> <!-- District Admin Controls-->
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">System User</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Manage User Accounts" action="#"/></li>
+                                                <li><h:commandLink value="Assign Officer a Station" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">Registration Approval</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Registration" action="#"/></li>
+                                                <li><h:commandLink value="Death Registration" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">Cert. Request Approval</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Certificate" action="#"/></li>
+                                                <li><h:commandLink value="Death Certificate" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">General Search</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Records" action="#"/></li>
+                                                <li><h:commandLink value="Death Records" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
                                     </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">Registration Approval</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Registration" action="#"/></li>
-                                            <li><h:commandLink value="Death Registration" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">Cert. Request Approval</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Certificate" action="#"/></li>
-                                            <li><h:commandLink value="Death Certificate" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">General Search</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Records" action="#"/></li>
-                                            <li><h:commandLink value="Death Records" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                </h:panelGroup>
+                                </ui:insert>
 
 
-                                <h:panelGroup rendered="false"> <!-- Registrar Controls-->
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">System User</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Edit My Account" action="#"/></li>
-                                        </ul>
+                                <ui:insert name="registrar">
+                                    <h:panelGroup rendered="true"> <!-- Registrar Controls-->
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">System User</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Edit My Account" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">Registration Forms</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Registration" action="#"/></li>
+                                                <li><h:commandLink value="Death Registration" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">Cert. Request Forms</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Certificate" action="#"/></li>
+                                                <li><h:commandLink value="Death Certificate" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">General Search</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Birth Records" action="#"/></li>
+                                                <li><h:commandLink value="Death Records" action="#"/></li>
+                                            </ul>
+                                        </h:panelGroup>
                                     </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">Registration Forms</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Registration" action="#"/></li>
-                                            <li><h:commandLink value="Death Registration" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">Cert. Request Forms</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Certificate" action="#"/></li>
-                                            <li><h:commandLink value="Death Certificate" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h3 class="menuheader expandable">General Search</h3>
-                                        <ul class="categoryitems nav">
-                                            <li><h:commandLink value="Birth Records" action="#"/></li>
-                                            <li><h:commandLink value="Death Records" action="#"/></li>
-                                        </ul>
-                                    </h:panelGroup>
-                                </h:panelGroup>
+                                </ui:insert>
 
                             </div>
                         </h:form>
@@ -222,7 +229,7 @@
                                                 <li><a href="#">Change Password</a></li>
                                                 <li class="divider"></li>
                                                 <li>
-                                                    <a class="btn btn-danger" style="background:#ff6e77" href="http://localhost:8080/birds-app/" >
+                                                    <a class="btn btn-danger" style="background:#ff6e77" href="http://localhost:8080/birds-app/" onclick="return confirm('Are you sure you want to logout?')">
                                                         <i class="fa fa-lock"></i>
                                                         Log-out
                                                     </a>
