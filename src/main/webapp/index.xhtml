@@ -2,12 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>BiRDS :: Login </title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
+
         <link rel="icon" type="image/png" href="resources/img/favicon.ico"/>
 
         <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css"/>
@@ -15,8 +16,17 @@
         <script src="resources/javascript/jquery.3.2.1.min.js"></script>
         <script src="resources/javascript/bootstrap.min.js"></script>
     </h:head>
-    <h:body>
+    <h:body style="background-color: #336d85">
         <div class="container-fluid bg">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="card" style="padding: 0 20px 0 20px;">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" globalOnly="true"/>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-xs-12"></div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -25,22 +35,20 @@
                         <h1>BiRDS LOGIN</h1><hr/> 
                         <div class="form-group">
                             <label for="inputUname">Email/Username</label>
-                            <h:inputText id="username" size="20" styleClass="form-control" pt:placeholder="Email / Username"/>
+                            <h:inputText id="username" size="20" styleClass="form-control" pt:placeholder="Email / Username" value="#{userAuthentication.username}" requiredMessage="Please enter username"/>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <h:inputSecret id="password" size="20" styleClass="form-control" pt:placeholder="Password"/>
+                            <h:inputSecret id="password" size="20" styleClass="form-control" pt:placeholder="Password" value="#{userAuthentication.password}" requiredMessage="Please enter password"/>
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"/> Remember me
                             </label>
                         </div>
-                        <h:commandButton id="submit1" styleClass="btn btn-success btn-block" value="Submit (Reg Admin)" action="pages/reg_admin/regional_admin.xhtml?faces-redirect=true"/>
-                        <h:commandButton id="submit2" styleClass="btn btn-success btn-block" value="Submit (Dist Admin)" action="pages/dist_admin/district_admin.xhtml?faces-redirect=true"/>
-                        <h:commandButton id="submit3" styleClass="btn btn-success btn-block" value="Submit (Registrar)" action="pages/registrar/registrar.xhtml?faces-redirect=true"/>
+                        <h:commandButton id="submit" styleClass="btn btn-success btn-block" value="Submit" action="#{userAuthentication.authenticateUser}"/>
                     </h:form>
-                     <!--form end-->
+                    <!--form end-->
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12"></div>
             </div>
