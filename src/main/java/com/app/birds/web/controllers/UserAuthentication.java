@@ -10,12 +10,14 @@ import com.app.birds.entities.UserAccount;
 import com.app.birds.web.commons.BirdsConstant;
 import com.app.birds.web.commons.GenerateIDs;
 import com.app.birds.web.commons.LoginUser;
+import com.app.birds.web.commons.UserAccessController;
 import com.app.birds.web.utilities.BirdsMenuConfiguration;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,15 +29,18 @@ import javax.servlet.http.HttpServletRequest;
 @Named(value = "userAuthentication")
 @SessionScoped
 public class UserAuthentication implements Serializable {
+
     private static final long serialVersionUID = 7090138834846165429L;
     protected UserAccount userAccount = new UserAccount();
     protected BirdsMenuConfiguration mnuConfig = new BirdsMenuConfiguration();
+    private UserAccessController accessController = new UserAccessController();
+//    private boolean userLoggedIn = accessController.isIsLogin();
     private String username = "";
     private String password = "";
 
     @EJB
     private SupportBean supportBean;
-    
+
     public UserAuthentication() {
     }
 
@@ -127,6 +132,34 @@ public class UserAuthentication implements Serializable {
         }
     }
 
+    public void isLoggedIn() {
+//        FacesContext fc = FacesContext.getCurrentInstance();
+        if (accessController.isIsLogin() == false) {
+            System.out.println("Login Status is: " + accessController.isIsLogin());
+            ConfigurableNavigationHandler nav
+                    = (ConfigurableNavigationHandler) JSFUtility.getCurrentContext().getApplication().getNavigationHandler();
+            JSFUtility.warnMessage("Authorization Error", "You need to login with correct credential to access this section");
+            nav.performNavigation("/start.html?faces-redirect=true");
+        } else {
+        System.out.println(accessController.isIsLogin());
+        }
+    }
+
+//    public String isDistrictAdmin() {
+//        if (userLoggedIn == false) {
+//            return "/start.html?faces-redirect=true";
+//        } else {
+//            return null;
+//        }
+//    }
+//
+//    public String isRegistrar() {
+//        if (userLoggedIn == false) {
+//            return "/start.html?faces-redirect=true";
+//        } else {
+//            return null;
+//        }
+//    }
     public String logOutUser() {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -143,6 +176,10 @@ public class UserAuthentication implements Serializable {
 
         return "/start.html?faces-redirect=true";
 
+    }
+
+    public String returnToIndex() {
+        return "/start.html?faces-redirect=true";
     }
 
     public BirdsMenuConfiguration getMnuConfig() {
@@ -185,4 +222,19 @@ public class UserAuthentication implements Serializable {
         this.userAccount = userAccount;
     }
 
+    public UserAccessController getAccessController() {
+        return accessController;
+    }
+
+    public void setAccessController(UserAccessController accessController) {
+        this.accessController = accessController;
+    }
+
+//    public boolean isUserLoggedIn() {
+//        return userLoggedIn;
+//    }
+//
+//    public void setUserLoggedIn(boolean userLoggedIn) {
+//        this.userLoggedIn = userLoggedIn;
+//    }
 }

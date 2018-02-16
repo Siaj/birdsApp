@@ -7,6 +7,7 @@ package com.app.birds.web.commons;
 import com.app.birds.entities.UserAccount;
 import com.app.birds.web.utilities.BirdsMenuConfiguration;
 import com.app.birds.web.utilities.JSFUtility;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -16,8 +17,10 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class UserAccessController {
+public class UserAccessController implements Serializable{
 
+    private static final long serialVersionUID = 1L;
+    
     private boolean isLogin = false;
     private boolean isAdmin = false;
     private boolean isComplainOnly = false;
