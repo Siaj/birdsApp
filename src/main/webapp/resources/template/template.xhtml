@@ -223,10 +223,12 @@
 
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li style="text-align: center"><a href="#"><h:outputText value="#{userAccessController.userAccount.username}"/></a></li>
+                                            <li style="text-align: center"><a href="#"><h:outputText value="Username: #{userAccessController.userAccount.username}"/></a></li>
                                             <li style="text-align: center"><a href="#"><h:outputText value="#{userAccessController.userAccount.systemUser.email}"/></a></li>
+                                            <li class="divider"></li>
                                             <li style="text-align: center"><a href="#"><h:outputText value="#{userAccessController.userAccount.systemUser.userRole.roleName}"/></a></li>
-                                            <li style="text-align: center"><a href="#">Another action</a></li>
+                                            <li style="text-align: center"><a href="#"><h:outputText value="Region: #{userAccessController.userAccount.systemUser.district.region.regionName}"/></a></li>
+                                            <li class="divider"></li>
                                             <li style="text-align: center"><a href="#">Change Password</a></li>
                                             <li class="divider"></li>
                                             <li>

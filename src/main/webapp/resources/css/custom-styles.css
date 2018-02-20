@@ -15,7 +15,7 @@ and open the template in the editor.
 .arrowlistmenu .menuheader{ /*CSS class for menu headers in general (expanding or not!)*/
     font: bold 14px Arial;
     color: white;
-    background: black url(img/system/titlebar.png) repeat-x center left;
+    background: black url(./../resources/img/system/titlebar.png) repeat-x center left;
     margin-bottom: 10px; /*bottom spacing between header and rest of content*/
     text-transform: uppercase;
     padding: 4px 0 4px 10px; /*header text is indented 10px*/
@@ -25,7 +25,7 @@ and open the template in the editor.
 }
 
 .arrowlistmenu .openheader{ /*CSS class to apply to expandable header when it's expanded*/
-    background-image: url(img/system/titlebar-active.png);
+    background-image: url(./../resources/img/system/titlebar-active.png);
 }
 
 .arrowlistmenu ul{ /*CSS for UL of each sub menu*/
@@ -41,7 +41,7 @@ and open the template in the editor.
 
 .arrowlistmenu ul li a{
     color: #A70303;
-    background: url(img/system/arrowbullet.png) no-repeat center left; /*custom bullet list image*/
+    background: url(./../resources/img/system/arrowbullet.png) no-repeat center left; /*custom bullet list image*/
     display: block;
     padding: 2px 0;
     padding-left: 19px; /*link text is indented 19px*/

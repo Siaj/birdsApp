@@ -67,6 +67,7 @@ public class UserAuthentication implements Serializable {
                         JSFUtility.errorMessage("Role: ", "Your role is not defined, contact systems administrator");
                         return "index.xhtml?faces-redirect=true";
                     } else {
+                        System.out.println("Role: " + userAccount.getSystemUser().getUserRole().getRoleName());
                         switch (userAccount.getSystemUser().getUserRole().getRoleName()) {
                             case "Regional Administrator":
                                 loginUser.setAccessFor("Regional Administrator");
@@ -85,11 +86,11 @@ public class UserAuthentication implements Serializable {
 
                                 return "pages/reg_admin/regional_admin.xhtml?faces-redirect=true";
                             case "District Administrator":
-                                loginUser.setAccessFor("District Admininstartor");
+                                loginUser.setAccessFor("District Administrator");
                                 loginUser.setUserLogin(userAccount);
                                 loginUser.setUserScreenName(username);
                                 loginUser.setDistrict(userAccount.getSystemUser().getDistrict().getDistrictId());
-                                loginUser.setUserLogin(true);
+                                loginUser.setIsLogin(true);
                                 loginUser.setIsAdmin(false);
 
                                 mnuConfig.renderAllDistAdmin();
@@ -133,15 +134,37 @@ public class UserAuthentication implements Serializable {
     }
 
     public void isLoggedIn() {
-//        FacesContext fc = FacesContext.getCurrentInstance();
+        ConfigurableNavigationHandler nav
+                = (ConfigurableNavigationHandler) JSFUtility.getCurrentContext().getApplication().getNavigationHandler();
         if (accessController.isIsLogin() == false) {
             System.out.println("Login Status is: " + accessController.isIsLogin());
-            ConfigurableNavigationHandler nav
-                    = (ConfigurableNavigationHandler) JSFUtility.getCurrentContext().getApplication().getNavigationHandler();
             JSFUtility.warnMessage("Authorization Error", "You need to login with correct credential to access this section");
-            nav.performNavigation("/start.html?faces-redirect=true");
-        } else {
-        System.out.println(accessController.isIsLogin());
+            nav.performNavigation("/index.xhtml?faces-redirect=true");
+        } 
+        else {
+            System.out.println("User Logged-In: " + accessController.isIsLogin());
+            System.out.println(accessController.getUserAccount().getSystemUser().getUserRole().getRoleName());
+            System.out.println(accessController.getLoginUser().getAccessFor());
+
+            String accessFor = accessController.getLoginUser().getAccessFor();
+            System.out.println( "Access For: " + accessFor);
+//            switch (accessFor) {
+//                case "Regional Administrator":
+////                    JSFUtility.warnMessage("Login:", "As a " + accessFor + ", you are authorized to view only this dashboard");
+//                    nav.performNavigation("pages/reg_admin/regional_admin.xhtml");
+//                    break;
+//                case "District Administrator":
+////                    JSFUtility.warnMessage("", "As a " + accessFor + ", you are authorized to view only this dashboard");
+//                    nav.performNavigation("pages/dist_admin/district.xhtml");
+//                    break;
+//                case "Registrar":
+////                    JSFUtility.warnMessage("", "As a " + accessFor + ", you are authorized to view only this dashboard");
+//                    nav.performNavigation("registrar.xhtml?faces-redirect=true");
+//                    break;
+//                default:
+//                    nav.performNavigation("/index.xhtml?faces-redirect=true");
+//                    break;
+//            }
         }
     }
 
@@ -174,12 +197,12 @@ public class UserAuthentication implements Serializable {
             e.printStackTrace();
         }
 
-        return "/start.html?faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true";
 
     }
 
     public String returnToIndex() {
-        return "/start.html?faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true";
     }
 
     public BirdsMenuConfiguration getMnuConfig() {

@@ -4,11 +4,13 @@
  */
 package com.app.birds.web.commons;
 
+import java.io.Serializable;
+
 /**
  *
  * @author seth
  */
-public class LoginUser {
+public class LoginUser implements Serializable {
 
     private String userType;
     private String userScreenName;
@@ -124,5 +126,5 @@ public class LoginUser {
     public void setDistrict(String district) {
         this.district = district;
     }
-        
+
 }
