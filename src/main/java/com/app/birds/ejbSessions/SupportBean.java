@@ -23,7 +23,8 @@ public class SupportBean {
         try {
             return (UserAccount) em.createNamedQuery(UserAccount.FIND_BY_USERNAME_PASSWORD).setParameter("username", username).setParameter("password", password).getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Did not get any Results for entry");
+//            e.printStackTrace(); used during developmental testing
             return null;
         }
     }

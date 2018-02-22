@@ -13,17 +13,26 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-     <welcome-file-list>
+    <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
     <session-config>
-        <session-timeout>
-            10
-        </session-timeout>
+        <session-timeout>10</session-timeout>
     </session-config>
-   
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/view_expired.xhtml</location>
     </error-page>
+<!--    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>le-frog</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>cupertino</param-value>
+    </context-param>-->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>south-street</param-value>
+    </context-param>
 </web-app>

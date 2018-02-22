@@ -2,8 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
     <f:metadata>
         <f:event listener="#{userAuthentication.isLoggedIn}" type="preRenderView"/> 
     </f:metadata>
@@ -13,12 +14,59 @@
             <ui:define name="title">
                 <title>BiRDS:: Regional Admin</title>
             </ui:define>
-            <ui:define name="dist_admin">
-
+            <ui:define name="dist_admin"> </ui:define>
+            <ui:define name="registrar"></ui:define>
+            <ui:define name="change-password">
+                <h:commandLink value="Change Password" action="#{reg_admin_pages.changePassword}"/>
             </ui:define>
-            <ui:define name="registrar">
 
+            <ui:define name="content">
+                <!--All content for Regional Admin User Group shall go here || All rendered and !rendered pages-->
+                <h:panelGroup rendered="#{userAccessController.mnuConfig.render_reg_admin_content}">
+                    <!--class="row"-->
+                    <!--class="col-md-4/8/12"-->
+                    <h:panelGroup layout="block">   
+                        <!--All page reference goes here-->
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderWelcome}">
+                            Welcome Regional Admin!!!
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderChangePassword}">
+                            <ui:include src="../common/change_password.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderRegistreUser}">
+                            <ui:include src="new_user_form.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderManageUser}">
+                            <ui:include src="manage_sys_users.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderRegDistOffice}">
+                            <ui:include src="register_dist_office.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderCenterReg}">
+                            <ui:include src="register_center_office.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderBirthApproval}">
+                            <ui:include src="approve_reg_births.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderDeathApproval}">
+                            <ui:include src="approve_reg_deaths.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderBirthCertPrint}">
+                            <ui:include src="birth_cert_print.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderDeathCertPrint}">
+                            <ui:include src="death_cert_print.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderBirthSearch}">
+                            <ui:include src="../common/birth_record_search.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{reg_admin_pages.renderDeathSearch}">
+                            <ui:include src="../common/death_record_search.xhtml"/>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
             </ui:define>
+
         </ui:composition>
 
     </body>

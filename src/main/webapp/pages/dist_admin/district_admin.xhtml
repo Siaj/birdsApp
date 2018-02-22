@@ -2,23 +2,65 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <f:metadata>
         <f:event listener="#{userAuthentication.isLoggedIn}" type="preRenderView"/> 
     </f:metadata>
-        
+
     <body>
         <ui:composition template="./../../resources/template/template.xhtml">
             <ui:define name="title">
                 <title>BiRDS:: District Admin</title>
             </ui:define>
-            <ui:define name="reg_admin">
-
+            <ui:define name="reg_admin"></ui:define>
+            <ui:define name="registrar"></ui:define>
+            <ui:define name="change-password">
+                <h:commandLink value="Change Password" action="#{district_admin_pages.changePassword}"/>
             </ui:define>
-            <ui:define name="registrar">
 
+            <ui:define name="content">
+                <!--All content for District Admin User Group shall go here || All rendered and !rendered pages-->
+                <h:panelGroup rendered="#{userAccessController.mnuConfig.render_dist_admin_content}">
+                    <!--class="row"-->
+                    <!--class="col-md-4/8/12"-->
+                    <h:panelGroup layout="block">   
+                        <!--All page reference goes here-->
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderDistWelcome}">
+                            Welcome District Admin!!!
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderChangePassword}">
+                            <ui:include src="../common/change_password.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderDistManageUsers}">
+                            <ui:include src="manage_user_account.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderAssignOfficer}">
+                            <ui:include src="assign_officer_station.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderDistBirthApproval}">
+                            <ui:include src="approve_dist_births.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderDistDeathApproval}">
+                            <ui:include src="approve_dist_deaths.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderDistBirthCertApproval}">
+                            <ui:include src="birth_cert_req_approval.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderDistDeathCertApproval}">
+                            <ui:include src="death_cert_req_approval.xhtml"/>
+                        </h:panelGroup>    
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderBirthSearch}">
+                            <ui:include src="../common/birth_record_search.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{district_admin_pages.renderDeathSearch}">
+                            <ui:include src="../common/death_record_search.xhtml"/>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
             </ui:define>
+
         </ui:composition>
 
     </body>

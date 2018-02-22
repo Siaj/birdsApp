@@ -140,49 +140,16 @@ public class UserAuthentication implements Serializable {
             System.out.println("Login Status is: " + accessController.isIsLogin());
             JSFUtility.warnMessage("Authorization Error", "You need to login with correct credential to access this section");
             nav.performNavigation("/index.xhtml?faces-redirect=true");
-        } 
-        else {
+        } else {
             System.out.println("User Logged-In: " + accessController.isIsLogin());
             System.out.println(accessController.getUserAccount().getSystemUser().getUserRole().getRoleName());
             System.out.println(accessController.getLoginUser().getAccessFor());
 
             String accessFor = accessController.getLoginUser().getAccessFor();
-            System.out.println( "Access For: " + accessFor);
-//            switch (accessFor) {
-//                case "Regional Administrator":
-////                    JSFUtility.warnMessage("Login:", "As a " + accessFor + ", you are authorized to view only this dashboard");
-//                    nav.performNavigation("pages/reg_admin/regional_admin.xhtml");
-//                    break;
-//                case "District Administrator":
-////                    JSFUtility.warnMessage("", "As a " + accessFor + ", you are authorized to view only this dashboard");
-//                    nav.performNavigation("pages/dist_admin/district.xhtml");
-//                    break;
-//                case "Registrar":
-////                    JSFUtility.warnMessage("", "As a " + accessFor + ", you are authorized to view only this dashboard");
-//                    nav.performNavigation("registrar.xhtml?faces-redirect=true");
-//                    break;
-//                default:
-//                    nav.performNavigation("/index.xhtml?faces-redirect=true");
-//                    break;
-//            }
+            System.out.println("Access For: " + accessFor);
         }
     }
 
-//    public String isDistrictAdmin() {
-//        if (userLoggedIn == false) {
-//            return "/start.html?faces-redirect=true";
-//        } else {
-//            return null;
-//        }
-//    }
-//
-//    public String isRegistrar() {
-//        if (userLoggedIn == false) {
-//            return "/start.html?faces-redirect=true";
-//        } else {
-//            return null;
-//        }
-//    }
     public String logOutUser() {
 
         FacesContext context = FacesContext.getCurrentInstance();

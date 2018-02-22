@@ -1,12 +1,77 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:panelGroup layout="block" styleClass="row">
+        <h:panelGroup layout="block" styleClass="col-md-12">
+            <h:panelGroup layout="block" styleClass="card">
+                <h:panelGroup layout="block" styleClass="header">
+                    <h4 class="title">General Birth Record Search</h4>
+                    <hr/>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="row">
+                    <h:panelGroup layout="block" styleClass="col-md-12">
+                        <h:panelGroup layout="block" styleClass="col-md-4">
+                            <h:outputLabel value="Search By: "/>
+                            <h:selectOneMenu style="padding: 3px 50px 3px 0; margin-left: 20px">
+                                <f:selectItem itemValue="null" itemLabel="---Select One---"/>
+                                <f:selectItem itemValue="birthId" itemLabel="Birth ID"/>
+                                <f:selectItem itemValue="fullName" itemLabel="Name"/>
+                            </h:selectOneMenu>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="col-md-4">
+                            <h:outputLabel value="Search Text: "/>
+                            <h:inputText id="searchTxt" style="margin-left: 20px"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="col-md-4">
+                            <h:commandButton value="Search"/>
+                            <h:commandButton value="Reset"/>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <br/>
+                <h:panelGroup layout="block" styleClass="row">
+                    <h:panelGroup layout="block" styleClass="col-md-12">
+                        <h:panelGroup layout="block" styleClass="card">
+                            <p:dataTable var="births" paginator="true" 
+                                         paginatorPosition="top" rows="5"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Birth Id"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Gender"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="DoB"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Options"/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
 </html>
 
