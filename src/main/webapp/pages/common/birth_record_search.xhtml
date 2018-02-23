@@ -3,73 +3,206 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
     <h:panelGroup layout="block" styleClass="row">
         <h:panelGroup layout="block" styleClass="col-md-12">
             <h:panelGroup layout="block" styleClass="card">
-                <h:panelGroup layout="block" styleClass="header">
-                    <h4 class="title">General Birth Record Search</h4>
-                    <hr/>
+                <h:panelGroup layout="block" rendered="true">
+                    <h:panelGroup layout="block" styleClass="header">
+                        <h4 class="title">General Birth Record Search</h4>
+                        <hr/>
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block" styleClass="content">
+
+                        <h:panelGroup layout="block" styleClass="row">
+                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                <h:outputLabel value="Search By: "/>
+                                <h:selectOneMenu styleClass="form-control">
+                                    <f:selectItem itemValue="null" itemLabel="---Select One---"/>
+                                    <f:selectItem itemValue="birthId" itemLabel="Birth ID"/>
+                                    <f:selectItem itemValue="fullName" itemLabel="Name"/>
+                                </h:selectOneMenu>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                <h:outputLabel value="Search Text: "/>
+                                <h:inputText id="searchTxt" styleClass="form-control" pt:placeholder="Search Text"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
+                                <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <br/>
+                        <h:panelGroup layout="block" styleClass="row">
+                            <h:panelGroup layout="block" styleClass="col-md-12">
+                                <p:dataTable var="births" paginator="true" 
+                                             paginatorPosition="top" rows="5"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15">
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Birth Id"/>
+                                        </f:facet>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Name"/>
+                                        </f:facet>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Gender"/>
+                                        </f:facet>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="DoB"/>
+                                        </f:facet>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Options"/>
+                                        </f:facet>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <!--End of content styleClass-->
+                    </h:panelGroup>  
+                    <!--End of Content Rendering Div-->
                 </h:panelGroup>
 
-                <h:panelGroup layout="block" styleClass="row">
-                    <h:panelGroup layout="block" styleClass="col-md-12">
-                        <h:panelGroup layout="block" styleClass="col-md-4">
-                            <h:outputLabel value="Search By: "/>
-                            <h:selectOneMenu style="padding: 3px 50px 3px 0; margin-left: 20px">
-                                <f:selectItem itemValue="null" itemLabel="---Select One---"/>
-                                <f:selectItem itemValue="birthId" itemLabel="Birth ID"/>
-                                <f:selectItem itemValue="fullName" itemLabel="Name"/>
-                            </h:selectOneMenu>
+                <h:panelGroup layout="block" rendered="true">
+                    <h:panelGroup layout="block" styleClass="header">
+                        <h4 class="title">Details of Birth Registration</h4>
+                        <hr/>
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block" styleClass="content">
+                        <h:panelGroup layout="block" styleClass="row">
+                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Name"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"/>
+                                </h:panelGroup>           
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Gender"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Gender"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Date of Birth"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Date of Birth"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
                         </h:panelGroup>
-                        <h:panelGroup layout="block" styleClass="col-md-4">
-                            <h:outputLabel value="Search Text: "/>
-                            <h:inputText id="searchTxt" style="margin-left: 20px"/>
+
+                        <h:panelGroup layout="block" styleClass="row">
+                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Place of Birth"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Place of Birth"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Nationality"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Nationality"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Town Delivered"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Town Delivered"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
                         </h:panelGroup>
-                        <h:panelGroup layout="block" styleClass="col-md-4">
-                            <h:commandButton value="Search"/>
-                            <h:commandButton value="Reset"/>
+                        <br/>
+
+                        <h:panelGroup layout="block" styleClass="row">
+                            <h:panelGroup layout="block" styleClass="row">
+                                <h:panelGroup layout="block" styleClass="col-md-12">
+                                    <h4 class="title" style="padding: 15px 15px 0">Particulars of Father</h4>
+                                    <hr/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-3">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Father's Name"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's Name"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-3">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Father's Nationality"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's Nationality"/>    
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-3">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Father's ID Type"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's ID Type"/> 
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-3">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Father's ID Number"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's ID Number"/> 
+                                </h:panelGroup>
+                            </h:panelGroup>
                         </h:panelGroup>
+                        <br/>
+
+                        <h:panelGroup layout="block" styleClass="row">
+                            <h:panelGroup layout="block" styleClass="row">
+                                <h:panelGroup layout="block" styleClass="col-md-12">
+                                    <h4 class="title" style="padding: 15px 15px 0">Particulars of Mother</h4>
+                                    <hr/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-3">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Mother's Name"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's Name"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-3">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Mother's Nationality"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's Nationality"/>                           
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-3">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Mother's ID Type"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's ID Type"/>                                    
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="col-md-3">
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel value="Mother's ID Number"/>
+                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's ID Number"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <br/>
+
+                        <h:panelGroup layout="block">
+                            <h:commandButton value="Close Search" styleClass="btn btn-success btn-fill" style="margin-right: 3px"/>
+                            <h:commandButton value="Save/Edit" styleClass="btn btn-success btn-fill" disabled="true"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
                     </h:panelGroup>
                 </h:panelGroup>
-                <br/>
-                <h:panelGroup layout="block" styleClass="row">
-                    <h:panelGroup layout="block" styleClass="col-md-12">
-                        <h:panelGroup layout="block" styleClass="card">
-                            <p:dataTable var="births" paginator="true" 
-                                         paginatorPosition="top" rows="5"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                         rowsPerPageTemplate="5,10,15">
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Birth Id"/>
-                                    </f:facet>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Name"/>
-                                    </f:facet>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Gender"/>
-                                    </f:facet>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="DoB"/>
-                                    </f:facet>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Options"/>
-                                    </f:facet>
-                                </p:column>
-                            </p:dataTable>
-                        </h:panelGroup>
-                    </h:panelGroup>
-                </h:panelGroup>
+
+                <!--End of card styleClass-->
             </h:panelGroup>
         </h:panelGroup>
     </h:panelGroup>

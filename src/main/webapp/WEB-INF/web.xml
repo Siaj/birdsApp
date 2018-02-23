@@ -23,11 +23,23 @@
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/view_expired.xhtml</location>
     </error-page>
-<!--    <context-param>
+    <error-page>
+        <error-code>400</error-code>
+        <location>/404.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500.xhtml</location>
+    </error-page>
+    <!--    <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>le-frog</param-value>
-    </context-param>
-    <context-param>
+    </context-param>-->
+    <!--    <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>cupertino</param-value>
     </context-param>-->
