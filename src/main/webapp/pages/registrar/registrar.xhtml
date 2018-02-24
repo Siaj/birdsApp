@@ -9,53 +9,54 @@
         <f:event type="preRenderView" listener="#{userAuthentication.isLoggedIn}"/> 
     </f:metadata>
 
-    <body>
-        <ui:composition template="./../../resources/template/template.xhtml">
-            <ui:define name="title">
-                <title>BiRDS:: Registrar</title>
-            </ui:define>
-            <ui:define name="reg_admin"> </ui:define>
-            <ui:define name="dist_admin"> </ui:define>
-            <ui:define name="change-password">
-                <h:commandLink value="Change Password" action="#{registrar_pages.changePassword}"/>
-            </ui:define>
+    <h:body>
+        <h:form>
+            <ui:composition template="./../../resources/template/template.xhtml">
+                <ui:define name="title">
+                    <title>BiRDS:: Registrar</title>
+                </ui:define>
+                <ui:define name="reg_admin"> </ui:define>
+                <ui:define name="dist_admin"> </ui:define>
+                <ui:define name="change-password">
+                    <h:commandLink value="Change Password" action="#{registrar_pages.changePassword}"/>
+                </ui:define>
 
-            <ui:define name="content">
-                <!--All content for Registrar User Group shall go here || All rendered and !rendered pages-->
-                <h:panelGroup rendered="#{userAccessController.mnuConfig.render_registrar_content}">
-                    <!--class="row"-->
-                    <!--class="col-md-4/8/12"-->
-                    <h:panelGroup layout="block">   
-                        <!--All page reference goes here-->
-                        <h:panelGroup layout="block" rendered="#{registrar_pages.renderWelcome}">
-                            Welcome page!!!
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{registrar_pages.renderEditAcc}">
-                            <ui:include src="../common/change_password.xhtml"/>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{registrar_pages.renderBirthRegistration}">
-                            <ui:include src="birth_registration_form.xhtml"/>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{registrar_pages.renderDeathRegistration}">
-                            <ui:include src="death_registration_form.xhtml"/>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{registrar_pages.renderBirthCertRequest}">
-                            <ui:include src="birth_cert_request.xhtml"/>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{registrar_pages.renderDeathCertRequest}">
-                            <ui:include src="death_cert_request.xhtml"/>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{registrar_pages.renderBirthSearch}">
-                            <ui:include src="../common/birth_record_search.xhtml"/>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{registrar_pages.renderDeathSearch}">
-                            <ui:include src="../common/death_record_search.xhtml"/>
+                <ui:define name="content">
+                    <!--All content for Registrar User Group shall go here || All rendered and !rendered pages-->
+                    <h:panelGroup rendered="#{userAccessController.mnuConfig.render_registrar_content}">
+                        <!--class="row"-->
+                        <!--class="col-md-4/8/12"-->
+                        <h:panelGroup layout="block">   
+                            <!--All page reference goes here-->
+                            <h:panelGroup layout="block" rendered="#{registrar_pages.renderWelcome}">
+                                Welcome page!!!
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{registrar_pages.renderEditAcc}">
+                                <ui:include src="../common/change_password.xhtml"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{registrar_pages.renderBirthRegistration}">
+                                <ui:include src="birth_registration_form.xhtml"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{registrar_pages.renderDeathRegistration}">
+                                <ui:include src="death_registration_form.xhtml"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{registrar_pages.renderBirthCertRequest}">
+                                <ui:include src="birth_cert_request.xhtml"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{registrar_pages.renderDeathCertRequest}">
+                                <ui:include src="death_cert_request.xhtml"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{registrar_pages.renderBirthSearch}">
+                                <ui:include src="../common/birth_record_search.xhtml"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{registrar_pages.renderDeathSearch}">
+                                <ui:include src="../common/death_record_search.xhtml"/>
+                            </h:panelGroup>
                         </h:panelGroup>
                     </h:panelGroup>
-                </h:panelGroup>
-            </ui:define>
+                </ui:define>
 
-        </ui:composition>
-
-    </body>
+            </ui:composition>
+        </h:form>
+    </h:body>
 </html>

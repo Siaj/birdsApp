@@ -85,3 +85,12 @@ and open the template in the editor.
     padding: 20px 60px 70px 60px;
     margin-top: 50vh;
 }
+
+
+
+/*Error Messages Text Decoration*/
+
+.errorMessage{
+    color: red;
+    text-decoration: blink;
+}

@@ -1,14 +1,228 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head></h:head>
+    <h:body>
+        <h:form prependId="false">
 
-    <h:panelGroup layout="block" styleClass="row">
-        <h:panelGroup layout="block" styleClass="col-md-12">
-            <h:panelGroup layout="block" styleClass="card">
-                Death Registration Form Page!!!
+            <h:panelGroup layout="block" styleClass="row">
+                <h:panelGroup layout="block" styleClass="col-md-12">
+                    <h:panelGroup layout="block" styleClass="card">
+                        <h:panelGroup layout="block">
+                            <h:panelGroup layout="block" styleClass="header">
+                                <h4 class="title">Deceased Registration</h4>
+                                <hr/>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block" styleClass="content">
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <center>
+                                            <h:outputLabel value="Burial Status"/>
+                                            <h:selectOneMenu id="bStatus" styleClass="form-control" required="#{!empty param['saveDeceased']}" requiredMessage="Select one option*">    
+                                                <f:selectItems value="#{common_options.burialStatusOptions}"/>
+                                            </h:selectOneMenu>
+                                            <h:message for="bStatus" styleClass="errorMessage"/>
+                                        </center>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
+                                </h:panelGroup>
+                                <br/><br/>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-12">
+                                        <h4 class="title" style="padding: 15px 15px 0">Particulars of Deceased</h4>
+                                        <hr/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Surname"/>
+                                            <h:inputText id="deceasedSurName" required="#{!empty param['saveDeceased']}" 
+                                                         requiredMessage="*required" styleClass="form-control" pt:placeholder="Surname"/>
+                                            <h:message for="deceasedSurName" styleClass="errorMessage"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Othernames"/>
+                                            <h:inputText id="deceasedOtherNames" required="#{!empty param['saveDeceased']}" 
+                                                         pt:placeholder="Othernames" requiredMessage="*required" styleClass="form-control"/>
+                                            <h:message for="deceasedOtherNames" styleClass="errorMessage"/>   
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Gender"/>
+                                            <h:selectOneMenu id="deceasedGender" required="#{!empty param['saveDeceased']}" 
+                                                             requiredMessage="*required" styleClass="form-control">
+                                                <f:selectItems value="#{common_options.genderOptions}"/>
+                                            </h:selectOneMenu>
+                                            <h:message for="deceasedGender" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Nationality"/>
+                                            <h:inputText id="dNationality" styleClass="form-control" pt:placeholder="Deceased Nationality" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/> 
+                                            <h:message for="dNationality" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Id Type"/>
+                                            <h:selectOneMenu id="dIdType" styleClass="form-control" required="#{!empty param['saveDeceased']}" requiredMessage="*required">
+                                                <f:selectItems value="#{common_options.idTypeOptions}"/>
+                                            </h:selectOneMenu>
+                                            <h:message for="dIdType" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="ID Number"/>
+                                            <h:inputText id="dIdNumber" styleClass="form-control" pt:placeholder="Deceased ID Number" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/> 
+                                            <h:message for="dIdNumber" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-6">
+                                        <h:outputLabel value="Residence Address"/>
+                                        <h:inputTextarea id="deceasedResidence" rows="3" styleClass="form-control" pt:placeholder="Deceased Residence Address" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/>
+                                        <h:message for="deceasedResidence" styleClass="errorMessage"/>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-6"></h:panelGroup>
+                                </h:panelGroup>
+                                <br/><br/>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-12">
+                                        <h4 class="title" style="padding: 15px 15px 0">Deceased Identification Particulars</h4>
+                                        <hr/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Date Of Death"/>
+                                            <h:inputText id="dateOfDeath" class="form-control" required="#{!empty param['saveDeceased']}" requiredMessage="*required" pt:placeholder="MM/DD/YYYY"/>
+                                            <h:message for="dateOfDeath" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Cause of Death"/>
+                                            <h:inputText id="causeOfDeath" class="form-control" required="#{!empty param['saveDeceased']}" requiredMessage="*required" pt:placeholder="Cause of Death"/>
+                                            <h:message for="causeOfDeath" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-2">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Age"/>
+                                            <h:inputText id="dAge" styleClass="form-control" pt:placeholder="Age of Decesaed" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/>
+                                            <h:message for="dAge" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-2"></h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Place Of Death"/>
+                                            <h:selectOneMenu id="placeOfDeath" required="#{!empty param['saveDeceased']}" 
+                                                             requiredMessage="*required" styleClass="form-control">
+                                                <f:selectItems value="#{common_options.placeOfDeath}"/>
+                                            </h:selectOneMenu>
+                                            <h:message for="placeOfDeath" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:outputLabel value="Address of Place"/>
+                                        <h:inputTextarea id="dPlaceAddress" rows="3" styleClass="form-control" pt:placeholder="Address of Where Death Occurred" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/>
+                                        <h:message for="dPlaceAddress" styleClass="errorMessage"/>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
+                                </h:panelGroup>
+                                <br/><br/>
+
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-12">
+                                        <h4 class="title" style="padding: 15px 15px 0">Particulars of Informant</h4>
+                                        <hr/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Name"/>
+                                            <h:inputText styleClass="form-control" pt:placeholder="Informant's Name"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Relationship"/>
+                                            <h:inputText styleClass="form-control" pt:placeholder="Informant's Relation with Deceased"/> 
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Phone Number"/>
+                                            <h:inputText styleClass="form-control" pt:placeholder="Informant's Phone Number"/> 
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Id Type"/>
+                                            <h:selectOneMenu styleClass="form-control">
+                                                <f:selectItems value="#{common_options.idTypeOptions}"/>
+                                            </h:selectOneMenu>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="ID Number"/>
+                                            <h:inputText styleClass="form-control" pt:placeholder="Informant's ID Number"/> 
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:outputLabel value="Informant's Residence Address"/>
+                                        <h:inputTextarea id="informantAddress" rows="3" styleClass="form-control" pt:placeholder="Informant's Residence Address" required="#{!empty param['saveBirth']}" requiredMessage="*required"/>
+                                        <h:message for="informantAddress" styleClass="errorMessage"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <br/><br/>
+
+                                <h:panelGroup layout="block">
+                                    <h:commandButton value="Save" id="saveDeceased" styleClass="btn btn-success btn-fill" style="margin-right: 3px" action="#{common_options.saveBirthDummy()}"/>
+                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" onclick="return confirm('This action will clear all the form details entered. Are you sure you want to proceed?')"/>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
             </h:panelGroup>
-        </h:panelGroup>
-    </h:panelGroup>
+
+        </h:form>
+    </h:body>
 </html>
+
+
 
