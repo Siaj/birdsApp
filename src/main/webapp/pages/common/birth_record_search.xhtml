@@ -28,7 +28,7 @@
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="col-md-4">
                                 <h:outputLabel value="Search Text: "/>
-                                <h:inputText id="searchTxt" styleClass="form-control" pt:placeholder="Search Text"/>
+                                <h:inputText id="searchBirthTxt" styleClass="form-control" pt:placeholder="Search Text"/>
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="col-md-4">
                                 <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
@@ -86,7 +86,7 @@
                             <h:panelGroup layout="block" styleClass="col-md-4">
                                 <h:panelGroup layout="block" styleClass="form-group">
                                     <h:outputLabel value="Name"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"/>
+                                    <h:inputText styleClass="form-control" readonly="#{!userAccessController.userAccount.systemUser.userRole.roleName eq Registrar}" pt:placeholder="Name"/>
                                 </h:panelGroup>           
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="col-md-4">
@@ -194,8 +194,10 @@
                         <br/>
 
                         <h:panelGroup layout="block">
+                            <!--These are just test cases-->
+                            <h:commandButton value="Save/Edit" styleClass="btn btn-success btn-fill" style="margin-right: 3px"
+                                             rendered="#{userAccessController.userAccount.systemUser.userRole.roleName eq 'Registrar'}"/>
                             <h:commandButton value="Close Search" styleClass="btn btn-success btn-fill" style="margin-right: 3px"/>
-                            <h:commandButton value="Save/Edit" styleClass="btn btn-success btn-fill" disabled="true"/>
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
 

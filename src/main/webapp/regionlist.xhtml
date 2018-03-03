@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Regional Observer Test</title>
+        <style type="text/css">
+            .noBorders tr, .noBorders td {
+                background: none !important;
+                border: none !important;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+
+        <p:growl id="msg" widgetVar="regCreated" showDetail="true"/>
+
+        <p:messages id="messages"  showDetail="true" autoUpdate="true" closable="true"/>
+
+
+        <h:form id="regions">
+            <p:dataTable id="reg" var="regions" paginator="true" reflow="true" 
+                         paginatorPosition="top" rows="15" value="#{region_observer_test.regDataModel}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Region Id"/>
+                    </f:facet>
+                    <h:outputText value="#{regions.regionId}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Region Name"/>
+                    </f:facet>
+                    <h:outputText value="#{regions.regionName}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Update"/>
+                    </f:facet>
+                    <h:outputText value="#{regions.updated}"/>
+                </p:column>
+                <p:column style="color: white; background: #{(regions.deleted == 'NO')? 'green':(regions.deleted == 'YES')?'red':''}">
+                    <f:facet name="header">
+                        <h:outputText value="Deleted"/>
+                    </f:facet>
+                    <h:outputText value="#{regions.deleted}" style="background: #{(regions.deleted == 'NO')? green:red}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Options"/>
+                    </f:facet>
+                    <h:panelGroup layout="block">
+                        <h:panelGrid columns="4" border="0" styleClass="noBorders">
+                            <h:commandLink value="Edit" action="#{region_observer_test.fetchRow}"/>
+                            <h:commandLink style="color: red;" action="#{region_observer_test.deleteRegion}"
+                                           value="#{(regions.deleted == 'NO')?'Delete':'Restore'}" rendered="#{regions.deleted == 'NO'}"
+                                           onclick="return confirm('Are you sure you wanna delete region with Id: #{regions.regionId} and name: #{regions.regionName}')"/>
+
+                            <h:commandLink style="color: green;" rendered="#{regions.deleted == 'YES'}"
+                                           value="Restore" action="#{region_observer_test.restoreDeletedRegion}"
+                                           onclick="return confirm('Are you sure you wanna restore region with Id: #{regions.regionId} and name: #{regions.regionName}')"/>
+                        </h:panelGrid>
+                    </h:panelGroup>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <br/><br/><br/>
+
+        <h:form rendered="#{region_observer_test.renderEdit}">
+            <h:panelGroup layout="block">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Region Id: "/>
+                    <h:inputText value="#{region_observer_test.region.regionId}"/>
+                    <h:outputText value="Region Name: "/>
+                    <h:inputText value="#{region_observer_test.region.regionName}"/>
+                    <h:outputText value="Updated: "/>
+                    <h:outputText value="#{region_observer_test.region.updated}"/>
+                    <h:outputText value="Deleted "/>
+                    <h:outputText value="#{region_observer_test.region.deleted}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:commandButton value="Save Edit" action="#{region_observer_test.saveEdit}"/>
+                    <h:commandButton value="Close" action="#{region_observer_test.closeSearch}"/>
+                </h:panelGrid>
+            </h:panelGroup>
+        </h:form>
+
+
+        <p:socket onMessage="handleMessage" channel="/regionListEvents">
+            <p:ajax event="message" update=":regions:reg"/>
+        </p:socket>
+
+        <script type="text/javascript">
+            function handleMessage(facesmessage) {
+                facesmessage.severity = 'info';
+                console.log(facesmessage);
+
+                PF('regCreated').show([facesmessage]);
+            }
+        </script>
+
+    </h:body>
+</html>
+

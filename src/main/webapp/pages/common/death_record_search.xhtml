@@ -38,7 +38,7 @@
                         <br/>
                         <h:panelGroup layout="block" styleClass="row">
                             <h:panelGroup layout="block" styleClass="col-md-12">
-                                <p:dataTable var="deaths" paginator="true" 
+                                <p:dataTable var="deaths" paginator="true" reflow="true"
                                              paginatorPosition="top" rows="5"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,15">
@@ -161,7 +161,7 @@
 
                         <h:panelGroup layout="block">
                             <h:commandButton value="Close Search" styleClass="btn btn-success btn-fill" style="margin-right: 3px"/>
-                            <h:commandButton value="Save/Edit" styleClass="btn btn-success btn-fill" disabled="true"/>
+                            <!--<h:commandButton value="Save/Edit" styleClass="btn btn-success btn-fill" disabled="true"/>-->
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
 

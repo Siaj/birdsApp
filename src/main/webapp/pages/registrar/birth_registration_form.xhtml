@@ -88,7 +88,9 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <center>
                                             <h:outputLabel value="Relationship"/>
-                                            <h:selectOneMenu id="ifRelation" styleClass="form-control" required="#{!empty param['saveBirth']}" requiredMessage="Select one option*">    
+                                            <h:selectOneMenu id="ifRelation" styleClass="form-control" value="#{birth_registration_model.birthInformantRelation}"
+                                                             valueChangeListener="#{birth_registration_model.setViewOnInformantRelation}" onchange="submit()"
+                                                             required="#{!empty param['saveBirth']}" requiredMessage="Select one option*">    
                                                 <f:selectItems value="#{common_options.informantRelation}"/>
                                             </h:selectOneMenu>
                                             <h:message for="ifRelation" styleClass="errorMessage"/>
@@ -98,7 +100,7 @@
                                 </h:panelGroup>
                                 <br/>
 
-                                <h:panelGroup layout="block" rendered="true">
+                                <h:panelGroup layout="block" rendered="#{birth_registration_model.renderBirthInformant}" style="background: #EDE18D; padding: 10px 15px 15px">
                                     <h:panelGroup layout="block" styleClass="row">
                                         <h:panelGroup layout="block" styleClass="col-md-4">
                                             <h:panelGroup layout="block" styleClass="form-group">
@@ -121,7 +123,7 @@
                                             </h:panelGroup>
                                         </h:panelGroup>
                                     </h:panelGroup>
-                                    
+
                                     <h:panelGroup layout="block" styleClass="row">
                                         <h:panelGroup layout="block" styleClass="col-md-8">
                                             <h:outputLabel value="Residence"/>
@@ -131,6 +133,7 @@
                                     </h:panelGroup>
                                 </h:panelGroup> <!--End of Informant's details needed-->
                                 <br/><br/>
+
 
                                 <!--Father's details form to go here-->
                                 <h:panelGroup layout="block" styleClass="row">
@@ -152,14 +155,14 @@
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Othernames"/>
                                             <h:inputText id="fOthername" styleClass="form-control" pt:placeholder="Father's Othernames" required="#{!empty param['saveBirth']}" requiredMessage="*required"/>
-                                       <h:message for="fOthername" styleClass="errorMessage"/>
+                                            <h:message for="fOthername" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Nationality"/>
                                             <h:inputText id="fNationality" styleClass="form-control" pt:placeholder="Father's Nationality" required="#{!empty param['saveBirth']}" requiredMessage="*required"/> 
-                                       <h:message for="fNationality" styleClass="errorMessage"/>
+                                            <h:message for="fNationality" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -171,21 +174,21 @@
                                             <h:selectOneMenu id="fIdType" styleClass="form-control" required="#{!empty param['saveBirth']}" requiredMessage="*required">
                                                 <f:selectItems value="#{common_options.idTypeOptions}"/>
                                             </h:selectOneMenu>
-                                        <h:message for="fIdType" styleClass="errorMessage"/>
+                                            <h:message for="fIdType" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="ID Number"/>
                                             <h:inputText id="fIdNum" styleClass="form-control" pt:placeholder="Id Number" required="#{!empty param['saveBirth']}" requiredMessage="*required"/> 
-                                       <h:message for="fIdNum" styleClass="errorMessage"/>
+                                            <h:message for="fIdNum" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-2">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Age"/>
                                             <h:inputText id="fAge" styleClass="form-control" pt:placeholder="Father's Age" required="#{!empty param['saveBirth']}" requiredMessage="*required"/>
-                                       <h:message for="fAge" styleClass="errorMessage"/>
+                                            <h:message for="fAge" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-2"></h:panelGroup>
@@ -205,21 +208,21 @@
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Surname"/>
                                             <h:inputText id="mSurname" styleClass="form-control" pt:placeholder="Mother's Surname" required="#{!empty param['saveBirth']}" requiredMessage="*required"/>
-                                        <h:message for="mSurname" styleClass="errorMessage"/>
+                                            <h:message for="mSurname" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Othernames"/>
                                             <h:inputText id="mOthernames" styleClass="form-control" pt:placeholder="Mother's Othernames" required="#{!empty param['saveBirth']}" requiredMessage="*required"/>
-                                        <h:message for="mOthernames" styleClass="errorMessage"/>
+                                            <h:message for="mOthernames" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Nationality"/>
                                             <h:inputText id="mNationality" styleClass="form-control" pt:placeholder="Mother's Nationality" required="#{!empty param['saveBirth']}" requiredMessage="*required"/> 
-                                        <h:message for="mNationality" styleClass="errorMessage"/>
+                                            <h:message for="mNationality" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -231,28 +234,28 @@
                                             <h:selectOneMenu id="mIDType" styleClass="form-control" required="#{!empty param['saveBirth']}" requiredMessage="*required">
                                                 <f:selectItems value="#{common_options.idTypeOptions}"/>
                                             </h:selectOneMenu>
-                                       <h:message for="mIDType" styleClass="errorMessage"/>
+                                            <h:message for="mIDType" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="ID Number"/>
                                             <h:inputText id="mIDNum" styleClass="form-control" pt:placeholder="Id Number" required="#{!empty param['saveBirth']}" requiredMessage="*required"/> 
-                                        <h:message for="mIDNum" styleClass="errorMessage"/>
+                                            <h:message for="mIDNum" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Phone Number"/>
                                             <h:inputText id="mPhone" styleClass="form-control" pt:placeholder="Phone Number" required="#{!empty param['saveBirth']}" requiredMessage="*required"/> 
-                                        <h:message for="mPhone" styleClass="errorMessage"/>
+                                            <h:message for="mPhone" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-2">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Age"/>
                                             <h:inputText id="mAge" styleClass="form-control" pt:placeholder="Mother's Age" required="#{!empty param['saveBirth']}" requiredMessage="*required"/>
-                                        <h:message for="mAge" styleClass="errorMessage"/>
+                                            <h:message for="mAge" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -261,7 +264,7 @@
                                     <h:panelGroup layout="block" styleClass="col-md-8">
                                         <h:outputLabel value="Residence"/>
                                         <h:inputTextarea id="mresidence" rows="5" styleClass="form-control" pt:placeholder="Mother's Residence Address" required="#{!empty param['saveBirth']}" requiredMessage="*required"/>
-                                   <h:message for="mresidence" styleClass="errorMessage"/>
+                                        <h:message for="mresidence" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
                                 </h:panelGroup>
@@ -269,7 +272,8 @@
 
                                 <h:panelGroup layout="block">
                                     <h:commandButton value="Save" id="saveBirth" styleClass="btn btn-success btn-fill" style="margin-right: 3px" action="#{common_options.saveBirthDummy()}"/>
-                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" onclick="return confirm('This action will clear all the form details entered. Are you sure you want to proceed?')"/>
+                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" action="#{birth_registration_model.resetButton}"
+                                                     onclick="return confirm('This action will clear all the form details entered. Are you sure you want to proceed?')"/>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
 

@@ -33,14 +33,22 @@ public class CommonOptions implements Serializable {
     private UserAccessController userAccessController = new UserAccessController();
     private String distCenter = userAccessController.getUserAccount().getSystemUser().getDistrict().getDistrictId();
     int count;
+    private String saveEditTest = "Save/Update";
 
 //    Class Constructor 
     public CommonOptions() {
     }
-    
-    
-    public void saveBirthDummy(){
+
+    public void saveBirthDummy() {
         System.out.println("Checking to see if validation works!!!");
+    }
+
+    public String getSaveEditTest() {
+        return saveEditTest;
+    }
+
+    public void setSaveEditTest(String saveEditTest) {
+        this.saveEditTest = saveEditTest;
     }
 
     public SelectItem[] getGenderOptions() {
@@ -70,7 +78,7 @@ public class CommonOptions implements Serializable {
 
     public SelectItem[] getBurialStatusOptions() {
         burialStatusOptions = new SelectItem[3];
-        burialStatusOptions[0] = new SelectItem("", "---Select One---");
+        burialStatusOptions[0] = new SelectItem(null, "---Select One---");
         burialStatusOptions[1] = new SelectItem("Buried", "Buried");
         burialStatusOptions[2] = new SelectItem("Not Buried", "Not Buried");
         return burialStatusOptions;

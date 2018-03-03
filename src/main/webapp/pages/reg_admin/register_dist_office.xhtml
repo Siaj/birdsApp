@@ -1,13 +1,135 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:panelGroup layout="block" styleClass="row">
-        <h:panelGroup layout="block" styleClass="col-md-12">
-            <h:panelGroup layout="block" styleClass="card">
-                Regional Admin Register District Office Page!!!
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>    
+        <h:form prependId="false">
+            <h:panelGroup layout="block" styleClass="row">
+                <h:panelGroup layout="block" styleClass="col-md-12">
+                    <h:panelGroup layout="block" styleClass="card">
+                        <h:panelGroup layout="block" styleClass="header">
+                            <h4 class="title">DISTRICT OFFICE REGISTRATION</h4>
+                            <hr/>
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="block" styleClass="content">
+                            <h:panelGroup layout="block" styleClass="row">
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:panelGroup layout="block" styleClass="form-group">
+                                        <h:outputLabel value="Office Name"/>
+                                        <h:inputText styleClass="form-control" pt:placeholder="Office Name"/>
+                                    </h:panelGroup>           
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:panelGroup layout="block" styleClass="form-group">
+                                        <h:outputLabel value="District"/>
+                                        <h:inputText styleClass="form-control" pt:placeholder="District"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:panelGroup layout="block" styleClass="form-group">
+                                        <h:outputLabel value="Primary Contact"/>
+                                        <h:inputText styleClass="form-control" pt:placeholde="Primary Contact"/>   
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block" styleClass="row">
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:panelGroup layout="block" styleClass="form-group">
+                                        <h:outputLabel value="Secondary Contact"/>
+                                        <h:inputText styleClass="form-control" pt:placeholder="Secondary Contact"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:panelGroup layout="block" styleClass="form-group">
+                                        <h:outputLabel value="Physical Location"/>
+                                        <h:inputTextarea rows="3" styleClass="form-control" pt:placeholder="Physical Location"/>   
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block">
+                                <h:commandButton value="Save" styleClass="btn btn-success btn-fill" style="margin-right: 3px" 
+                                                 onclick="return confirm('Proceeding will change the state of the user. Are you sure you want to proceed?')"/>
+                                <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin-right: 3px" 
+                                                 onclick="return confirm('Changes will not be effected if not saved. Are you sure you want to reset form?')"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+                            <br/><br/><br/>
+
+                            <h:panelGroup layout="block" styleClass="header">
+                                <h4 class="title">List of Districts</h4>
+                                <hr/>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block" styleClass="row">
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:outputLabel value="Search By: "/>
+                                    <h:selectOneMenu styleClass="form-control" id="selectOne"
+                                                     required="#{!empty param['searchButton']}" 
+                                                     requiredMessage="Select One Criteria">
+                                        <f:selectItem itemValue="null" itemLabel="---Select One---"/>
+                                        <f:selectItem itemValue="officeCode" itemLabel="Office Code"/>
+                                        <f:selectItem itemValue="officeName" itemLabel="Office Name"/>
+                                        <f:selectItem itemValue="district" itemLabel="District"/>
+                                        <f:selectItem itemValue="phoneNumber" itemLabel="Phone Number"/>
+                                    </h:selectOneMenu>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:outputLabel value="Search Text: "/>
+                                    <h:inputText styleClass="form-control" pt:placeholder="Search Text"/>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
+                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <br/>
+                            <h:panelGroup layout="block" styleClass="row">
+                                <h:panelGroup layout="block" styleClass="col-md-12">
+                                    <p:dataTable var="dist_user_account" paginator="true" reflow="true"
+                                                 paginatorPosition="top" rows="5"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Office Code"/>
+                                            </f:facet>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Office Name"/>
+                                            </f:facet>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="District"/>
+                                            </f:facet>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Phone Number"/>
+                                            </f:facet>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Options"/>
+                                            </f:facet>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGroup>
+                            </h:panelGroup>
+
+                        </h:panelGroup> <!--Content Ends Here-->
+                    </h:panelGroup>
+                </h:panelGroup>
             </h:panelGroup>
-        </h:panelGroup>
-    </h:panelGroup>
+        </h:form>
+    </h:body>
 </html>
 

@@ -1,13 +1,149 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:panelGroup layout="block" styleClass="row">
-        <h:panelGroup layout="block" styleClass="col-md-12">
-            <h:panelGroup layout="block" styleClass="card">
-                Assign Officer Station Page!!!
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>  
+        <h:form>
+            <h:panelGroup layout="block" styleClass="row">
+                <h:panelGroup layout="block" styleClass="col-md-12">
+                    <h:panelGroup layout="block" styleClass="card">
+                        <h:panelGroup layout="block" styleClass="header">
+                            <h4 class="title">Assign Officer Station</h4>
+                            <hr/>
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="block" rendered="true">
+                            <h:panelGroup layout="block" styleClass="content">
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:outputLabel value="Search By: "/>
+                                        <h:selectOneMenu styleClass="form-control">
+                                            <f:selectItem itemValue="null" itemLabel="---Select One---"/>
+                                            <f:selectItem itemValue="fullname" itemLabel="Name"/>
+                                            <f:selectItem itemValue="phoneNumber" itemLabel="Phone Number"/>
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:outputLabel value="Search Text: "/>
+                                        <h:inputText id="searchBirthTxt" styleClass="form-control" pt:placeholder="Search Text"/>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
+                                        <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <br/>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-12">
+                                        <p:dataTable var="reg_station" paginator="true" reflow="true"
+                                                     paginatorPosition="top" rows="5"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15">
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Name"/>
+                                                </f:facet>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Phone Number"/>
+                                                </f:facet>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Email"/>
+                                                </f:facet>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Status"/>
+                                                </f:facet>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Options"/>
+                                                </f:facet>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                            </h:panelGroup>
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="block" rendered="true">
+                            <h:panelGroup layout="block" styleClass="content">
+                                <h:panelGroup layout="block" styleClass="header">
+                                    <h4 class="title">Assign Station</h4>
+                                    <hr/>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Name"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Gender"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Gender"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Work Type"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Work Type"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Phone Number"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Phone Number"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Email Address"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Email Address"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Assigned Center"/>
+                                            <h:selectOneMenu styleClass="form-control">
+                                                <f:selectItem itemValue="" itemLabel="---Select Center---"/>
+                                                <f:selectItems value="#{common_options.districtCenterOptions}"/>
+                                            </h:selectOneMenu>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <br/>
+
+                                <h:panelGroup layout="block">
+                                    <h:commandButton value="Save/Edit" 
+                                                     styleClass="btn btn-success btn-fill" style="margin-right: 3px"
+                                                     onclick="return confirm('Are you sure you would like to #{common_options.saveEditTest} entry?')"/>
+                                    <h:commandButton value="Cancel" styleClass="btn btn-success btn-fill"/>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+                            </h:panelGroup>
+                        </h:panelGroup>
+
+                    </h:panelGroup>
+                </h:panelGroup>
             </h:panelGroup>
-        </h:panelGroup>
-    </h:panelGroup>
+        </h:form>
+    </h:body>
 </html>
 

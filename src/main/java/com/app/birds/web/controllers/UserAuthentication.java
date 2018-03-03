@@ -5,9 +5,9 @@
  */
 package com.app.birds.web.controllers;
 
-import com.app.birds.ejbSessions.SupportBean;
 import com.app.birds.entities.UserAccount;
 import com.app.birds.web.commons.BirdsConstant;
+import com.app.birds.web.commons.BirdsSingletonDataSource;
 import com.app.birds.web.commons.GenerateIDs;
 import com.app.birds.web.commons.LoginUser;
 import com.app.birds.web.commons.UserAccessController;
@@ -15,7 +15,6 @@ import com.app.birds.web.utilities.BirdsMenuConfiguration;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
 import java.io.Serializable;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
@@ -38,8 +37,8 @@ public class UserAuthentication implements Serializable {
     private String username = "";
     private String password = "";
 
-    @EJB
-    private SupportBean supportBean;
+//    @EJB
+//    private SupportBean supportBean;
 
     public UserAuthentication() {
     }
@@ -59,7 +58,7 @@ public class UserAuthentication implements Serializable {
             } else {
                 password = GenerateIDs.generateHash(password);
                 System.out.println("Hashed Password: " + password);
-                userAccount = supportBean.authenticateUser(username, password);
+                userAccount = BirdsSingletonDataSource.getSupportSessionBean().authenticateUser(username, password);
                 if (userAccount != null) {
                     LoginUser loginUser = new LoginUser();
 
@@ -180,13 +179,13 @@ public class UserAuthentication implements Serializable {
         this.mnuConfig = mnuConfig;
     }
 
-    public SupportBean getSupportBean() {
-        return supportBean;
-    }
-
-    public void setSupportBean(SupportBean supportBean) {
-        this.supportBean = supportBean;
-    }
+//    public SupportBean getSupportBean() {
+//        return supportBean;
+//    }
+//
+//    public void setSupportBean(SupportBean supportBean) {
+//        this.supportBean = supportBean;
+//    }
 
     public String getUsername() {
         return username;
