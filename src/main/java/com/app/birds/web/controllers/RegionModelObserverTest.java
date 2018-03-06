@@ -5,6 +5,7 @@
  */
 package com.app.birds.web.controllers;
 
+import com.app.birds.ejbSessions.RegionFacade;
 import com.app.birds.web.controllers.qualifiers.Create;
 import com.app.birds.web.controllers.qualifiers.Update;
 import com.app.birds.web.controllers.qualifiers.Delete;
@@ -15,7 +16,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -26,7 +27,7 @@ import javax.inject.Inject;
  * @author Iddrisu Sibdow SIAJ
  */
 @Named(value = "region_observer_test")
-@RequestScoped
+@SessionScoped
 public class RegionModelObserverTest implements Serializable {
 
     @Inject
@@ -40,6 +41,9 @@ public class RegionModelObserverTest implements Serializable {
     @Inject
     @Delete
     Event<Region> regionDeleteEvent;
+
+    @Inject
+    RegionFacade regionFacade;
 
     private Region region = new Region();
     private List<Region> listRegion = new ArrayList<>();
@@ -71,10 +75,12 @@ public class RegionModelObserverTest implements Serializable {
         region.setRegionId(region.getRegionId());
         region.setRegionName(region.getRegionName());
 
-        String savedNewRegion = BirdsSingletonDataSource.getCommonSessionBean().createNewRegion(region);
-        if (savedNewRegion != null) {
-            System.out.println("Saved Region Id: " + savedNewRegion);
-            region = BirdsSingletonDataSource.getCommonSessionBean().regionFind(savedNewRegion);
+        String singletonSave = regionFacade.regionCreate(region);
+
+//        String savedNewRegion = BirdsSingletonDataSource.getCommonSessionBean().createNewRegion(region);
+        if (singletonSave != null) {
+            System.out.println("Saved Region Id: " + singletonSave);
+            region = regionFacade.regionFind(singletonSave);
             regionSaveEvent.fire(region);
 
             region = new Region();
@@ -93,7 +99,7 @@ public class RegionModelObserverTest implements Serializable {
 //            region.setRegionId(reg_Id);
 //            region.setRegionName(reg_Name);
 
-            Boolean saved = BirdsSingletonDataSource.getCommonSessionBean().regionUpdateDetails(region);
+            Boolean saved = regionFacade.regionUpdate(region);
             System.out.println(saved);
             if (saved) {
                 regionUpdateEvent.fire(region);
@@ -112,9 +118,10 @@ public class RegionModelObserverTest implements Serializable {
     public void restoreDeletedRegion() {
         region = regDataModel.getRowData();
         region.setDeleted("NO");
-        Boolean restore = BirdsSingletonDataSource.getCommonSessionBean().regionUpdateDetails(region);
+        Boolean restore = regionFacade.regionUpdate(region);
         if (restore) {
             regionUpdateEvent.fire(region);
+            region = new Region();
             JSFUtility.infoMessage("Success: ", "Region Successfully Restored from Logical Delete");
         } else {
             JSFUtility.warnMessage("Error: ", "An unknown error occurred while restoring region");
@@ -123,9 +130,10 @@ public class RegionModelObserverTest implements Serializable {
 
     public void deleteRegion() {
         region = regDataModel.getRowData();
-        Boolean regionDeleted = BirdsSingletonDataSource.getCommonSessionBean().regionDelete(region, false);
+        Boolean regionDeleted = regionFacade.regionDelete(region, false);
         if (regionDeleted) {
             regionDeleteEvent.fire(region);
+            region = new Region();
         } else {
             JSFUtility.warnMessage("Error: ", "An unknown error occurred during process!!!");
             System.out.println("Not Deleted");
@@ -141,7 +149,7 @@ public class RegionModelObserverTest implements Serializable {
     }
 
     public List<Region> getListRegion() {
-        listRegion = BirdsSingletonDataSource.getCommonSessionBean().getAllRegions();
+        listRegion = regionFacade.regionGetAll(true);
         return listRegion;
     }
 

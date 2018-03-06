@@ -37,8 +37,8 @@ public class SupportBean {
     }
 
     public List<ChildBirthDetail> listOfChildrenDetailsForDistApproval(String distId) {
-        String qry = "";
-        List<ChildBirthDetail> listOfChild = null;
+        String qry;
+        List<ChildBirthDetail> listOfChild;
 
         try {
             qry = "SELECT e FROM ChildBirthDetail e WHERE e.districtApproved = 'NO' AND e.systemUser.district.districtId = '" + distId + "'";
@@ -47,12 +47,12 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<ChildBirthDetail>();
+        return new ArrayList<>();
     }
 
     public List<ChildBirthDetail> listOfChildrenDetailsForRegApproval(String selectedDist) {
-        String qry = "";
-        List<ChildBirthDetail> listOfChild = null;
+        String qry;
+        List<ChildBirthDetail> listOfChild;
 
         try {
             qry = "SELECT e FROM ChildBirthDetail e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO' AND e.systemUser.district.districtId = '" + selectedDist + "'";
@@ -61,12 +61,12 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<ChildBirthDetail>();
+        return new ArrayList<>();
     }
 
     public List<DeceasedDetail> listOfDeathDetailsForDistApproval(String distId) {
-        String qry = "";
-        List<DeceasedDetail> listOfDeaths = null;
+        String qry;
+        List<DeceasedDetail> listOfDeaths;
 
         try {
             qry = "SELECT e FROM DeceasedDetail e WHERE e.districtApproved = 'NO' AND e.systemUser.district.districtId = '" + distId + "'";
@@ -75,12 +75,12 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<DeceasedDetail>();
+        return new ArrayList<>();
     }
 
     public List<DeceasedDetail> listOfDeathDetailsForRegApproval(String selectedDist) {
-        String qry = "";
-        List<DeceasedDetail> listOfDeaths = null;
+        String qry;
+        List<DeceasedDetail> listOfDeaths;
 
         try {
             qry = "SELECT e FROM DeceasedDetail e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO' AND e.systemUser.district.districtId = '" + selectedDist + "'";
@@ -89,12 +89,12 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<DeceasedDetail>();
+        return new ArrayList<>();
     }
 
     public List<BirthCertRequest> listOfBirthCertForDistApproval(String distId) {
-        String qry = "";
-        List<BirthCertRequest> listOfBirthCert = null;
+        String qry;
+        List<BirthCertRequest> listOfBirthCert;
         try {
             qry = "SELECT e FROM BirthCertRequest e WHERE e.districtApproved = 'NO' AND e.district = '" + distId + "'";
             listOfBirthCert = (List<BirthCertRequest>) em.createQuery(qry).getResultList();
@@ -102,12 +102,12 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<BirthCertRequest>();
+        return new ArrayList<>();
     }
 
     public List<BirthCertRequest> listOfBirthCertForRegApprovalAndPrint(String selectedDistrict) {
-        String qry = "";
-        List<BirthCertRequest> listOfBirthCert = null;
+        String qry;
+        List<BirthCertRequest> listOfBirthCert;
         try {
             qry = "SELECT e FROM BirthCertRequest e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO' AND e.district = '" + selectedDistrict + "'";
             listOfBirthCert = (List<BirthCertRequest>) em.createQuery(qry).getResultList();
@@ -115,12 +115,12 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<BirthCertRequest>();
+        return new ArrayList<>();
     }
 
     public List<DeathCertRequest> listOfDeathCertForDistApproval(String distId) {
-        String qry = "";
-        List<DeathCertRequest> listOfDeathCert = null;
+        String qry;
+        List<DeathCertRequest> listOfDeathCert;
 
         try {
             qry = "SELECT e FROM DeathCertRequest e WHERE e.districtApproved = 'NO' AND e.district = '" + distId + "'";
@@ -129,12 +129,12 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<DeathCertRequest>();
+        return new ArrayList<>();
     }
 
     public List<DeathCertRequest> listOfDeathCertForRegApprovalAndPrint(String selectedDist) {
-        String qry = "";
-        List<DeathCertRequest> listOfDeathCert = null;
+        String qry;
+        List<DeathCertRequest> listOfDeathCert;
 
         try {
             qry = "SELECT e FROM DeathCertRequest e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO' AND e.district = '" + selectedDist + "'";
@@ -143,13 +143,13 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<DeathCertRequest>();
+        return new ArrayList<>();
     }
 
     public List<ChildBirthDetail> childBirthDetailNumber() {
-        List<ChildBirthDetail> listOfChildBirthDetail = null;
+        List<ChildBirthDetail> listOfChildBirthDetail;
 
-        String qryString = "";
+        String qryString;
 
         try {
             qryString = "SELECT e FROM ChildBirthDetail e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO'";
@@ -159,13 +159,13 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<ChildBirthDetail>();
+        return new ArrayList<>();
     }
 
     public List<DeceasedDetail> deceasedDetailNumber() {
-        List<DeceasedDetail> listOfDeathDetail = null;
+        List<DeceasedDetail> listOfDeathDetail;
 
-        String qryString = "";
+        String qryString;
 
         try {
             qryString = "SELECT e FROM DeceasedDetail e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO'";
@@ -175,6 +175,6 @@ public class SupportBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<DeceasedDetail>();
+        return new ArrayList<>();
     }
 }

@@ -5,7 +5,6 @@
  */
 package com.app.birds.web.commons;
 
-import com.app.birds.ejbSessions.CommonBean;
 import com.app.birds.ejbSessions.DistrictAdminBean;
 import com.app.birds.ejbSessions.RegionalAdminBean;
 import com.app.birds.ejbSessions.RegistrarBean;
@@ -23,7 +22,6 @@ import javax.naming.NamingException;
 public class BirdsSingletonDataSource {
 
     private static SupportBean supportBean;
-    private static CommonBean commonBean;
     private static DistrictAdminBean districtAdminBean;
     private static RegionalAdminBean regionalAdminBean;
     private static RegistrarBean registrarBean;
@@ -57,19 +55,6 @@ public class BirdsSingletonDataSource {
             System.out.println("Error During Invocation " + ne.toString());
             getSupportSessionBean();
             Logger.getLogger(SupportBean.class.getName()).log(Level.SEVERE, "exception caught during invocation", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    public static CommonBean getCommonSessionBean() {
-        try {
-            Context context = new InitialContext();
-            commonBean = (CommonBean) context.lookup(JNDI_COMMON_BEAN + "!" + JNDI_COMMON_BEAN_PATH);
-            return commonBean;
-        } catch (NamingException ne) {
-            System.out.println("Error During Invocation " + ne.toString());
-            getCommonSessionBean();
-            Logger.getLogger(CommonBean.class.getName()).log(Level.SEVERE, "exception caught during invocation", ne);
             throw new RuntimeException(ne);
         }
     }

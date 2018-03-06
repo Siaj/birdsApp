@@ -5,7 +5,6 @@
  */
 package com.app.birds.ejbSessions;
 
-import com.app.birds.entities.District;
 import com.app.birds.entities.Region;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,11 +67,11 @@ public class RegionFacade extends AbstractFacade<Region> {
         }
     }
 
-    public boolean districtUpdate(Region region) {
+    public boolean regionUpdate(Region region) {
         try {
 
-            region.setDeleted("NO");
-            region.setUpdated("NO");
+//            region.setDeleted("NO");
+//            region.setUpdated("NO");
             super.edit(region);
             return true;
 
@@ -83,7 +82,7 @@ public class RegionFacade extends AbstractFacade<Region> {
         }
     }
 
-    public Region districtFind(String regionId) {
+    public Region regionFind(String regionId) {
         try {
             return super.find(regionId);
         } catch (Exception e) {
@@ -92,7 +91,7 @@ public class RegionFacade extends AbstractFacade<Region> {
         }
     }
 
-    public List<Region> districtFindByAttribute(String regionAttribute, Object attributeValue, String fieldType, boolean includeLogicallyDeleted) {
+    public List<Region> regionFindByAttribute(String regionAttribute, Object attributeValue, String fieldType, boolean includeLogicallyDeleted) {
         List<Region> listOfRegion = null;
 
         String qryString;
@@ -144,7 +143,7 @@ public class RegionFacade extends AbstractFacade<Region> {
         return new ArrayList<>();
     }
 
-    public List<Region> districtGetAll(boolean includeLogicallyDeleted) {
+    public List<Region> regionGetAll(boolean includeLogicallyDeleted) {
         List<Region> listOfRegion = null;
 
         String qryString;
