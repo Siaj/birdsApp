@@ -29,7 +29,6 @@ public class CommonBean {
         try {
             queryString = "SELECT e FROM Region e";
 
-//                      listOfUserAccount = (List<UserAccount>) em.createQuery(qryString).getResultList();
             listofRegions = (List<Region>) em.createQuery(queryString).getResultList();
             return listofRegions;
         } catch (Exception e) {

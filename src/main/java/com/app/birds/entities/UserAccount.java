@@ -11,6 +11,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -31,18 +33,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "UserAccount.findByUserAccountId", query = "SELECT u FROM UserAccount u WHERE u.userAccountId = :userAccountId")
     , @NamedQuery(name = "UserAccount.findByUsername", query = "SELECT u FROM UserAccount u WHERE u.username = :username")
     , @NamedQuery(name = "UserAccount.findByPassword", query = "SELECT u FROM UserAccount u WHERE u.password = :password")
-    , @NamedQuery(name = UserAccount.FIND_BY_USERNAME_PASSWORD, query = "select u from UserAccount u where u.username=:username AND u.password=:password")
     , @NamedQuery(name = "UserAccount.findByPasswordSalt", query = "SELECT u FROM UserAccount u WHERE u.passwordSalt = :passwordSalt")
     , @NamedQuery(name = "UserAccount.findByAccountStatus", query = "SELECT u FROM UserAccount u WHERE u.accountStatus = :accountStatus")
-    , @NamedQuery(name = "UserAccount.findBySecurityQuestion", query = "SELECT u FROM UserAccount u WHERE u.securityQuestion = :securityQuestion")
     , @NamedQuery(name = "UserAccount.findBySecurityAnswer", query = "SELECT u FROM UserAccount u WHERE u.securityAnswer = :securityAnswer")
     , @NamedQuery(name = "UserAccount.findByUpdated", query = "SELECT u FROM UserAccount u WHERE u.updated = :updated")
-    , @NamedQuery(name = "UserAccount.findByDeleted", query = "SELECT u FROM UserAccount u WHERE u.deleted = :deleted")})
+    , @NamedQuery(name = "UserAccount.findByDeleted", query = "SELECT u FROM UserAccount u WHERE u.deleted = :deleted")
+    ,@NamedQuery(name = UserAccount.FIND_BY_USERNAME_PASSWORD, query = "select u from UserAccount u where u.username=:username AND u.password=:password")})
 public class UserAccount implements Serializable {
-    private static final long serialVersionUID = 1L;
-    
+
     public static final String FIND_BY_USERNAME_PASSWORD = "UserAccount.FIND_BY_USERNAME_PASSWORD";
-    
+
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -62,9 +63,6 @@ public class UserAccount implements Serializable {
     @Column(name = "account_status")
     private String accountStatus;
     @Size(max = 70)
-    @Column(name = "security_question")
-    private String securityQuestion;
-    @Size(max = 70)
     @Column(name = "security_answer")
     private String securityAnswer;
     @Size(max = 10)
@@ -73,6 +71,9 @@ public class UserAccount implements Serializable {
     @Size(max = 10)
     @Column(name = "deleted")
     private String deleted;
+    @JoinColumn(name = "security_question", referencedColumnName = "question_id")
+    @ManyToOne
+    private SecurityQuestion securityQuestion;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "userAccount")
     private SystemUser systemUser;
 
@@ -123,14 +124,6 @@ public class UserAccount implements Serializable {
         this.accountStatus = accountStatus;
     }
 
-    public String getSecurityQuestion() {
-        return securityQuestion;
-    }
-
-    public void setSecurityQuestion(String securityQuestion) {
-        this.securityQuestion = securityQuestion;
-    }
-
     public String getSecurityAnswer() {
         return securityAnswer;
     }
@@ -153,6 +146,14 @@ public class UserAccount implements Serializable {
 
     public void setDeleted(String deleted) {
         this.deleted = deleted;
+    }
+
+    public SecurityQuestion getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(SecurityQuestion securityQuestion) {
+        this.securityQuestion = securityQuestion;
     }
 
     public SystemUser getSystemUser() {

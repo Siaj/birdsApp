@@ -24,13 +24,13 @@ public class BirthRegistrationController implements Serializable {
 
     public BirthRegistrationController() {
     }
-    
-     public void resetButton() {
+
+    public void resetButton() {
         birthInformantRelation = null;
         renderBirthInformant = false;
     }
-    
-      public void setViewOnInformantRelation(ValueChangeEvent event) throws ParseException {
+
+    public void setViewOnInformantRelation(ValueChangeEvent event) throws ParseException {
         try {
             renderBirthInformant = event.getNewValue().equals("Other");
         } catch (Exception e) {

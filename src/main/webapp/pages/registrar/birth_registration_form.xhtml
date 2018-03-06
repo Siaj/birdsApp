@@ -49,8 +49,8 @@
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
-                                            <h:outputLabel value="Date Of Birth"/>
-                                            <h:inputText class="form-control" required="#{!empty param['saveBirth']}" requiredMessage="*required" id="dateOfBirth" pt:placeholder="MM/DD/YYYY"/>
+                                            <h:outputLabel for="dateOfBirth" value="Date Of Birth"/>
+                                            <h:inputText styleClass="form-control form_datetime" required="#{!empty param['saveBirth']}" requiredMessage="*required" id="dateOfBirth" pt:placeholder="MM/DD/YYYY"/>
                                             <h:message for="dateOfBirth" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
@@ -283,6 +283,16 @@
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
+
+            <!--Date and Time Picker-->
+            <script type="text/javascript">
+                $(".form_datetime").datetimepicker({
+                    format: "mm/dd/yyyy",
+                    autoclose: true,
+                    pickerPosition: "bottom-left"
+                });
+            </script>    
+
         </h:form>
     </h:body>
 </html>

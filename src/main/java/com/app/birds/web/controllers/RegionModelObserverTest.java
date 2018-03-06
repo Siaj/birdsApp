@@ -5,6 +5,9 @@
  */
 package com.app.birds.web.controllers;
 
+import com.app.birds.web.controllers.qualifiers.Create;
+import com.app.birds.web.controllers.qualifiers.Update;
+import com.app.birds.web.controllers.qualifiers.Delete;
 import com.app.birds.entities.Region;
 import com.app.birds.web.commons.BirdsSingletonDataSource;
 import com.app.birds.web.utilities.JSFUtility;

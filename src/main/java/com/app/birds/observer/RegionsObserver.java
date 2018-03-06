@@ -6,9 +6,9 @@
 package com.app.birds.observer;
 
 import com.app.birds.entities.Region;
-import com.app.birds.web.controllers.Create;
-import com.app.birds.web.controllers.Delete;
-import com.app.birds.web.controllers.Update;
+import com.app.birds.web.controllers.qualifiers.Create;
+import com.app.birds.web.controllers.qualifiers.Delete;
+import com.app.birds.web.controllers.qualifiers.Update;
 import com.app.birds.web.utilities.JSFUtility;
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
