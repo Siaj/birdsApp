@@ -5,172 +5,183 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:body>
+        <h:form>
+            <h:panelGroup layout="block" styleClass="row">
+                <h:panelGroup layout="block" styleClass="col-md-12">
+                    <h:panelGroup layout="block" styleClass="card">
+                        <h:panelGroup layout="block" rendered="#{!generalSearch.renderDeceasedDetails}">
+                            <h:panelGroup layout="block" styleClass="header">
+                                <h4 class="title">General Death Record Search</h4>
+                                <hr/>
+                            </h:panelGroup>
 
-    <h:panelGroup layout="block" styleClass="row">
-        <h:panelGroup layout="block" styleClass="col-md-12">
-            <h:panelGroup layout="block" styleClass="card">
-                <h:panelGroup layout="block" rendered="true">
-                    <h:panelGroup layout="block" styleClass="header">
-                        <h4 class="title">General Death Record Search</h4>
-                        <hr/>
+                            <h:panelGroup layout="block" styleClass="content">
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:outputLabel value="Search By"/>
+                                        <h:selectOneMenu styleClass="form-control" value="#{generalSearch.deceasedSearchCriteria}">
+                                            <f:selectItem itemValue="null" itemLabel="---Select One---"/>
+                                            <f:selectItem itemValue="deceasedId" itemLabel="Deceased ID"/>
+                                            <f:selectItem itemValue="fullName" itemLabel="Name"/>
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:outputLabel value="Search Text"/>
+                                        <h:inputText id="searchDeceasedTxt" styleClass="form-control" pt:placeholder="Search Text" value="#{generalSearch.deceasedSearchText}"/>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:commandButton value="Search" action="#{generalSearch.searchDeceasedDetails}" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
+                                        <h:commandButton value="Reset" action="#{generalSearch.resetDeceasedSearch}" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <br/>
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-12">
+                                        <p:dataTable var="deaths" paginator="true" reflow="true"
+                                                     paginatorPosition="top" rows="5" value="#{generalSearch.deceasedDataModel}"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15">
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Deceased Id"/>
+                                                </f:facet>
+                                                <h:outputText value="#{deaths.deceasedId}"/>
+                                            </p:column>
+                                            <p:column style="width: 350px">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Name"/>
+                                                </f:facet>
+                                                <h:outputText value="#{deaths.deceasedFullname}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Gender"/>
+                                                </f:facet>
+                                                <h:outputText value="#{deaths.gender}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="DoD"/>
+                                                </f:facet>
+                                                <h:outputText value="#{deaths.dateOfDeath}">
+                                                    <f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy" type="date" timeStyle="short"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Options"/>
+                                                </f:facet>
+                                                <h:commandLink value="View" style="text-decoration: underline;color: green" action="#{generalSearch.fetchDeceasedRowData}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <!--End of content styleClass-->
+                            </h:panelGroup>  
+                            <!--End of Content Rendering Div-->
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="block" rendered="#{generalSearch.renderDeceasedDetails}">
+                            <h:panelGroup layout="block" styleClass="header">
+                                <h4 class="title">Details of Deceased Registration</h4>
+                                <hr/>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block" styleClass="content">
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Name"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.deceasedFullname}" styleClass="form-control" readonly="true" pt:placeholder="Name"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Gender"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.gender}" styleClass="form-control" readonly="true" pt:placeholder="Gender"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Date of Death"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.dateOfDeath}" styleClass="form-control" readonly="true" pt:placeholder="Date of Death">
+                                                <f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy" type="date"/>
+                                            </h:inputText>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Place of Death"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.placeOfDeath}" styleClass="form-control" readonly="true" pt:placeholder="Place of Death"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Cause of Death"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.causeOfDeath}" styleClass="form-control" readonly="true" pt:placeholder="Cause of Death"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Nationality"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.nationality}" styleClass="form-control" readonly="true" pt:placeholder="Nationality"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <br/>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="row">
+                                        <h:panelGroup layout="block" styleClass="col-md-12">
+                                            <h4 class="title" style="padding: 15px 15px 0">Particulars of Informant</h4>
+                                            <hr/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-3">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Informant's Name"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.informantDeath.informantName}" styleClass="form-control" readonly="true" pt:placeholder="Informant's Name"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-3">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Address"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.informantDeath.informantAddress}" styleClass="form-control" readonly="true" pt:placeholder="Address"/>                           
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-3">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Phone Number"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.informantDeath.informantContact}" styleClass="form-control" readonly="true" pt:placeholder="Phone Number"/>                                    
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-3">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Relationship"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.informantDeath.relationship}" styleClass="form-control" readonly="true" pt:placeholder="Relationship"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <br/>
+
+                                <h:panelGroup layout="block">
+                                    <h:commandButton value="Close Search" action="#{generalSearch.closeDeceasedSearch}" styleClass="btn btn-success btn-fill" style="margin-right: 3px"/>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+                            </h:panelGroup>
+                        </h:panelGroup>
+
+                        <!--End of card styleClass-->
                     </h:panelGroup>
-
-                    <h:panelGroup layout="block" styleClass="content">
-
-                        <h:panelGroup layout="block" styleClass="row">
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:outputLabel value="Search By"/>
-                                <h:selectOneMenu styleClass="form-control">
-                                    <f:selectItem itemValue="null" itemLabel="---Select One---"/>
-                                    <f:selectItem itemValue="deceasedId" itemLabel="Deceased ID"/>
-                                    <f:selectItem itemValue="fullName" itemLabel="Name"/>
-                                </h:selectOneMenu>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:outputLabel value="Search Text"/>
-                                <h:inputText id="searchDeceasedTxt" styleClass="form-control" pt:placeholder="Search Text"/>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
-                                <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
-                            </h:panelGroup>
-                        </h:panelGroup>
-                        <br/>
-                        <h:panelGroup layout="block" styleClass="row">
-                            <h:panelGroup layout="block" styleClass="col-md-12">
-                                <p:dataTable var="deaths" paginator="true" reflow="true"
-                                             paginatorPosition="top" rows="5"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="5,10,15">
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Deceased Id"/>
-                                        </f:facet>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Name"/>
-                                        </f:facet>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Gender"/>
-                                        </f:facet>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="DoB"/>
-                                        </f:facet>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Options"/>
-                                        </f:facet>
-                                    </p:column>
-                                </p:dataTable>
-                            </h:panelGroup>
-                        </h:panelGroup>
-                        <!--End of content styleClass-->
-                    </h:panelGroup>  
-                    <!--End of Content Rendering Div-->
                 </h:panelGroup>
-
-                <h:panelGroup layout="block" rendered="true">
-                    <h:panelGroup layout="block" styleClass="header">
-                        <h4 class="title">Details of Deceased Registration</h4>
-                        <hr/>
-                    </h:panelGroup>
-
-                    <h:panelGroup layout="block" styleClass="content">
-                        <h:panelGroup layout="block" styleClass="row">
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Name"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"/>
-                                </h:panelGroup>           
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Gender"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Gender"/>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Date of Death"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Date of Death"/>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                        </h:panelGroup>
-
-                        <h:panelGroup layout="block" styleClass="row">
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Place of Death"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Place of Death"/>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Cause of Death"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Cause of Death"/>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Nationality"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Nationality"/>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                        </h:panelGroup>
-                        <br/>
-
-                        <h:panelGroup layout="block" styleClass="row">
-                            <h:panelGroup layout="block" styleClass="row">
-                                <h:panelGroup layout="block" styleClass="col-md-12">
-                                    <h4 class="title" style="padding: 15px 15px 0">Particulars of Informant</h4>
-                                    <hr/>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-3">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Informant's Name"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Informant's Name"/>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-3">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Address"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Address"/>                           
-                                </h:panelGroup>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-3">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Phone Number"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Phone Number"/>                                    
-                                </h:panelGroup>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-3">
-                                <h:panelGroup layout="block" styleClass="form-group">
-                                    <h:outputLabel value="Relationship"/>
-                                    <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Relationship"/>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                        </h:panelGroup>
-                        <br/>
-
-                        <h:panelGroup layout="block">
-                            <h:commandButton value="Close Search" styleClass="btn btn-success btn-fill" style="margin-right: 3px"/>
-                            <!--<h:commandButton value="Save/Edit" styleClass="btn btn-success btn-fill" disabled="true"/>-->
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
-
-                    </h:panelGroup>
-                </h:panelGroup>
-
-                <!--End of card styleClass-->
             </h:panelGroup>
-        </h:panelGroup>
-    </h:panelGroup>
+        </h:form>
+    </h:body>
 </html>
 

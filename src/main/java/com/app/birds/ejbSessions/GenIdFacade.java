@@ -163,7 +163,7 @@ public class GenIdFacade extends AbstractFacade<GenId> {
         return new ArrayList<>();
     }
 
-    public GenId findDistrict(String district_id) {
+    public GenId findWithDistrictId(String district_id) {
         String genQry = "SELECT e FROM GenId e WHERE e.districtCode='" + district_id + "'";
 
         try {

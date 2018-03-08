@@ -38,8 +38,7 @@ public class DistrictCenterFacade extends AbstractFacade<DistrictCenter> {
 
             districtCenter.setDeleted("NO");
             districtCenter.setUpdated("NO");
-            em.persist(districtCenter);
-            em.flush();
+            super.create(districtCenter);
             return districtCenter.getCenterId();
 
         } catch (Exception e) {
@@ -53,13 +52,12 @@ public class DistrictCenterFacade extends AbstractFacade<DistrictCenter> {
         try {
 
             if (permanent == true) {
-                em.remove(em.merge(districtCenter));
+                super.remove(districtCenter);
             } else if (permanent == false) {
                 districtCenter.setDeleted("YES");
                 districtCenter.setUpdated("NO");
-                em.merge(districtCenter);
+                super.edit(districtCenter);
             }
-            em.flush();
             return true;
 
         } catch (Exception e) {
@@ -74,8 +72,7 @@ public class DistrictCenterFacade extends AbstractFacade<DistrictCenter> {
 
             districtCenter.setDeleted("NO");
             districtCenter.setUpdated("NO");
-            em.merge(districtCenter);
-            em.flush();
+            super.edit(districtCenter);
             return true;
 
         } catch (Exception e) {
@@ -87,10 +84,21 @@ public class DistrictCenterFacade extends AbstractFacade<DistrictCenter> {
 
     public DistrictCenter districtCenterFind(String centerId) {
         try {
-
-            DistrictCenter districtCenter = em.find(DistrictCenter.class, centerId);
-            return districtCenter;
+            return super.find(centerId);
         } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public DistrictCenter centerFindWithDistrictId(String districtId) {
+        String query;
+
+        try {
+            query = "SELECT e FROM DistrictCenter e WHERE e.districtUnder = '" + districtId + "'";
+            return (DistrictCenter) getEntityManager().createQuery(query).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -98,7 +106,7 @@ public class DistrictCenterFacade extends AbstractFacade<DistrictCenter> {
     public List<DistrictCenter> districtCenterFindByAttribute(String districtCenterAttribute, Object attributeValue, String fieldType, boolean includeLogicallyDeleted) {
         List<DistrictCenter> listOfDistrictCenter = null;
 
-        String qryString = "";
+        String qryString;
 
         qryString = "SELECT e FROM DistrictCenter e ";
         qryString += "WHERE e." + districtCenterAttribute + " =:districtCenterAttribute ";
@@ -110,67 +118,65 @@ public class DistrictCenterFacade extends AbstractFacade<DistrictCenter> {
             }
 
             if (fieldType.equalsIgnoreCase("NUMBER")) {
-                listOfDistrictCenter = (List<DistrictCenter>) em.createQuery(qryString).setParameter("districtCenterAttribute", attributeValue).getResultList();
+                listOfDistrictCenter = (List<DistrictCenter>) getEntityManager().createQuery(qryString).setParameter("districtCenterAttribute", attributeValue).getResultList();
             } else if (fieldType.equalsIgnoreCase("STRING")) {
                 qryString = "SELECT e FROM DistrictCenter e ";
                 qryString += "WHERE e." + districtCenterAttribute + " LIKE '%" + attributeValue + "%'";
-                listOfDistrictCenter = (List<DistrictCenter>) em.createQuery(qryString).getResultList();
+                listOfDistrictCenter = (List<DistrictCenter>) getEntityManager().createQuery(qryString).getResultList();
             } else if (fieldType.equalsIgnoreCase("DATE")) {
-                listOfDistrictCenter = (List<DistrictCenter>) em.createQuery(qryString).setParameter("districtCenterAttribute", (Date) attributeValue, TemporalType.DATE).getResultList();
+                listOfDistrictCenter = (List<DistrictCenter>) getEntityManager().createQuery(qryString).setParameter("districtCenterAttribute", (Date) attributeValue, TemporalType.DATE).getResultList();
             }
 
             return listOfDistrictCenter;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<DistrictCenter>();
+        return new ArrayList<>();
     }
 
     public List<DistrictCenter> districtCenterGetRange(int firstResultIndex, int lastResultIndex, boolean includeLogicallyDeleted) {
         List<DistrictCenter> listOfDistrictCenter = null;
 
-        String qryString = "";
+        String qryString;
 
         try {
             if (includeLogicallyDeleted == true) {
-                qryString = "SELECT e FROM DistrictCenter e";
+                listOfDistrictCenter = super.findRange(new int[]{firstResultIndex, lastResultIndex});
             } else if (includeLogicallyDeleted == false) {
                 qryString = "SELECT e FROM DistrictCenter e WHERE e.deleted = 'NO'";
+                qryString += "LIMIT " + firstResultIndex + "," + lastResultIndex;
+                listOfDistrictCenter = (List<DistrictCenter>) getEntityManager().createQuery(qryString).getResultList();
             }
-
-            qryString += "LIMIT " + firstResultIndex + "," + lastResultIndex;
-            listOfDistrictCenter = (List<DistrictCenter>) em.createQuery(qryString).getResultList();
 
             return listOfDistrictCenter;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<DistrictCenter>();
+        return new ArrayList<>();
     }
 
     public List<DistrictCenter> districtCenterGetAll(boolean includeLogicallyDeleted) {
         List<DistrictCenter> listOfDistrictCenter = null;
 
-        String qryString = "";
+        String qryString;
 
         try {
             if (includeLogicallyDeleted == true) {
-                qryString = "SELECT e FROM DistrictCenter e";
+                listOfDistrictCenter = super.findAll();
             } else if (includeLogicallyDeleted == false) {
                 qryString = "SELECT e FROM DistrictCenter e WHERE e.deleted = 'NO'";
+                listOfDistrictCenter = (List<DistrictCenter>) getEntityManager().createQuery(qryString).getResultList();
             }
-
-            listOfDistrictCenter = (List<DistrictCenter>) em.createQuery(qryString).getResultList();
 
             return listOfDistrictCenter;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<DistrictCenter>();
+        return new ArrayList<>();
     }
 
-    public List<DistrictCenter> distictCenterFindById(boolean includeLogicallyDeleted, String districtId) {
-        List<DistrictCenter> listOfCenterById = null;
+    public List<DistrictCenter> distictCenterFindByDistrictId(boolean includeLogicallyDeleted, String districtId) {
+        List<DistrictCenter> listOfCenterById;
 
         String qryString = "";
         try {
@@ -179,13 +185,12 @@ public class DistrictCenterFacade extends AbstractFacade<DistrictCenter> {
             } else if (includeLogicallyDeleted == false) {
                 qryString = "SELECT e FROM DistrictCenter e WHERE e.districtUnder.districtId = '" + districtId + "' AND e.deleted = 'NO'";
             }
-
-            listOfCenterById = (List<DistrictCenter>) em.createQuery(qryString).getResultList();
+            listOfCenterById = (List<DistrictCenter>) getEntityManager().createQuery(qryString).getResultList();
 
             return listOfCenterById;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<DistrictCenter>();
+        return new ArrayList<>();
     }
 }

@@ -66,7 +66,7 @@ public class ChildBirthDetailFacade extends AbstractFacade<ChildBirthDetail> {
     public boolean updateBirthDetails(ChildBirthDetail birthDetail) {
         try {
             birthDetail.setDeleted("NO");
-            birthDetail.setUpdated("NO");
+//            birthDetail.setUpdated("NO");
             super.edit(birthDetail);
             return true;
         } catch (Exception e) {

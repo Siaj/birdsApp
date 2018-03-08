@@ -49,6 +49,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "SystemUser.findByDeleted", query = "SELECT s FROM SystemUser s WHERE s.deleted = :deleted")})
 public class SystemUser implements Serializable {
 
+    @JoinColumn(name = "district_center", referencedColumnName = "center_id")
+    @ManyToOne
+    private DistrictCenter districtCenter;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -306,6 +310,14 @@ public class SystemUser implements Serializable {
     @Override
     public String toString() {
         return "com.app.birds.entities.SystemUser[ systemUserId=" + systemUserId + " ]";
+    }
+
+    public DistrictCenter getDistrictCenter() {
+        return districtCenter;
+    }
+
+    public void setDistrictCenter(DistrictCenter districtCenter) {
+        this.districtCenter = districtCenter;
     }
     
 }
