@@ -48,7 +48,8 @@
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Surname"/>
                                             <h:inputText id="deceasedSurName" required="#{!empty param['saveDeceased']}" 
-                                                         requiredMessage="*required" styleClass="form-control" pt:placeholder="Surname"/>
+                                                         requiredMessage="*required" styleClass="form-control" pt:placeholder="Surname"
+                                                         value="#{deceased_registration_model.deceasedDetail.surname}"/>
                                             <h:message for="deceasedSurName" styleClass="errorMessage"/>
                                         </h:panelGroup>           
                                     </h:panelGroup>
@@ -56,7 +57,8 @@
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Othernames"/>
                                             <h:inputText id="deceasedOtherNames" required="#{!empty param['saveDeceased']}" 
-                                                         pt:placeholder="Othernames" requiredMessage="*required" styleClass="form-control"/>
+                                                         pt:placeholder="Othernames" requiredMessage="*required" styleClass="form-control"
+                                                         value="#{deceased_registration_model.deceasedDetail.othername}"/>
                                             <h:message for="deceasedOtherNames" styleClass="errorMessage"/>   
                                         </h:panelGroup>
                                     </h:panelGroup>
@@ -64,7 +66,8 @@
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Gender"/>
                                             <h:selectOneMenu id="deceasedGender" required="#{!empty param['saveDeceased']}" 
-                                                             requiredMessage="*required" styleClass="form-control">
+                                                             requiredMessage="*required" styleClass="form-control"
+                                                             value="#{deceased_registration_model.deceasedDetail.gender}">
                                                 <f:selectItems value="#{common_options.genderOptions}"/>
                                             </h:selectOneMenu>
                                             <h:message for="deceasedGender" styleClass="errorMessage"/>
@@ -76,14 +79,17 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Nationality"/>
-                                            <h:inputText id="dNationality" styleClass="form-control" pt:placeholder="Deceased Nationality" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/> 
+                                            <h:inputText id="dNationality" styleClass="form-control" pt:placeholder="Deceased Nationality" 
+                                                         required="#{!empty param['saveDeceased']}" requiredMessage="*required"
+                                                         value="#{deceased_registration_model.deceasedDetail.nationality}"/> 
                                             <h:message for="dNationality" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Id Type"/>
-                                            <h:selectOneMenu id="dIdType" styleClass="form-control" required="#{!empty param['saveDeceased']}" requiredMessage="*required">
+                                            <h:selectOneMenu id="dIdType" styleClass="form-control" value="#{deceased_registration_model.deceasedDetail.idType}"
+                                                             required="#{!empty param['saveDeceased']}" requiredMessage="*required">
                                                 <f:selectItems value="#{common_options.idTypeOptions}"/>
                                             </h:selectOneMenu>
                                             <h:message for="dIdType" styleClass="errorMessage"/>
@@ -92,7 +98,8 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="ID Number"/>
-                                            <h:inputText id="dIdNumber" styleClass="form-control" pt:placeholder="Deceased ID Number" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/> 
+                                            <h:inputText id="dIdNumber" styleClass="form-control" pt:placeholder="Deceased ID Number" 
+                                                         value="#{deceased_registration_model.deceasedDetail.idNum}" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/> 
                                             <h:message for="dIdNumber" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
@@ -101,7 +108,9 @@
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-6">
                                         <h:outputLabel value="Residence Address"/>
-                                        <h:inputTextarea id="deceasedResidence" rows="3" styleClass="form-control" pt:placeholder="Deceased Residence Address" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/>
+                                        <h:inputTextarea id="deceasedResidence" rows="3" styleClass="form-control" 
+                                                         value="#{deceased_registration_model.deceasedDetail.deceasedResidence}"
+                                                         pt:placeholder="Deceased Residence Address" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/>
                                         <h:message for="deceasedResidence" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-6"></h:panelGroup>
@@ -119,21 +128,27 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Date Of Death"/>
-                                            <h:inputText id="dateOfDeath" class="form-control" required="#{!empty param['saveDeceased']}" requiredMessage="*required" pt:placeholder="MM/DD/YYYY"/>
+                                            <h:inputText id="dateOfDeath" class="form-control" required="#{!empty param['saveDeceased']}" 
+                                                         requiredMessage="*required" pt:placeholder="MM/DD/YYYY"
+                                                         value="#{deceased_registration_model.doD}"/>
                                             <h:message for="dateOfDeath" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Cause of Death"/>
-                                            <h:inputText id="causeOfDeath" class="form-control" required="#{!empty param['saveDeceased']}" requiredMessage="*required" pt:placeholder="Cause of Death"/>
+                                            <h:inputText id="causeOfDeath" class="form-control" required="#{!empty param['saveDeceased']}" 
+                                                         requiredMessage="*required" pt:placeholder="Cause of Death"
+                                                         value="#{deceased_registration_model.deceasedDetail.causeOfDeath}"/>
                                             <h:message for="causeOfDeath" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-2">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Age"/>
-                                            <h:inputText id="dAge" styleClass="form-control" pt:placeholder="Age of Decesaed" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/>
+                                            <h:inputText id="dAge" styleClass="form-control" pt:placeholder="Age of Decesaed" 
+                                                         required="#{!empty param['saveDeceased']}" requiredMessage="*required"
+                                                         value="#{deceased_registration_model.deceasedDetail.ageOfDeath}"/>
                                             <h:message for="dAge" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
@@ -145,7 +160,8 @@
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Place Of Death"/>
                                             <h:selectOneMenu id="placeOfDeath" required="#{!empty param['saveDeceased']}" 
-                                                             requiredMessage="*required" styleClass="form-control">
+                                                             requiredMessage="*required" styleClass="form-control"
+                                                             value="#{deceased_registration_model.deceasedDetail.placeOfDeath}">
                                                 <f:selectItems value="#{common_options.placeOfDeath}"/>
                                             </h:selectOneMenu>
                                             <h:message for="placeOfDeath" styleClass="errorMessage"/>
@@ -153,7 +169,9 @@
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:outputLabel value="Address of Place"/>
-                                        <h:inputTextarea id="dPlaceAddress" rows="3" styleClass="form-control" pt:placeholder="Address of Where Death Occurred" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/>
+                                        <h:inputTextarea id="dPlaceAddress" rows="3" styleClass="form-control" pt:placeholder="Address of Where Death Occurred" 
+                                                         required="#{!empty param['saveDeceased']}" requiredMessage="*required"
+                                                         value="#{deceased_registration_model.deceasedDetail.addressOfDeathPlace}"/>
                                         <h:message for="dPlaceAddress" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
@@ -172,13 +190,15 @@
                                         <h:panelGroup layout="block" styleClass="col-md-4">
                                             <h:panelGroup layout="block" styleClass="form-group">
                                                 <h:outputLabel value="Place of Burial"/>
-                                                <h:inputText id="burialPlace" styleClass="form-control" pt:placeholder="Place of Burial"/>
+                                                <h:inputText id="burialPlace" styleClass="form-control" pt:placeholder="Place of Burial"
+                                                             value="#{deceased_registration_model.deceasedDetail.placeOfBurial}"/>
                                             </h:panelGroup>
                                         </h:panelGroup>
                                         <h:panelGroup layout="block" styleClass="col-md-4">
                                             <h:panelGroup layout="block" styleClass="form-group">
                                                 <h:outputLabel value="Address of Place"/>
-                                                <h:inputTextarea id="burialPlaceAddress" rows="3" styleClass="form-control" pt:placeholder="Address of Place of Burial"/> 
+                                                <h:inputTextarea id="burialPlaceAddress" rows="3" styleClass="form-control" pt:placeholder="Address of Place of Burial"
+                                                                 value="#{deceased_registration_model.deceasedDetail.addressOfBurialPlace}"/> 
                                             </h:panelGroup>
                                         </h:panelGroup>
                                         <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
@@ -197,21 +217,27 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Name"/>
-                                            <h:inputText id="informantName" styleClass="form-control" pt:placeholder="Informant's Name" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/>
+                                            <h:inputText id="informantName" styleClass="form-control" pt:placeholder="Informant's Name"
+                                                         required="#{!empty param['saveDeceased']}" requiredMessage="*required"
+                                                         value="#{deceased_registration_model.informantDeath.informantName}"/>
                                             <h:message for="informantName" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Relationship"/>
-                                            <h:inputText id="informantRel" styleClass="form-control" pt:placeholder="Informant's Relation with Deceased" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/> 
+                                            <h:inputText id="informantRel" styleClass="form-control" pt:placeholder="Informant's Relation with Deceased" 
+                                                         required="#{!empty param['saveDeceased']}" requiredMessage="*required"
+                                                         value="#{deceased_registration_model.informantDeath.relationship}"/> 
                                             <h:message for="informantRel" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Phone Number"/>
-                                            <h:inputText id="informantContact" styleClass="form-control" pt:placeholder="Informant's Phone Number" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/> 
+                                            <h:inputText id="informantContact" styleClass="form-control" pt:placeholder="Informant's Phone Number" 
+                                                         required="#{!empty param['saveDeceased']}" requiredMessage="*required"
+                                                         value="#{deceased_registration_model.informantDeath.informantContact}"/> 
                                             <h:message for="informantContact" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
@@ -221,7 +247,9 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Id Type"/>
-                                            <h:selectOneMenu id="informantIdType" styleClass="form-control" required="#{!empty param['saveDeceased']}" requiredMessage="*required">
+                                            <h:selectOneMenu id="informantIdType" styleClass="form-control" 
+                                                             required="#{!empty param['saveDeceased']}" requiredMessage="*required"
+                                                             value="#{deceased_registration_model.informantDeath.idType}">
                                                 <f:selectItems value="#{common_options.idTypeOptions}"/>
                                             </h:selectOneMenu>
                                             <h:message for="informantIdType" styleClass="errorMessage"/>
@@ -230,20 +258,26 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="ID Number"/>
-                                            <h:inputText id="informantIdNum" styleClass="form-control" pt:placeholder="Informant's ID Number" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/> 
+                                            <h:inputText id="informantIdNum" styleClass="form-control" pt:placeholder="Informant's ID Number" 
+                                                         required="#{!empty param['saveDeceased']}" requiredMessage="*required"
+                                                         value="#{deceased_registration_model.informantDeath.idNum}"/> 
                                             <h:message for="informantIdNum" styleClass="errorMessage"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:outputLabel value="Informant's Residence Address"/>
-                                        <h:inputTextarea id="informantAddress" rows="3" styleClass="form-control" pt:placeholder="Informant's Residence Address" required="#{!empty param['saveDeceased']}" requiredMessage="*required"/>
+                                        <h:inputTextarea id="informantAddress" rows="3" styleClass="form-control" pt:placeholder="Informant's Residence Address" 
+                                                         required="#{!empty param['saveDeceased']}" requiredMessage="*required"
+                                                         value="#{deceased_registration_model.informantDeath.informantAddress}"/>
                                         <h:message for="informantAddress" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <br/><br/>
 
                                 <h:panelGroup layout="block">
-                                    <h:commandButton value="Save" id="saveDeceased" styleClass="btn btn-success btn-fill" style="margin-right: 3px" action="#{common_options.saveBirthDummy()}"/>
+                                    <h:commandButton value="Save" id="saveDeceased" styleClass="btn btn-success btn-fill" style="margin-right: 3px" 
+                                                     action="#{deceased_registration_model.saveButton}"
+                                                     onclick="return confirm('Please be sure that details entered are correct before confirming')"/>
                                     <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" action="#{deceased_registration_model.resetButton}"
                                                      onclick="return confirm('This action will clear all the form details entered. Are you sure you want to proceed?')"/>
                                 </h:panelGroup>

@@ -39,7 +39,7 @@
                                 <br/>
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-12">
-                                        <p:dataTable var="births" paginator="true" reflow="true"
+                                        <p:dataTable var="births_search" paginator="true" reflow="true"
                                                      paginatorPosition="top" rows="5" value="#{generalSearch.birthDataModel}"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                      rowsPerPageTemplate="5,10,15">
@@ -47,27 +47,39 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Birth Id"/>
                                                 </f:facet>
-                                                <h:outputText value="#{births.birthId}"/>
+                                                <h:outputText value="#{births_search.birthId}"/>
                                             </p:column>
-                                            <p:column style="width: 350px">
+                                            <p:column style="width: 250px">
                                                 <f:facet name="header">
                                                     <h:outputText value="Name"/>
                                                 </f:facet>
-                                                <h:outputText value="#{births.fullName}"/>
+                                                <h:outputText value="#{births_search.fullName}"/>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Gender"/>
                                                 </f:facet>
-                                                <h:outputText value="#{births.gender}"/>
+                                                <h:outputText value="#{births_search.gender}"/>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="DoB"/>
                                                 </f:facet>
-                                                <h:outputText value="#{births.dateOfBirth}">
+                                                <h:outputText value="#{births_search.dateOfBirth}">
                                                     <f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy" type="date" timeStyle="short"/>
                                                 </h:outputText>
+                                            </p:column>
+                                            <p:column style="color: white; background: #{(births_search.districtApproved == 'YES')? 'green':(births_search.districtApproved == 'NO')?'red':''}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Dist"/>
+                                                </f:facet>
+                                                <h:outputText value="#{births_search.districtApproved}"/>
+                                            </p:column>
+                                            <p:column style="color: white; background: #{(births_search.regionalApproved == 'YES')? 'green':(births_search.regionalApproved == 'NO')?'red':''}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Reg"/>
+                                                </f:facet>
+                                                <h:outputText value="#{births_search.regionalApproved}"/>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">

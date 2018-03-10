@@ -15,6 +15,10 @@ import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 
 /**
@@ -35,8 +39,53 @@ public class UserAccountController implements Serializable {
     private UserAccessController accessController = new UserAccessController();
     private String currentPassword, newPassword, confirmPassword;
     private UserAuthentication authentication = new UserAuthentication();
+    private String searchCriteria, searchText;
+    private List<SystemUser> listOfUsers = new ArrayList<>();
+    private List<SystemUser> listForDistAdmin = new ArrayList<>();
+    private DataModel<SystemUser> systemUserModel;
 
     public UserAccountController() {
+    }
+
+    public void searchAccount() {
+        if (searchCriteria.equals("null") || searchText.equals("")) {
+            JSFUtility.warnMessage("Alert: ", "All parameters are required in order to make a search");
+            listOfUsers = getListOfUsers();
+        } else {
+            listOfUsers = getListOfUsers();
+        }
+    }
+
+    public void resetEntries() {
+        searchCriteria = null;
+        searchText = "";
+        listOfUsers = getListOfUsers();
+    }
+
+    public void fetchRowData() {
+
+    }
+
+    public void activateUserAccount() {
+        userAccount = systemUserModel.getRowData().getUserAccount();
+        userAccount.setAccountStatus("Active");
+        Boolean deactivated = accountFacade.userAccountUpdate(userAccount);
+        if (deactivated) {
+            JSFUtility.infoMessage("Success: ", "User Account successfully activated");
+        } else {
+            JSFUtility.warnMessage("Error: ", "User Account could not be activated");
+        }
+    }
+
+    public void deActivateUserAccount() {
+        userAccount = systemUserModel.getRowData().getUserAccount();
+        userAccount.setAccountStatus("Inactive");
+        Boolean deactivated = accountFacade.userAccountUpdate(userAccount);
+        if (deactivated) {
+            JSFUtility.infoMessage("Success: ", "User Account successfully deactivated");
+        } else {
+            JSFUtility.warnMessage("Error: ", "User Account could not be deactivated");
+        }
     }
 
     public void changePassword() {
@@ -79,7 +128,54 @@ public class UserAccountController implements Serializable {
 
     public void cancelChange() {
         String roleName = accessController.getUserAccount().getSystemUser().getUserRole().getRoleName();
-        System.out.println(roleName + "tried to cancel passwrod change");
+        System.out.println(roleName + "tried to cancel password change");
+    }
+
+    public String getSearchCriteria() {
+        return searchCriteria;
+    }
+
+    public void setSearchCriteria(String searchCriteria) {
+        this.searchCriteria = searchCriteria;
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public List<SystemUser> getListOfUsers() {
+        if (searchCriteria == null || searchCriteria.equals("null") || searchText.equals("")) {
+            listOfUsers = userFacade.systemUserGetAll(false);
+        } else {
+            listOfUsers = userFacade.systemUserFindByAttribute(searchCriteria, searchText, "STRING", false);
+        }
+
+        return listOfUsers;
+    }
+
+    public void setListOfUsers(List<SystemUser> listOfUsers) {
+        this.listOfUsers = listOfUsers;
+    }
+
+    public List<SystemUser> getListForDistAdmin() {
+        return listForDistAdmin;
+    }
+
+    public void setListForDistAdmin(List<SystemUser> listForDistAdmin) {
+        this.listForDistAdmin = listForDistAdmin;
+    }
+
+    public DataModel<SystemUser> getSystemUserModel() {
+        systemUserModel = new ListDataModel<>(getListOfUsers());
+        return systemUserModel;
+    }
+
+    public void setSystemUserModel(DataModel<SystemUser> systemUserModel) {
+        this.systemUserModel = systemUserModel;
     }
 
     public UserAccountFacade getAccountFacade() {

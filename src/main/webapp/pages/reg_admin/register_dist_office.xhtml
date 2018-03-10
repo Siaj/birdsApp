@@ -19,20 +19,27 @@
                             <h:panelGroup layout="block" styleClass="row">
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Office Name"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Office Name"/>
+                                        <h:outputLabel value="District Name"/>
+                                        <h:inputText id="offName" styleClass="form-control" pt:placeholder="District Name" 
+                                                     value="#{officesRegistration.district.districtName}"
+                                                     required="#{!empty param['saveDistrict']}" requiredMessage="*required"/>
+                                        <h:message for="offName" styleClass="errorMessage"/>
                                     </h:panelGroup>           
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="District"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="District"/>
+                                        <h:outputLabel value="Region"/>
+                                        <h:inputText styleClass="form-control" pt:placeholder="Region" readonly="true"
+                                                     value="#{officesRegistration.regionName}"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
                                         <h:outputLabel value="Primary Contact"/>
-                                        <h:inputText styleClass="form-control" pt:placeholde="Primary Contact"/>   
+                                        <h:inputText id="priContact" styleClass="form-control" pt:placeholde="Primary Contact"
+                                                     value="#{officesRegistration.district.primaryContact}"
+                                                     required="#{!empty param['saveDistrict']}" requiredMessage="*required"/>   
+                                        <h:message for="priContact" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                             </h:panelGroup>
@@ -41,27 +48,38 @@
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
                                         <h:outputLabel value="Secondary Contact"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Secondary Contact"/>
+                                        <h:inputText styleClass="form-control" pt:placeholder="Secondary Contact"
+                                                     value="#{officesRegistration.district.secondayContact}"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
                                         <h:outputLabel value="Physical Location"/>
-                                        <h:inputTextarea rows="3" styleClass="form-control" pt:placeholder="Physical Location"/>   
+                                        <h:inputTextarea id="physLoc" rows="3" styleClass="form-control" pt:placeholder="Physical Location"
+                                                         value="#{officesRegistration.district.physicalLocation}"
+                                                         required="#{!empty param['saveDistrict']}" requiredMessage="*required"/>   
+                                        <h:message for="physLoc" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
                             </h:panelGroup>
 
                             <h:panelGroup layout="block">
-                                <h:commandButton value="Save" styleClass="btn btn-success btn-fill" style="margin-right: 3px" 
-                                                 onclick="return confirm('Proceeding will change the state of the user. Are you sure you want to proceed?')"/>
+                                <h:commandButton value="Save" styleClass="btn btn-success btn-fill" style="margin-right: 3px" id="saveDistrict"
+                                                 onclick="return confirm('Please be sure all fields are correct before proceeding')"
+                                                 action="#{officesRegistration.saveDistrict}" rendered="#{officesRegistration.renderSave}"/>
+                                <h:commandButton value="Update" styleClass="btn btn-success btn-fill" style="margin-right: 3px" 
+                                                 onclick="return confirm('You are about to edit the details of this selection')"
+                                                 action="#{officesRegistration.updateDistrict}" rendered="#{!officesRegistration.renderSave}"/>
                                 <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin-right: 3px" 
-                                                 onclick="return confirm('Changes will not be effected if not saved. Are you sure you want to reset form?')"/>
+                                                 onclick="return confirm('Are you sure you want to clear the registration form?')"
+                                                 action="#{officesRegistration.resetButton}" rendered="#{!officesRegistration.renderSave}"/>
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
                             <br/><br/><br/>
+                        </h:panelGroup>
 
+                        <h:panelGroup layout="block" styleClass="content">
                             <h:panelGroup layout="block" styleClass="header">
                                 <h4 class="title">List of Districts</h4>
                                 <hr/>
@@ -70,56 +88,59 @@
                             <h:panelGroup layout="block" styleClass="row">
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:outputLabel value="Search By: "/>
-                                    <h:selectOneMenu styleClass="form-control" id="selectOne"
-                                                     required="#{!empty param['searchButton']}" 
-                                                     requiredMessage="Select One Criteria">
-                                        <f:selectItem itemValue="null" itemLabel="---Select One---"/>
-                                        <f:selectItem itemValue="officeCode" itemLabel="Office Code"/>
-                                        <f:selectItem itemValue="officeName" itemLabel="Office Name"/>
-                                        <f:selectItem itemValue="district" itemLabel="District"/>
-                                        <f:selectItem itemValue="phoneNumber" itemLabel="Phone Number"/>
+                                    <h:selectOneMenu styleClass="form-control" value="#{officesRegistration.searchCriteria}">
+                                        <f:selectItem itemLabel="---Select One---"/>
+                                        <f:selectItem itemValue="districtId" itemLabel="District Id"/>
+                                        <f:selectItem itemValue="districtName" itemLabel="District Name"/>
                                     </h:selectOneMenu>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:outputLabel value="Search Text: "/>
-                                    <h:inputText styleClass="form-control" pt:placeholder="Search Text"/>
+                                    <h:inputText styleClass="form-control" pt:placeholder="Search Text" value="#{officesRegistration.searchText}"/>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
-                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
+                                    <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"
+                                                     action="#{officesRegistration.searchDistrict}"/>
+                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"
+                                                     action="#{officesRegistration.resetButton}"/>
                                 </h:panelGroup>
                             </h:panelGroup>
                             <br/>
+
                             <h:panelGroup layout="block" styleClass="row">
                                 <h:panelGroup layout="block" styleClass="col-md-12">
-                                    <p:dataTable var="dist_user_account" paginator="true" reflow="true"
-                                                 paginatorPosition="top" rows="5"
+                                    <p:dataTable var="dist_offices" paginator="true" reflow="true" id="dist_office"
+                                                 paginatorPosition="bottom" rows="5" value="#{officesRegistration.districtDataModel}"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Office Code"/>
-                                            </f:facet>
+                                        <f:facet name="header">
+                                            <h:outputLabel value="List of Districts"/>
+                                            <p:commandButton id="toggler" type="button" value="Columns" icon="ui-icon-calculator"/>
+                                            <p:columnToggler datasource="dist_office" trigger="toggler" />
+                                        </f:facet>
+                                        <p:column headerText="District Code">
+                                            <h:outputText value="#{dist_offices.districtId}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Office Name"/>
-                                            </f:facet>
+                                        <p:column style="width: 250px" headerText="Office Name">
+                                            <h:outputText value="#{dist_offices.districtName}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="District"/>
-                                            </f:facet>
+                                        <p:column headerText="Region">
+                                            <h:outputText value="#{dist_offices.region.regionName}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Phone Number"/>
-                                            </f:facet>
+                                        <p:column headerText="Contact">
+                                            <h:outputText value="#{dist_offices.primaryContact}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Options"/>
-                                            </f:facet>
+                                        <p:column headerText="Deleted" style="color: white; background: #{(dist_offices.deleted == 'NO')? 'green':(dist_offices.deleted == 'YES')?'red':''}">                                            
+                                            <h:outputText value="#{dist_offices.deleted}"/>
+                                        </p:column>
+                                        <p:column headerText="Options">
+                                            <h:commandLink value="Edit" action="#{officesRegistration.fetchRowData}" style="margin-right: 3px"/>
+                                            <h:commandLink value="Delete"  style="color: red;" rendered="#{dist_offices.deleted eq 'NO'}"
+                                                           action="#{officesRegistration.deleteDistrict}" styleClass="pull-right"
+                                                           onclick="return confirm('You are about to delete a currently registered district')"/>
+                                            <h:commandLink value="Restore" styleClass="pull-right" rendered="#{dist_offices.deleted eq 'YES'}"
+                                                           action="#{officesRegistration.restoreDeleted}" style="color: green;"
+                                                           onclick="return confirm('You are about to restore a deleted district')"/>
                                         </p:column>
                                     </p:dataTable>
                                 </h:panelGroup>

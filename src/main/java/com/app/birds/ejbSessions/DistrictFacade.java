@@ -70,7 +70,7 @@ public class DistrictFacade extends AbstractFacade<District> {
     public boolean districtUpdate(District district) {
         try {
 
-            district.setDeleted("NO");
+//            district.setDeleted("NO");
             district.setUpdated("NO");
             super.edit(district);
             return true;

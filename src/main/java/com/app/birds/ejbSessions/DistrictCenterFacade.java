@@ -70,7 +70,7 @@ public class DistrictCenterFacade extends AbstractFacade<DistrictCenter> {
     public boolean districtCenterUpdate(DistrictCenter districtCenter) {
         try {
 
-            districtCenter.setDeleted("NO");
+//            districtCenter.setDeleted("NO");
             districtCenter.setUpdated("NO");
             super.edit(districtCenter);
             return true;

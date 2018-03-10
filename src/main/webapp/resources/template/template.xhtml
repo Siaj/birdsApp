@@ -268,17 +268,17 @@
                 <!--Main content to display--> 
                 <div class="content">
                     <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12 right">
-                                    <div style="padding: 0 20px 0 20px;">
-                                        <p:messages id="messages" showDetail="true" autoUpdate="true" globalOnly="true" closable="true"/>
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-12 right">
+                                <div style="padding: 0 20px 0 20px;">
+                                    <p:messages id="messages" showDetail="true" autoUpdate="true" globalOnly="true" closable="true"/>
                                 </div>
                             </div>
-                            <ui:insert name="content">
-                                <!--Other pages can define their content here by referencing template-->
-                            </ui:insert>
-                        
+                        </div>
+                        <ui:insert name="content">
+                            <!--Other pages can define their content here by referencing template-->
+                        </ui:insert>
+
                     </div>
                 </div>
                 <!--Main content to display--> 
@@ -308,6 +308,8 @@
         <h:outputScript name="collapsibledivs.js" library="javascript"/>
         <h:outputScript name="ddaccordion.js" library="javascript"/>
         <h:outputScript name="ddaccordmenu.js" library="javascript"/>
+        <h:outputScript name="combodate.js" library="javascript"/>
+        <h:outputScript name="moment.js" library="javascript"/>
     </ui:insert>
 </html>
 

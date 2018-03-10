@@ -10,193 +10,207 @@
             <h:panelGroup layout="block" styleClass="row">
                 <h:panelGroup layout="block" styleClass="col-md-12">
                     <h:panelGroup layout="block" styleClass="card">
-                        <h:panelGroup layout="block" styleClass="header">
-                            <h4 class="title">ADD NEW SYSTEM USER</h4>
-                            <hr/>
-                        </h:panelGroup>
-
                         <h:panelGroup layout="block" styleClass="content">
+                            <h:panelGroup layout="block" rendered="#{!systemUserController.renderAccount}">
+                                <h:panelGroup layout="block" styleClass="header">
+                                    <h4 class="title">ADD NEW SYSTEM USER</h4>
+                                    <hr/>
+                                </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="row">
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Surname"/>
-                                        <h:inputText styleClass="form-control"  pt:placeholder="Surname"/>
-                                    </h:panelGroup>           
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Other Name(s)"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Other Name(s)"/>
-                                    </h:panelGroup>           
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Gender"/>
-                                        <h:selectOneMenu styleClass="form-control">
-                                            <f:selectItems value="#{common_options.genderOptions}"/>
-                                        </h:selectOneMenu>
-                                    </h:panelGroup>          
-                                </h:panelGroup>
-                            </h:panelGroup>
-
-                            <h:panelGroup layout="block" styleClass="row">
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Phone Number"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Phone Number"/>
-                                    </h:panelGroup>           
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Place of Residence"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Place of Residence"/>
-                                    </h:panelGroup>           
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Physical Location"/>
-                                        <h:inputTextarea rows="3" styleClass="form-control" pt:placeholder="Physical Location"/>
-                                    </h:panelGroup>           
-                                </h:panelGroup>
-                            </h:panelGroup>
-
-                            <h:panelGroup layout="block" styleClass="row">
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="District Office"/>
-                                        <h:selectOneMenu styleClass="form-control">
-                                            <f:selectItems value="#{common_options.districtOptions}"/>
-                                        </h:selectOneMenu>
-                                    </h:panelGroup>         
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Work Type"/>
-                                        <h:selectOneMenu styleClass="form-control">
-                                            <f:selectItems value="#{common_options.workTypeOptions}"/>
-                                        </h:selectOneMenu>
-                                    </h:panelGroup>           
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Email"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Email"/>
-                                    </h:panelGroup>           
-                                </h:panelGroup>
-                            </h:panelGroup>
-
-                            <br/><br/>
-
-                            <h:panelGroup layout="block" styleClass="header">
-                                <h4 class="title">Next of Kin Details</h4>
-                                <hr/>
-                            </h:panelGroup>
-
-                            <h:panelGroup layout="block" styleClass="row">
-                                <h:panelGroup layout="block" styleClass="col-md-3">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Name"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Name"/>
-                                    </h:panelGroup>           
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-3">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Phone Contact"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Phone Contact"/>
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Surname"/>
+                                            <h:inputText styleClass="form-control"  pt:placeholder="Surname"
+                                                         value="#{systemUserController.systemUser.lastName}" id="username"
+                                                         required="#{!empty param['saveButton']}" requiredMessage="*req"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Other Name(s)"/>
+                                            <h:inputText styleClass="form-control" pt:placeholder="Other Name(s)"
+                                                         value="#{systemUserController.systemUser.middleName}"
+                                                         required="#{!empty param['saveButton']}" id="oName"
+                                                         requiredMessage="*req"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Gender"/>
+                                            <h:selectOneMenu styleClass="form-control" value="#{systemUserController.systemUser.gender}"
+                                                             required="#{!empty param['saveButton']}"
+                                                             requiredMessage="*req" id="gen">
+                                                <f:selectItems value="#{common_options.genderOptions}"/>
+                                            </h:selectOneMenu>
+                                        </h:panelGroup>          
                                     </h:panelGroup>
                                 </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-3">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Gender"/>
-                                        <h:selectOneMenu disabled="false" styleClass="form-control">
-                                            <f:selectItems value="#{common_options.genderOptions}"/>
-                                        </h:selectOneMenu>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Phone Number"/>
+                                            <h:inputText styleClass="form-control" pt:placeholder="Phone Number" id="phone"
+                                                         value="#{systemUserController.systemUser.phoneNumber}" required="#{!empty param['saveButton']}"
+                                                         requiredMessage="*req"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Place of Residence"/>
+                                            <h:inputText styleClass="form-control" pt:placeholder="Place of Residence"
+                                                         value="#{systemUserController.systemUser.placeOfResidence}" 
+                                                         required="false" requiredMessage="*req" id="place"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Physical Location"/>
+                                            <h:inputTextarea rows="3" styleClass="form-control" pt:placeholder="Physical Location"
+                                                             value="#{systemUserController.systemUser.physicalLocation}" id="pl"
+                                                             required="#{!empty param['saveButton']}" requiredMessage="*req"/>
+                                        </h:panelGroup>           
                                     </h:panelGroup>
                                 </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-3">
-                                    <h:panelGroup layout="block" styleClass="form-group">
-                                        <h:outputLabel value="Relationship"/>
-                                        <h:selectOneMenu disabled="false" styleClass="form-control">
-                                            <f:selectItems value="#{common_options.relationshipOptions}"/>
-                                        </h:selectOneMenu>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="District Office"/>
+                                            <h:selectOneMenu styleClass="form-control" value="#{systemUserController.systemUser.district}"
+                                                             required="#{!empty param['saveButton']}" requiredMessage="*req" id="dist">
+                                                <f:selectItems value="#{common_options.districtOptions}"/>
+                                            </h:selectOneMenu>
+                                        </h:panelGroup>         
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Work Type"/>
+                                            <h:selectOneMenu styleClass="form-control" value="#{systemUserController.systemUser.userRole}"
+                                                             required="#{!empty param['saveButton']}" requiredMessage="*req" id="wt">
+                                                <f:selectItems value="#{common_options.workTypeOptions}"/>
+                                            </h:selectOneMenu>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Email"/>
+                                            <h:inputText id="email" styleClass="form-control" pt:placeholder="Email"
+                                                         value="#{systemUserController.systemUser.email}"
+                                                         required="#{!empty param['saveButton']}" requiredMessage="*req"/>
+                                        </h:panelGroup>           
                                     </h:panelGroup>
                                 </h:panelGroup>
-                            </h:panelGroup>
+                                <br/><br/>
 
-                            <h:panelGroup layout="block">
-                                <h:commandButton value="Save" styleClass="btn btn-success btn-fill" style="margin-right: 3px" id="reg_save_user"
-                                                 onclick="return confirm('Proceeding will change the state of the user. Are you sure you want to proceed?')"/>
-                                <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" 
-                                                 onclick="return confirm('Changes will not be effected if not saved. Are you sure you want to reset form?')"/>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
-                            <br/><br/>
-
-                            <h:panelGroup layout="block" styleClass="header">
-                                <h4 class="title">System Users' List</h4>
-                                <hr/>
-                            </h:panelGroup>
-
-                            <h:panelGroup layout="block" styleClass="row">
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:outputLabel value="Search By: "/>
-                                    <h:selectOneMenu styleClass="form-control" id="selectOne"
-                                                     required="#{!empty param['searchButton']}" 
-                                                     requiredMessage="Select One Criteria">
-                                        <f:selectItem itemValue="null" itemLabel="---Select One---"/>
-                                        <f:selectItem itemValue="fullname" itemLabel="Name"/>
-                                        <f:selectItem itemValue="phoneNumber" itemLabel="Phone Number"/>
-                                    </h:selectOneMenu>
+                                <h:panelGroup layout="block" styleClass="header">
+                                    <h4 class="title">Next of Kin Details</h4>
+                                    <hr/>
                                 </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:outputLabel value="Search Text: "/>
-                                    <h:inputText id="searchBirthTxt" styleClass="form-control" pt:placeholder="Search Text"/>
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
-                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
-                                </h:panelGroup>
-                            </h:panelGroup>
-                            <br/>
 
-                            <h:panelGroup layout="block" styleClass="row">
-                                <h:panelGroup layout="block" styleClass="col-md-12">
-                                    <p:dataTable var="dist_user_account" paginator="true" reflow="true"
-                                                 paginatorPosition="top" rows="5"
-                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="5,10,15">
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Name"/>
-                                            </f:facet>
-                                        </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Phone Number"/>
-                                            </f:facet>
-                                        </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Email"/>
-                                            </f:facet>
-                                        </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Status"/>
-                                            </f:facet>
-                                        </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Options"/>
-                                            </f:facet>
-                                        </p:column>
-                                    </p:dataTable>
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-3">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Name"/>
+                                            <h:inputText id="nm" styleClass="form-control" pt:placeholder="Name"
+                                                         value="#{systemUserController.systemUser.nextOfKin}"
+                                                         required="#{!empty param['saveButton']}" requiredMessage="*req"/>
+                                            <h:message for="nm" styleClass="errorMessage"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-3">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Phone Contact"/>
+                                            <h:inputText id="contact" styleClass="form-control" pt:placeholder="Phone Contact"
+                                                         value="#{systemUserController.systemUser.nextOfKinContact}"
+                                                         required="#{!empty param['saveButton']}" requiredMessage="*req"/>
+                                            <h:message for="contact" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-3">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Gender"/>
+                                            <h:selectOneMenu disabled="false" styleClass="form-control" id="kinGen"
+                                                             value="#{systemUserController.systemUser.nextOfKinGender}"
+                                                             required="#{!empty param['saveButton']}" requiredMessage="*req">
+                                                <f:selectItems value="#{common_options.genderOptions}"/>
+                                            </h:selectOneMenu>
+                                            <h:message for="kinGen" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-3">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Relationship"/>
+                                            <h:selectOneMenu disabled="false" styleClass="form-control" id="rel"
+                                                             value="#{systemUserController.systemUser.relationship}"
+                                                             required="#{!empty param['saveButton']}" requiredMessage="*req">
+                                                <f:selectItems value="#{common_options.relationshipOptions}"/>
+                                            </h:selectOneMenu>
+                                            <h:message for="rel" styleClass="errorMessage"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <br/>
+
+                                <h:panelGroup layout="block">
+                                    <h:commandButton value="Save" styleClass="btn btn-success btn-fill" style="margin-right: 3px" id="reg_save_user"
+                                                     action="#{systemUserController.saveNewSystemUser}" rendered="#{systemUserController.renderSave}"
+                                                     onclick="return confirm('Proceeding will change the state of the user. Are you sure you want to proceed?')"/>
+                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" 
+                                                     action="#{systemUserController.resetButton}"
+                                                     onclick="return confirm('Changes will not be effected if not saved. Are you sure you want to reset form?')"/>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+                                <br/><br/>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block" rendered="#{systemUserController.renderAccount}">
+                                <h:panelGroup layout="block" styleClass="content">
+                                    <h:panelGroup layout="block" styleClass="header">
+                                        <h4 class="title">USER ACCOUNT INFORMATION</h4>
+                                        <hr/>
+                                    </h:panelGroup> 
+
+                                    <h:panelGroup layout="block" styleClass="row">
+                                        <h:panelGroup layout="block" styleClass="col-md-3">
+                                            <h:panelGroup layout="block" styleClass="form-group">
+                                                <h:outputLabel value="Surname"/>
+                                                <h:inputText readonly="true" styleClass="form-control" value="#{systemUserController.surname}"/>
+                                            </h:panelGroup>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block" styleClass="col-md-3">
+                                            <h:panelGroup layout="block" styleClass="form-group">
+                                                <h:outputLabel value="Othernames"/>
+                                                <h:inputText readonly="true" styleClass="form-control" value="#{systemUserController.othername}"/>
+                                            </h:panelGroup>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block" styleClass="col-md-3">
+                                            <h:panelGroup layout="block" styleClass="form-group">
+                                                <h:outputLabel value="Username"/>
+                                                <h:inputText readonly="true" styleClass="form-control" value="#{systemUserController.username}"/>
+                                            </h:panelGroup>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block" styleClass="col-md-3">
+                                            <h:panelGroup layout="block" styleClass="form-group">
+                                                <h:outputLabel value="Password"/>
+                                                <h:inputText readonly="true" styleClass="form-control" value="#{systemUserController.password}"/>
+                                            </h:panelGroup>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="row">
+                                        <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
+                                        <h:panelGroup layout="block" styleClass="col-md-4">
+                                            <center>
+                                                <h:commandButton value="OK...Proceed" action="#{systemUserController.resetButton}"/>
+                                            </center>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
+                                    </h:panelGroup>
                                 </h:panelGroup>
                             </h:panelGroup>
 
                         </h:panelGroup>
-
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>

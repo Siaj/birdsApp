@@ -53,9 +53,9 @@ public class GeneralBirthDeathSearch implements Serializable {
     private UserAccessController accessController = new UserAccessController();
 
     private List<ChildBirthDetail> childDetails = new ArrayList<>();
-    private DataModel<ChildBirthDetail> birthDataModel;
+    private transient DataModel<ChildBirthDetail> birthDataModel;
     private List<DeceasedDetail> listOfDeceasd = new ArrayList<>();
-    private DataModel<DeceasedDetail> deceasedDataModel;
+    private transient DataModel<DeceasedDetail> deceasedDataModel;
 
     private String birthSearchCriteria, birthSearchText;
     private String deceasedSearchCriteria, deceasedSearchText;
@@ -69,7 +69,7 @@ public class GeneralBirthDeathSearch implements Serializable {
     //    Birth Details Search Page Functions
     public void searchBirthDetails() {
         if (birthSearchCriteria == null || birthSearchCriteria.equals("null") || birthSearchText.equals("")) {
-            JSFUtility.warnMessage("Info: ", "Search Parameters not well defined to complete search");
+            JSFUtility.warnMessage("Info: ", "Search Parameters not well defined to complete search, please enter them to find a specific detail");
             childDetails = getChildDetails();
         } else {
             childDetails = getChildDetails();
@@ -77,11 +77,11 @@ public class GeneralBirthDeathSearch implements Serializable {
     }
 
     public void resetBirthSearch() {
-        birthDetail = new ChildBirthDetail();
-        childDetails = getChildDetails();
         birthSearchCriteria = null;
         birthSearchText = "";
         renderBirthDetails = false;
+        birthDetail = new ChildBirthDetail();
+        childDetails = getChildDetails();
     }
 
     public void closeBirthSearch() {
@@ -118,7 +118,7 @@ public class GeneralBirthDeathSearch implements Serializable {
 //    Deceased Details Search Page Functions
     public void searchDeceasedDetails() {
         if (deceasedSearchCriteria == null || deceasedSearchCriteria.equals("null") || deceasedSearchText.equals("")) {
-            JSFUtility.warnMessage("Info: ", "Search Parameters not well defined to perform search");
+            JSFUtility.warnMessage("Info: ", "Search Parameters not well defined to complete search, please enter them to find a specific detail");
             listOfDeceasd = getListOfDeceasd();
         } else {
             listOfDeceasd = getListOfDeceasd();
@@ -265,7 +265,7 @@ public class GeneralBirthDeathSearch implements Serializable {
         if (deceasedSearchCriteria == null || deceasedSearchCriteria.equals("null") || deceasedSearchText.equals("")) {
             listOfDeceasd = deceasedDetailFacade.deceasedDetailGetAll(true);
         } else {
-            listOfDeceasd = deceasedDetailFacade.deceasedDetailFindByAttribute(getDeceasedSearchCriteria(), getDeceasedSearchText(), "STRING", true);
+            listOfDeceasd = deceasedDetailFacade.deceasedDetailFindByAttribute(deceasedSearchCriteria, deceasedSearchText, "STRING", true);
         }
         return listOfDeceasd;
     }

@@ -92,7 +92,7 @@ public class DeceasedDetailFacade extends AbstractFacade<DeceasedDetail> {
         }
     }
 
-    public List<DeceasedDetail> deceasedDetailFindByAttribute(String deceasedDetailAttribute, Object attributeValue, String fieldType, boolean includeLogicallyDeleted) {
+    public List<DeceasedDetail> deceasedDetailFindByAttributeforCert(String deceasedDetailAttribute, Object attributeValue, String fieldType, boolean includeLogicallyDeleted) {
         List<DeceasedDetail> listOfDeceasedDetail = null;
 
         String qryString;
@@ -111,6 +111,37 @@ public class DeceasedDetailFacade extends AbstractFacade<DeceasedDetail> {
             } else if (fieldType.equalsIgnoreCase("STRING")) {
                 qryString = "SELECT e FROM DeceasedDetail e ";
                 qryString += "WHERE e." + deceasedDetailAttribute + " LIKE '%" + attributeValue + "%' AND e.districtApproved = 'YES' AND e.regionalApproved = 'YES'";
+                listOfDeceasedDetail = (List<DeceasedDetail>) getEntityManager().createQuery(qryString).getResultList();
+            } else if (fieldType.equalsIgnoreCase("DATE")) {
+                listOfDeceasedDetail = (List<DeceasedDetail>) getEntityManager().createQuery(qryString).setParameter("deceasedDetailAttribute", (Date) attributeValue, TemporalType.DATE).getResultList();
+            }
+
+            return listOfDeceasedDetail;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public List<DeceasedDetail> deceasedDetailFindByAttribute(String deceasedDetailAttribute, Object attributeValue, String fieldType, boolean includeLogicallyDeleted) {
+        List<DeceasedDetail> listOfDeceasedDetail = null;
+
+        String qryString;
+
+        qryString = "SELECT e FROM DeceasedDetail e ";
+        qryString += "WHERE e." + deceasedDetailAttribute + " =:deceasedDetailAttribute ";
+
+        try {
+            if (includeLogicallyDeleted == true) {
+            } else if (includeLogicallyDeleted == false) {
+                qryString += " AND e.deleted = 'NO'";
+            }
+
+            if (fieldType.equalsIgnoreCase("NUMBER")) {
+                listOfDeceasedDetail = (List<DeceasedDetail>) getEntityManager().createQuery(qryString).setParameter("deceasedDetailAttribute", attributeValue).getResultList();
+            } else if (fieldType.equalsIgnoreCase("STRING")) {
+                qryString = "SELECT e FROM DeceasedDetail e ";
+                qryString += "WHERE e." + deceasedDetailAttribute + " LIKE '%" + attributeValue + "%'";
                 listOfDeceasedDetail = (List<DeceasedDetail>) getEntityManager().createQuery(qryString).getResultList();
             } else if (fieldType.equalsIgnoreCase("DATE")) {
                 listOfDeceasedDetail = (List<DeceasedDetail>) getEntityManager().createQuery(qryString).setParameter("deceasedDetailAttribute", (Date) attributeValue, TemporalType.DATE).getResultList();

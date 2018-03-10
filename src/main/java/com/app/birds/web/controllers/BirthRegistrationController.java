@@ -185,7 +185,6 @@ public class BirthRegistrationController implements Serializable {
         childGuardian = new ChildGuardian();
         informantBirth = new InformantBirth();
         dateOfBirth = new Date();
-//        new Date(doB);
         doB = "";
         birthInformantRelation = null;
         i_name = "";

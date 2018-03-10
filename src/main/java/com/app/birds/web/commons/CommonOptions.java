@@ -5,10 +5,17 @@
  */
 package com.app.birds.web.commons;
 
+import com.app.birds.ejbSessions.DistrictCenterFacade;
+import com.app.birds.ejbSessions.DistrictFacade;
+import com.app.birds.ejbSessions.UserRoleFacade;
+import com.app.birds.entities.District;
+import com.app.birds.entities.DistrictCenter;
+import com.app.birds.entities.UserRole;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 /**
  *
@@ -17,6 +24,13 @@ import javax.faces.model.SelectItem;
 @Named(value = "common_options")
 @SessionScoped
 public class CommonOptions implements Serializable {
+
+    @Inject
+    private DistrictFacade districtFacade;
+    @Inject
+    private DistrictCenterFacade districtCenterFacade;
+    @Inject
+    private UserRoleFacade userRoleFacade;
 
     private SelectItem[] genderOptions;
     private SelectItem[] idTypeOptions;
@@ -117,6 +131,18 @@ public class CommonOptions implements Serializable {
     }
 
     public SelectItem[] getDistrictOptions() {
+        districtOptions = new SelectItem[districtFacade.districtGetAll(false).size() + 1];
+        districtOptions[0] = new SelectItem("", "---Select One---");
+        int c = 1;
+
+        try {
+            for (District d : districtFacade.districtGetAll(false)) {
+                districtOptions[c] = new SelectItem(d.getDistrictId(), d.getDistrictName());
+                c++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return districtOptions;
     }
 
@@ -125,6 +151,18 @@ public class CommonOptions implements Serializable {
     }
 
     public SelectItem[] getDistrictCenterOptions() {
+        districtCenterOptions = new SelectItem[districtCenterFacade.districtCenterGetAll(false).size() + 1];
+        districtCenterOptions[0] = new SelectItem("null", "---Select One---");
+        int c = 1;
+
+        try {
+            for (DistrictCenter d : districtCenterFacade.districtCenterGetAll(false)) {
+                districtCenterOptions[c] = new SelectItem(d.getCenterId(), d.getCenterName());
+                c++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return districtCenterOptions;
     }
 
@@ -133,12 +171,18 @@ public class CommonOptions implements Serializable {
     }
 
     public SelectItem[] getWorkTypeOptions() {
-//        Get from database later
-        workTypeOptions = new SelectItem[4];
-        workTypeOptions[0] = new SelectItem("", "---Select One---");
-        workTypeOptions[1] = new SelectItem("Regional Administrator", "Regional Administrator");
-        workTypeOptions[2] = new SelectItem("District Administrator", "District Administrator");
-        workTypeOptions[3] = new SelectItem("Registrar", "Registrar");
+        workTypeOptions = new SelectItem[userRoleFacade.roleGetAll(false).size() + 1];
+        workTypeOptions[0] = new SelectItem("null", "---Select One---");
+        int c = 1;
+
+        try {
+            for (UserRole d : userRoleFacade.roleGetAll(false)) {
+                workTypeOptions[c] = new SelectItem(d.getRoleId(), d.getRoleName());
+                c++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return workTypeOptions;
     }
 
@@ -224,6 +268,30 @@ public class CommonOptions implements Serializable {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public DistrictFacade getDistrictFacade() {
+        return districtFacade;
+    }
+
+    public void setDistrictFacade(DistrictFacade districtFacade) {
+        this.districtFacade = districtFacade;
+    }
+
+    public DistrictCenterFacade getDistrictCenterFacade() {
+        return districtCenterFacade;
+    }
+
+    public void setDistrictCenterFacade(DistrictCenterFacade districtCenterFacade) {
+        this.districtCenterFacade = districtCenterFacade;
+    }
+
+    public UserRoleFacade getUserRoleFacade() {
+        return userRoleFacade;
+    }
+
+    public void setUserRoleFacade(UserRoleFacade userRoleFacade) {
+        this.userRoleFacade = userRoleFacade;
     }
 
 }

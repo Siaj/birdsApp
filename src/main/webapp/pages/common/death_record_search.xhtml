@@ -39,7 +39,7 @@
                                 <br/>
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-12">
-                                        <p:dataTable var="deaths" paginator="true" reflow="true"
+                                        <p:dataTable var="deaths_search" paginator="true" reflow="true"
                                                      paginatorPosition="top" rows="5" value="#{generalSearch.deceasedDataModel}"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                      rowsPerPageTemplate="5,10,15">
@@ -47,27 +47,39 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Deceased Id"/>
                                                 </f:facet>
-                                                <h:outputText value="#{deaths.deceasedId}"/>
+                                                <h:outputText value="#{deaths_search.deceasedId}"/>
                                             </p:column>
-                                            <p:column style="width: 350px">
+                                            <p:column style="width: 250px">
                                                 <f:facet name="header">
                                                     <h:outputText value="Name"/>
                                                 </f:facet>
-                                                <h:outputText value="#{deaths.deceasedFullname}"/>
+                                                <h:outputText value="#{deaths_search.deceasedFullname}"/>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Gender"/>
                                                 </f:facet>
-                                                <h:outputText value="#{deaths.gender}"/>
+                                                <h:outputText value="#{deaths_search.gender}"/>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="DoD"/>
                                                 </f:facet>
-                                                <h:outputText value="#{deaths.dateOfDeath}">
+                                                <h:outputText value="#{deaths_search.dateOfDeath}">
                                                     <f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy" type="date" timeStyle="short"/>
                                                 </h:outputText>
+                                            </p:column>
+                                            <p:column style="color: white; background: #{(deaths_search.districtApproved == 'YES')? 'green':(deaths_search.districtApproved == 'NO')?'red':''}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Dist"/>
+                                                </f:facet>
+                                                <h:outputText value="#{deaths_search.districtApproved}"/>
+                                            </p:column>
+                                            <p:column style="color: white; background: #{(deaths_search.regionalApproved == 'YES')? 'green':(deaths_search.regionalApproved == 'NO')?'red':''}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Reg"/>
+                                                </f:facet>
+                                                <h:outputText value="#{deaths_search.regionalApproved}"/>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">

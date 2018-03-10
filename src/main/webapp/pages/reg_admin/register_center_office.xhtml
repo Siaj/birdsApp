@@ -20,23 +20,30 @@
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
                                         <h:outputLabel value="Center Name"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Center Name"/>
+                                        <h:inputText id="centName" styleClass="form-control" pt:placeholder="Center Name"
+                                                     value="#{officesRegistration.districtCenter.centerName}"
+                                                     required="#{!empty param['saveCenter']}" requiredMessage="*required"/>
+                                        <h:message for="centName" styleClass="errorMessage"/>
                                     </h:panelGroup>           
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
                                         <h:outputLabel value="Center Type"/>
-                                        <h:selectOneMenu styleClass="form-control">
-                                            <f:selectItems value="#{common_options.districtCenterOptions}"/>
+                                        <h:selectOneMenu id="centType" styleClass="form-control" value="#{officesRegistration.districtCenter.centerType}"
+                                                         required="#{!empty param['saveCenter']}" requiredMessage="*required">
+                                            <f:selectItems value="#{common_options.facilityOptions}"/>
                                         </h:selectOneMenu>  
+                                        <h:message for="centType" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
                                         <h:outputLabel value="District Office"/>
-                                        <h:selectOneMenu styleClass="form-control">
+                                        <h:selectOneMenu id="distOffice" styleClass="form-control" value="#{officesRegistration.selectedDistrict}"
+                                                         required="#{!empty param['saveCenter']}" requiredMessage="*required">
                                             <f:selectItems value="#{common_options.districtOptions}"/>
                                         </h:selectOneMenu>  
+                                        <h:message for="distOffice" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                             </h:panelGroup>
@@ -45,90 +52,99 @@
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
                                         <h:outputLabel value="Primary Contact"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Primary Contact"/>
+                                        <h:inputText id="primaryCont" styleClass="form-control" pt:placeholder="Primary Contact"
+                                                     required="#{!empty param['saveCenter']}" requiredMessage="*required"
+                                                     value="#{officesRegistration.districtCenter.primaryContact}"/>
+                                        <h:message for="primaryCont" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
                                     <h:panelGroup layout="block" styleClass="form-group">
                                         <h:outputLabel value="Physical Location"/>
-                                        <h:inputTextarea rows="3" styleClass="form-control" pt:placeholder="Physical Location"/>   
+                                        <h:inputTextarea id="physicalLoc" rows="3" styleClass="form-control" pt:placeholder="Physical Location"
+                                                         required="#{!empty param['saveCenter']}" requiredMessage="*required"
+                                                         value="#{officesRegistration.districtCenter.centerLocation}"/>   
+                                        <h:message for="physicalLoc" styleClass="errorMessage"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4"></h:panelGroup>
                             </h:panelGroup>
 
                             <h:panelGroup layout="block">
-                                <h:commandButton value="Save" styleClass="btn btn-success btn-fill" style="margin-right: 3px" 
-                                                 onclick="return confirm('Proceeding will change the state of the user. Are you sure you want to proceed?')"/>
+                                <h:commandButton value="Save" styleClass="btn btn-success btn-fill" style="margin-right: 3px" id="saveCenter"
+                                                 onclick="return confirm('You are about to create a new center for a district')"
+                                                 rendered="#{officesRegistration.renderCenterSave}" action="#{officesRegistration.saveCenter}"/>
+                                <h:commandButton value="Update" rendered="#{!officesRegistration.renderCenterSave}" styleClass="btn btn-success btn-fill"
+                                                 action="#{officesRegistration.updateCenterDetails}" style="margin-right: 3px"/>
                                 <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin-right: 3px" 
-                                                 onclick="return confirm('Changes will not be effected if not saved. Are you sure you want to reset form?')"/>
+                                                 onclick="return confirm('Are you sure you want to reset form fields?')"
+                                                 rendered="#{!officesRegistration.renderCenterSave}" action="#{officesRegistration.resetButton}"/>
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
-                            <br/><br/><br/>
+                            <br/><br/>
 
-                            <h:panelGroup layout="block" styleClass="header">
-                                <h4 class="title">List of Districts' Center Offices</h4>
-                                <hr/>
-                            </h:panelGroup>
+                            <!--<h:panelGroup layout="block" styleClass="header">-->
+                            <!--<h4 class="title">List of Districts' Center Offices</h4>-->
+                            <hr/>
+                            <!--</h:panelGroup>-->
 
                             <h:panelGroup layout="block" styleClass="row">
                                 <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:outputLabel value="Search By: "/>
-                                    <h:selectOneMenu styleClass="form-control"
-                                                     required="#{!empty param['searchButton']}" 
+                                    <h:outputLabel value="Search By"/>
+                                    <h:selectOneMenu styleClass="form-control" value="#{officesRegistration.centerSearchCriteria}"
                                                      requiredMessage="Select One Criteria">
-                                        <f:selectItem itemValue="null" itemLabel="---Select One---"/>
+                                        <f:selectItem itemValue="" itemLabel="---Select One---"/>
                                         <f:selectItem itemValue="centerId" itemLabel="Center Id"/>
                                         <f:selectItem itemValue="centerName" itemLabel="Center Name"/>
                                         <f:selectItem itemValue="centerType" itemLabel="Center Type"/>
-                                        <f:selectItem itemValue="phoneNumber" itemLabel="Phone Number"/>
+                                        <f:selectItem itemValue="primaryContact" itemLabel="Phone Number"/>
                                     </h:selectOneMenu>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:outputLabel value="Search Text: "/>
-                                    <h:inputText styleClass="form-control" pt:placeholder="Search Text"/>
+                                    <h:outputLabel value="Search Text"/>
+                                    <h:inputText styleClass="form-control" pt:placeholder="Search Text"
+                                                 value="#{officesRegistration.centeSearchText}"/>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="col-md-4">
-                                    <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
-                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
+                                    <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"
+                                                     action="#{officesRegistration.searchDistrictCenter}"/>
+                                    <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"
+                                                     action="#{officesRegistration.resetButton}"/>
                                 </h:panelGroup>
                             </h:panelGroup>
                             <br/>
                             <h:panelGroup layout="block" styleClass="row">
                                 <h:panelGroup layout="block" styleClass="col-md-12">
-                                    <p:dataTable var="dist_user_account" paginator="true" reflow="true"
-                                                 paginatorPosition="top" rows="5"
+                                    <p:dataTable var="dist_center" paginator="true" reflow="true" resizableColumns="true"
+                                                 paginatorPosition="bottom" rows="5" value="#{officesRegistration.districtCenterDataModel}"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Center Id"/>
-                                            </f:facet>
+                                        <f:facet name="header">
+                                            <h:outputLabel value="List of Districts' Center Offices"/>
+                                        </f:facet>
+                                        <p:column headerText="Center Id">
+                                            <h:outputText value="#{dist_center.centerId}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Center Name"/>
-                                            </f:facet>
+                                        <p:column headerText="Name">
+                                            <h:outputText value="#{dist_center.centerName}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Center Type"/>
-                                            </f:facet>
+                                        <p:column headerText="Type">
+                                            <h:outputText value="#{dist_center.centerType}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="District Under"/>
-                                            </f:facet>
+                                        <p:column headerText="District Under">
+                                            <h:outputText value="#{dist_center.districtUnder.districtName}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Phone Number"/>
-                                            </f:facet>
+                                        <p:column headerText="Deleted" style="color: white; background: #{(dist_center.deleted == 'NO')? 'green':(dist_center.deleted == 'YES')?'red':''}">
+                                            <h:outputText value="#{dist_center.deleted}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Options"/>
-                                            </f:facet>
+                                        <p:column headerText="Options">
+                                            <h:commandLink value="Edit" style="margin-right: 70px" action="#{officesRegistration.fetchCenterRowData}"/>
+                                            <h:commandLink value="Delete" style="color: red;" rendered="#{dist_center.deleted eq 'NO'}"
+                                                           onclick="return confirm('You are about to delete a currently registered center office')"
+                                                           action="#{officesRegistration.deleteCenter}"/>
+                                            <h:commandLink value="Restore"  rendered="#{dist_center.deleted eq 'YES'}" style="color: green;"
+                                                           onclick="return confirm('You are about to restore a deleted center office')"
+                                                           action="#{officesRegistration.restoreDeletedCenter}"/>
                                         </p:column>
                                     </p:dataTable>
                                 </h:panelGroup>
