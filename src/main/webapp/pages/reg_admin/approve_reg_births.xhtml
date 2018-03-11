@@ -16,52 +16,49 @@
                             <hr/>
                         </h:panelGroup>
 
-                        <h:panelGroup layout="block" rendered="true">
+                        <h:panelGroup layout="block" rendered="#{!regApprovalsController.renderApproval}">
                             <h:panelGroup layout="block" styleClass="content">
 
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:outputLabel value="Select a District: "/>
-                                        <h:selectOneMenu styleClass="form-control">
+                                        <h:selectOneMenu styleClass="form-control" value="#{regApprovalsController.selectedDistrict}">
                                             <f:selectItems value="#{common_options.districtOptions}"/>
                                         </h:selectOneMenu>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
-                                        <h:commandButton value="Load Births" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
-                                        <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
+                                        <h:commandButton value="Load Births" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"
+                                                         action="#{regApprovalsController.loadBirths}"/>
+                                        <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"
+                                                         action="#{regApprovalsController.resetDistrictSelected}"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <br/>
 
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-12">
-                                        <p:dataTable var="births" paginator="true" paginatorPosition="top" rows="5" reflow="true"
+                                        <p:dataTable var="birth_details" paginator="true" paginatorPosition="top" rows="5" reflow="true"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="5,10,15">
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Birth Id"/>
-                                                </f:facet>
+                                                     rowsPerPageTemplate="5,10,15" value="#{regApprovalsController.birthDetailModel}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Birth Details Pending Approval"/>
+                                            </f:facet>
+                                            <p:column headerText="Birth Id">
+                                                <h:outputText value="#{birth_details.birthId}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Name"/>
-                                                </f:facet>
+                                            <p:column style="width: 250px" headerText="Name">
+                                                <h:outputText value="#{birth_details.fullName}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Gender"/>
-                                                </f:facet>
+                                            <p:column headerText="Gender">
+                                                <h:outputText value="#{birth_details.gender}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Date Of Birth"/>
-                                                </f:facet>
+                                            <p:column headerText="Date Of Birth">
+                                                <h:outputText value="#{birth_details.dateOfBirth}">
+                                                    <f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy" type="date" timeStyle="short"/>
+                                                </h:outputText>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Options"/>
-                                                </f:facet>
+                                            <p:column headerText="Options">
+                                                <h:commandLink style="color: green;text-decoration: underline" value="Select" action="#{regApprovalsController.fetchBirthDetails}"/>
                                             </p:column>
                                         </p:dataTable>
                                     </h:panelGroup>
@@ -70,7 +67,7 @@
                             </h:panelGroup>
                         </h:panelGroup>
 
-                        <h:panelGroup layout="block" rendered="true">
+                        <h:panelGroup layout="block" rendered="#{regApprovalsController.renderApproval}">
                             <h:panelGroup layout="block" styleClass="content">
                                 <h:panelGroup layout="block" styleClass="header">
                                     <h4 class="title">Details of Regional Birth Registration</h4>
@@ -81,19 +78,24 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Name"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"
+                                                         value="#{regApprovalsController.birthDetail.fullName}"/>
                                         </h:panelGroup>           
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Gender"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Gender"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Gender"
+                                                         value="#{regApprovalsController.birthDetail.gender}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Date of Birth"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Date of Birth"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Date of Birth"
+                                                         value="#{regApprovalsController.birthDetail.dateOfBirth}">
+                                                <f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy" type="date"/>
+                                            </h:inputText>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -102,19 +104,22 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Place of Birth"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Place of Birth"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Place of Birth"
+                                                         value="#{regApprovalsController.birthDetail.placeOfBirth}"/>
                                         </h:panelGroup>           
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Nationality"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Nationality"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Nationality"
+                                                         value="#{regApprovalsController.birthDetail.guardian.mumNationality}" />
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Town Delivered"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Town Delivered"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Town Delivered"
+                                                         value="#{regApprovalsController.birthDetail.townDelivered}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -130,25 +135,29 @@
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Father's Name"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's Name"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's Name"
+                                                         value="#{regApprovalsController.guardian.dadFullname}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Father's Nationality"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's Nationality"/>    
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's Nationality"
+                                                         value="#{regApprovalsController.guardian.dadNationality}"/>    
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Father's ID Type"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's ID Type"/> 
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's ID Type"
+                                                         value="#{regApprovalsController.guardian.dadIdType}" /> 
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Father's ID Number"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's ID Number"/> 
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Father's ID Number"
+                                                         value="#{regApprovalsController.guardian.dadIdNum}"/> 
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -164,25 +173,29 @@
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Mother's Name"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's Name"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's Name"
+                                                         value="#{regApprovalsController.guardian.mumFullname}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Mother's Nationality"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's Nationality"/>                           
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's Nationality"
+                                                         value="#{regApprovalsController.guardian.mumNationality}"/>                           
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Mother's ID Type"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's ID Type"/>                                    
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's ID Type"
+                                                         value="#{regApprovalsController.guardian.mumIdType}"/>                                    
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Mother's ID Number"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's ID Number"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Mother's ID Number"
+                                                         value="#{regApprovalsController.guardian.mumIdNum}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -190,8 +203,10 @@
 
                                 <h:panelGroup layout="block">
                                     <center>
-                                        <h:commandButton value="Approve" styleClass="btn btn-success btn-fill" style="margin-right: 3px"/>
-                                        <h:commandButton value="Cancel" styleClass="btn btn-success btn-fill"/>
+                                        <h:commandButton value="Approve" styleClass="btn btn-success btn-fill" style="margin-right: 3px"
+                                                         action="#{regApprovalsController.approveBirthDetails}"/>
+                                        <h:commandButton value="Cancel" styleClass="btn btn-success btn-fill"
+                                                         action="#{regApprovalsController.cancelRequest}"/>
                                     </center>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>

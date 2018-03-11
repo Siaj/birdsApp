@@ -4,69 +4,69 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:panelGroup layout="block" styleClass="row">
-        <h:panelGroup layout="block" styleClass="col-md-12">
-            <h:panelGroup layout="block" styleClass="card">
-                <h:panelGroup layout="block" styleClass="header">
-                    <h4 class="title">REGIONAL DEATH CERTS PRINT</h4>
-                    <hr/>
-                </h:panelGroup>
-
-                <h:panelGroup layout="block" rendered="true">
-                    <h:panelGroup layout="block" styleClass="content">
-
-                        <h:panelGroup layout="block" styleClass="row">
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:outputLabel value="Select a District: "/>
-                                <h:selectOneMenu styleClass="form-control">
-                                    <f:selectItems value="#{common_options.districtOptions}"/>
-                                </h:selectOneMenu>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="col-md-4">
-                                <h:commandButton value="Load Requests" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
-                                <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
-                            </h:panelGroup>
+    <h:body>
+        <h:form>
+            <h:panelGroup layout="block" styleClass="row">
+                <h:panelGroup layout="block" styleClass="col-md-12">
+                    <h:panelGroup layout="block" styleClass="card">
+                        <h:panelGroup layout="block" styleClass="header">
+                            <h4 class="title">REGIONAL DEATH CERTS PRINT</h4>
+                            <hr/>
                         </h:panelGroup>
-                        <br/>
 
-                        <h:panelGroup layout="block" styleClass="row">
-                            <h:panelGroup layout="block" styleClass="col-md-12">
-                                <p:dataTable var="births" paginator="true" paginatorPosition="top" rows="5" reflow="true"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="5,10,15">
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Deceased Id"/>
-                                        </f:facet>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Name"/>
-                                        </f:facet>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Gender"/>
-                                        </f:facet>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Date Of Death"/>
-                                        </f:facet>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Options"/>
-                                        </f:facet>
-                                        <h:commandLink value="Print Certificate" target="_blank"/>
-                                    </p:column>
-                                </p:dataTable>
+                        <h:panelGroup layout="block" rendered="true">
+                            <h:panelGroup layout="block" styleClass="content">
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:outputLabel value="Select a District"/>
+                                        <h:selectOneMenu styleClass="form-control" value="#{regApprovalsController.selectedDistrict}">
+                                            <f:selectItems value="#{common_options.districtOptions}"/>
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:commandButton value="Load Requests" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"
+                                                         action="#{regApprovalsController.loadDeathCerts}"/>
+                                        <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"
+                                                         action="#{regApprovalsController.resetDistrictSelected}"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <br/>
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-12">
+                                        <p:dataTable var="deceased_certs" paginator="true" paginatorPosition="top" rows="5" reflow="true"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15" value="#{regApprovalsController.deathCertModel}">
+                                            <f:facet name="header">
+                                                <h:outputText value="LIST OF DECEASED CERT REQUESTS"/>
+                                            </f:facet>
+                                            <p:column headerText="Deceased Id">
+                                                <h:outputText value="#{deceased_certs.deceasedDetails.deceasedId}"/>
+                                            </p:column>
+                                            <p:column style="width: 250px" headerText="Name">
+                                                <h:outputText value="#{deceased_certs.deceasedDetails.deceasedFullname}"/>
+                                            </p:column>
+                                            <p:column headerText="Gender">
+                                                <h:outputText value="#{deceased_certs.deceasedDetails.gender}"/>
+                                            </p:column>
+                                            <p:column headerText="Date Of Death">
+                                                <h:outputText value="#{deceased_certs.deceasedDetails.dateOfDeath}">
+                                                    <f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy" type="date" timeStyle="short"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Options">
+                                                <h:commandLink style="color: green;text-decoration: underline" value="Print Certificate" target="_blank" action="#{regApprovalsController.printDeathCert}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </h:panelGroup>
+                                </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
-        </h:panelGroup>
-    </h:panelGroup>
+        </h:form>
+    </h:body>
 </html>
 

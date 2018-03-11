@@ -15,25 +15,29 @@
                             <hr/>
                         </h:panelGroup>
 
-                        <h:panelGroup layout="block" rendered="true">
+                        <h:panelGroup layout="block" rendered="#{!districtCenterAllocation.renderSave}">
                             <h:panelGroup layout="block" styleClass="content">
 
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-4">
-                                        <h:outputLabel value="Search By: "/>
-                                        <h:selectOneMenu styleClass="form-control">
-                                            <f:selectItem itemValue="null" itemLabel="---Select One---"/>
-                                            <f:selectItem itemValue="fullname" itemLabel="Name"/>
+                                        <h:outputLabel value="Search By"/>
+                                        <h:selectOneMenu styleClass="form-control"
+                                                         value="#{districtCenterAllocation.searchCriteria}">
+                                            <f:selectItem itemValue="" itemLabel="---Select One---"/>
+                                            <f:selectItem itemValue="firstName" itemLabel="Name"/>
                                             <f:selectItem itemValue="phoneNumber" itemLabel="Phone Number"/>
                                         </h:selectOneMenu>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
-                                        <h:outputLabel value="Search Text: "/>
-                                        <h:inputText id="searchBirthTxt" styleClass="form-control" pt:placeholder="Search Text"/>
+                                        <h:outputLabel value="Search Text"/>
+                                        <h:inputText id="searchBirthTxt" styleClass="form-control" pt:placeholder="Search Text"
+                                                     value="#{districtCenterAllocation.searchText}"/>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
-                                        <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
-                                        <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
+                                        <h:commandButton value="Search" styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"
+                                                         action="#{districtCenterAllocation.searchUser}"/>
+                                        <h:commandButton value="Reset" styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"
+                                                         action="#{districtCenterAllocation.resetButton}"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <br/>
@@ -43,31 +47,29 @@
                                         <p:dataTable var="reg_station" paginator="true" reflow="true"
                                                      paginatorPosition="top" rows="5"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="5,10,15">
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Name"/>
-                                                </f:facet>
+                                                     rowsPerPageTemplate="5,10,15" value="#{districtCenterAllocation.usersDataModel}">
+                                            <f:facet name="header">
+                                                <h:outputText value="List Of District Officers"/>
+                                            </f:facet>
+                                            <p:column style="width: 200px" headerText="Name">
+                                                <h:outputText value="#{reg_station.firstName}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Phone Number"/>
-                                                </f:facet>
+                                            <p:column headerText="Contact">
+                                                <h:outputText value="#{reg_station.phoneNumber}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Email"/>
-                                                </f:facet>
+                                            <p:column style="width: 230px" headerText="Email">
+                                                <h:outputText value="#{reg_station.email}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Status"/>
-                                                </f:facet>
+                                            <p:column style="width: 200px" headerText="Role">
+                                                <h:outputText value="#{reg_station.userRole.roleName}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Options"/>
-                                                </f:facet>
+                                            <p:column headerText="Status" style="color: white; background: #{(reg_station.userAccount.accountStatus == 'Active')? 
+                                                                                                             'green':(reg_station.userAccount.accountStatus == 'Inactive')?'red':''}">
+                                                <h:outputText value="#{reg_station.userAccount.accountStatus}"/>
+                                            </p:column>
+                                            <p:column headerText="Options">
+                                                <h:commandLink style="color: green;text-decoration: underline" value="Select"
+                                                               action="#{districtCenterAllocation.fetchRowData}"/>
                                             </p:column>
                                         </p:dataTable>
                                     </h:panelGroup>
@@ -76,7 +78,7 @@
                             </h:panelGroup>
                         </h:panelGroup>
 
-                        <h:panelGroup layout="block" rendered="true">
+                        <h:panelGroup layout="block" rendered="#{districtCenterAllocation.renderSave}">
                             <h:panelGroup layout="block" styleClass="content">
                                 <h:panelGroup layout="block" styleClass="header">
                                     <h4 class="title">Assign Station</h4>
@@ -87,19 +89,22 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Name"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"
+                                                         value="#{districtCenterAllocation.systemUser.firstName}"/>
                                         </h:panelGroup>           
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Gender"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Gender"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Gender"
+                                                         value="#{districtCenterAllocation.systemUser.gender}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Work Type"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Work Type"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Work Type"
+                                                         value="#{districtCenterAllocation.systemUser.userRole.roleName}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -108,20 +113,21 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Phone Number"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Phone Number"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Phone Number"
+                                                         value="#{districtCenterAllocation.systemUser.phoneNumber}"/>
                                         </h:panelGroup>           
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Email Address"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Email Address"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Email Address"
+                                                         value="#{districtCenterAllocation.systemUser.email}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
-                                        <h:panelGroup layout="block" styleClass="form-group">
-                                            <h:outputLabel value="Assigned Center"/>
-                                            <h:selectOneMenu styleClass="form-control">
-                                                <f:selectItem itemValue="" itemLabel="---Select Center---"/>
+                                        <h:panelGroup layout="block" styleClass="form-group" rendered="#{districtCenterAllocation.systemUser.userRole.roleName eq 'Registrar'}">
+                                            <h:outputLabel value="Assigned Center"/>    
+                                            <h:selectOneMenu styleClass="form-control" value="#{districtCenterAllocation.selectedCenter}" >
                                                 <f:selectItems value="#{common_options.districtCenterOptions}"/>
                                             </h:selectOneMenu>
                                         </h:panelGroup>
@@ -130,10 +136,11 @@
                                 <br/>
 
                                 <h:panelGroup layout="block">
-                                    <h:commandButton value="Save/Edit" 
-                                                     styleClass="btn btn-success btn-fill" style="margin-right: 3px"
-                                                     onclick="return confirm('Are you sure you would like to #{common_options.saveEditTest} entry?')"/>
-                                    <h:commandButton value="Cancel" styleClass="btn btn-success btn-fill"/>
+                                    <h:commandButton value="Save" action="#{districtCenterAllocation.saveAllocation}"
+                                                     styleClass="btn btn-success btn-fill" style="margin-right: 3px" rendered="#{districtCenterAllocation.systemUser.userRole.roleName eq 'Registrar'}"
+                                                     onclick="return confirm('You are about to assign/update the field location of Registrar #{districtCenterAllocation.systemUser.firstName}')"/>
+                                    <h:commandButton value="Cancel" styleClass="btn btn-success btn-fill"
+                                                     action="#{districtCenterAllocation.cancelAllocation}"/>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
 

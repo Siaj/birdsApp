@@ -102,6 +102,32 @@
                             </h:panelGroup>
 
                             <h:panelGroup layout="block" styleClass="content">
+
+                                <h:panelGroup layout="block" styleClass="row">
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Region Registered"/>
+                                            <h:inputText styleClass="form-control" pt:placeholder="Region Registered" readonly="true"
+                                                         value="#{generalSearch.deceasedDetail.systemUser.district.region.regionName}" />
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="District Registered"/>
+                                            <h:inputText styleClass="form-control"  pt:placeholder="District Registered" readonly="true"
+                                                         value="#{generalSearch.deceasedDetail.systemUser.district.districtName}"/>
+                                        </h:panelGroup>           
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" styleClass="col-md-4">
+                                        <h:panelGroup layout="block" styleClass="form-group">
+                                            <h:outputLabel value="Center Registered"/>
+                                            <h:inputText value="#{generalSearch.deceasedDetail.systemUser.districtCenter.centerName}" 
+                                                         styleClass="form-control" readonly="true" pt:placeholder="Center of Registration"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <br/>
+
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">

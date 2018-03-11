@@ -163,4 +163,24 @@ public class DistrictFacade extends AbstractFacade<District> {
         return new ArrayList<>();
     }
 
+    public List<District> districtFindByRegion(String regionId, boolean includeLogicallyDeleted) {
+        List<District> listOfDistrict = null;
+
+        String qryString;
+
+        try {
+            if (includeLogicallyDeleted == true) {
+                qryString = "SELECT e FROM District e WHERE e.region.regionId = '" + regionId + "'";
+                listOfDistrict = (List<District>) getEntityManager().createQuery(qryString).getResultList();
+            } else if (includeLogicallyDeleted == false) {
+                qryString = "SELECT e FROM District e WHERE e.deleted = 'NO' AND e.region.regionId = '" + regionId + "'";
+                listOfDistrict = (List<District>) getEntityManager().createQuery(qryString).getResultList();
+            }
+
+            return listOfDistrict;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
 }

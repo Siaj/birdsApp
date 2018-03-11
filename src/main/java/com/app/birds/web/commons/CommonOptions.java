@@ -131,12 +131,13 @@ public class CommonOptions implements Serializable {
     }
 
     public SelectItem[] getDistrictOptions() {
-        districtOptions = new SelectItem[districtFacade.districtGetAll(false).size() + 1];
+        String region_Id = userAccessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionId();
+        districtOptions = new SelectItem[districtFacade.districtFindByRegion(region_Id, true).size() + 1];
         districtOptions[0] = new SelectItem("", "---Select One---");
         int c = 1;
 
         try {
-            for (District d : districtFacade.districtGetAll(false)) {
+            for (District d : districtFacade.districtFindByRegion(region_Id, true)) {
                 districtOptions[c] = new SelectItem(d.getDistrictId(), d.getDistrictName());
                 c++;
             }
@@ -151,12 +152,13 @@ public class CommonOptions implements Serializable {
     }
 
     public SelectItem[] getDistrictCenterOptions() {
-        districtCenterOptions = new SelectItem[districtCenterFacade.districtCenterGetAll(false).size() + 1];
+        String district_Id = userAccessController.getLoginUser().getDistrict();
+        districtCenterOptions = new SelectItem[districtCenterFacade.distictCenterFindByDistrictId(false, district_Id).size() + 1];
         districtCenterOptions[0] = new SelectItem("null", "---Select One---");
         int c = 1;
 
         try {
-            for (DistrictCenter d : districtCenterFacade.districtCenterGetAll(false)) {
+            for (DistrictCenter d : districtCenterFacade.distictCenterFindByDistrictId(false, district_Id)) {
                 districtCenterOptions[c] = new SelectItem(d.getCenterId(), d.getCenterName());
                 c++;
             }
