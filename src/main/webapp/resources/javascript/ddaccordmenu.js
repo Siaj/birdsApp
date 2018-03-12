@@ -7,7 +7,7 @@ ddaccordion.init({ //top level headers initialization
 	defaultexpanded: [0], //index of content(s) open by default [index1, index2, etc]. [] denotes no content
 	onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
 	animatedefault: false, //Should contents open by default be animated into view?
-	persiststate: true, //persist state of opened contents within browser session?
+	persiststate: false, //persist state of opened contents within browser session?
 	toggleclass: ["", "openheader"], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
 	togglehtml: ["prefix", "", ""], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
 	animatespeed: "fast", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
