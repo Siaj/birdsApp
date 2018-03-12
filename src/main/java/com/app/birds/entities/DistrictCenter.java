@@ -6,7 +6,6 @@
 package com.app.birds.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,14 +32,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "DistrictCenter.findByCenterName", query = "SELECT d FROM DistrictCenter d WHERE d.centerName = :centerName")
     , @NamedQuery(name = "DistrictCenter.findByCenterType", query = "SELECT d FROM DistrictCenter d WHERE d.centerType = :centerType")
     , @NamedQuery(name = "DistrictCenter.findByCenterLocation", query = "SELECT d FROM DistrictCenter d WHERE d.centerLocation = :centerLocation")
+    , @NamedQuery(name = "DistrictCenter.findByRegionUnder", query = "SELECT d FROM DistrictCenter d WHERE d.regionUnder = :regionUnder")
     , @NamedQuery(name = "DistrictCenter.findByPrimaryContact", query = "SELECT d FROM DistrictCenter d WHERE d.primaryContact = :primaryContact")
     , @NamedQuery(name = "DistrictCenter.findBySecondaryContact", query = "SELECT d FROM DistrictCenter d WHERE d.secondaryContact = :secondaryContact")
     , @NamedQuery(name = "DistrictCenter.findByUpdated", query = "SELECT d FROM DistrictCenter d WHERE d.updated = :updated")
     , @NamedQuery(name = "DistrictCenter.findByDeleted", query = "SELECT d FROM DistrictCenter d WHERE d.deleted = :deleted")})
 public class DistrictCenter implements Serializable {
-
-    @OneToMany(mappedBy = "districtCenter")
-    private List<SystemUser> systemUserList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,6 +55,9 @@ public class DistrictCenter implements Serializable {
     @Size(max = 50)
     @Column(name = "center_location")
     private String centerLocation;
+    @Size(max = 50)
+    @Column(name = "region_under")
+    private String regionUnder;
     @Size(max = 50)
     @Column(name = "primary_contact")
     private String primaryContact;
@@ -113,6 +111,14 @@ public class DistrictCenter implements Serializable {
 
     public void setCenterLocation(String centerLocation) {
         this.centerLocation = centerLocation;
+    }
+
+    public String getRegionUnder() {
+        return regionUnder;
+    }
+
+    public void setRegionUnder(String regionUnder) {
+        this.regionUnder = regionUnder;
     }
 
     public String getPrimaryContact() {
@@ -178,15 +184,6 @@ public class DistrictCenter implements Serializable {
     @Override
     public String toString() {
         return "com.app.birds.entities.DistrictCenter[ centerId=" + centerId + " ]";
-    }
-
-    @XmlTransient
-    public List<SystemUser> getSystemUserList() {
-        return systemUserList;
-    }
-
-    public void setSystemUserList(List<SystemUser> systemUserList) {
-        this.systemUserList = systemUserList;
     }
     
 }

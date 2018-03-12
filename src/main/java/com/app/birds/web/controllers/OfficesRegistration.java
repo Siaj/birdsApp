@@ -245,9 +245,10 @@ public class OfficesRegistration implements Serializable {
 
     public List<District> getListOfDistricts() {
         if (getSearchCriteria() == null || getSearchText() == null) {
-            listOfDistricts = districtFacade.districtGetAll(true);
+            System.out.println(accessController.getLoginUser().getDistrict());
+            listOfDistricts = districtFacade.districtFindByRegion(accessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionId(), true);
         } else {
-            listOfDistricts = districtFacade.districtFindByAttribute(getSearchCriteria(), getSearchText(), "STRING", true);
+            listOfDistricts = districtFacade.districtFindByAttributeforRegion(getSearchCriteria(), getSearchText(), "STRING", accessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionId(), true);
         }
         return listOfDistricts;
     }
@@ -266,10 +267,11 @@ public class OfficesRegistration implements Serializable {
     }
 
     public List<DistrictCenter> getListOfDistrictCenters() {
+        String regId = accessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionId();
         if (getCenterSearchCriteria() == null || getCenteSearchText() == null) {
-            listOfDistrictCenters = centerFacade.districtCenterGetAll(true);
+            listOfDistrictCenters = centerFacade.distictCenterFindByRegionId(true, regId);
         } else {
-            listOfDistrictCenters = centerFacade.districtCenterFindByAttribute(getCenterSearchCriteria(), getCenteSearchText(), "STRING", true);
+            listOfDistrictCenters = centerFacade.districtCenterFindWithRegionIdByAttribute(getCenterSearchCriteria(), getCenteSearchText(), "STRING", regId, true);
         }
         return listOfDistrictCenters;
     }

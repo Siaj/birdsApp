@@ -122,6 +122,37 @@ public class DistrictFacade extends AbstractFacade<District> {
         return new ArrayList<>();
     }
 
+    public List<District> districtFindByAttributeforRegion(String districtAttribute, Object attributeValue, String fieldType, String regionId, boolean includeLogicallyDeleted) {
+        List<District> listOfDistrict = null;
+
+        String qryString;
+
+        qryString = "SELECT e FROM District e ";
+        qryString += "WHERE e." + districtAttribute + " =:districtAttribute ";
+
+        try {
+            if (includeLogicallyDeleted == true) {
+            } else if (includeLogicallyDeleted == false) {
+                qryString += " AND e.deleted = 'NO'";
+            }
+
+            if (fieldType.equalsIgnoreCase("NUMBER")) {
+                listOfDistrict = (List<District>) getEntityManager().createQuery(qryString).setParameter("districtAttribute", attributeValue).getResultList();
+            } else if (fieldType.equalsIgnoreCase("STRING")) {
+                qryString = "SELECT e FROM District e ";
+                qryString += "WHERE e." + districtAttribute + " LIKE '%" + attributeValue + "%' AND e.region.regionId = '" + regionId + "'";
+                listOfDistrict = (List<District>) getEntityManager().createQuery(qryString).getResultList();
+            } else if (fieldType.equalsIgnoreCase("DATE")) {
+                listOfDistrict = (List<District>) getEntityManager().createQuery(qryString).setParameter("districtAttribute", (Date) attributeValue, TemporalType.DATE).getResultList();
+            }
+
+            return listOfDistrict;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
     public List<District> districtGetRange(int firstResultIndex, int lastResultIndex, boolean includeLogicallyDeleted) {
         List<District> listOfDistrict = null;
 

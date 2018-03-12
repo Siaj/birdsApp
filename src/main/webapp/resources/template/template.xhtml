@@ -80,6 +80,7 @@
                                         <h:panelGroup>
                                             <h3 class="menuheader expandable">System User</h3>
                                             <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Home Page" action="#{reg_admin_pages.welcomePage}"/></li>
                                                 <li><h:commandLink value="Add New User" action="#{reg_admin_pages.newUserCreate}"/></li>
                                                 <li><h:commandLink value="Manage Users" action="#{reg_admin_pages.manageUsers}"/></li>
                                             </ul>
@@ -134,22 +135,22 @@
                                         <h:panelGroup>
                                             <h3 class="menuheader expandable">System User</h3>
                                             <ul class="categoryitems nav">
-                                                <li><h:commandLink value="Manage User Accounts" action="#{district_admin_pages.manageDistrictUser}"/></li>
+                                                <li><h:commandLink value="Home Page" action="#{district_admin_pages.welcomePage}"/></li>
                                                 <li><h:commandLink value="Assign Officer a Station" action="#{district_admin_pages.assignOfficer}"/></li>
                                             </ul>
                                         </h:panelGroup>
                                         <h:panelGroup>
                                             <h3 class="menuheader expandable">Registration Approval</h3>
                                             <ul class="categoryitems nav">
-                                                <li><h:commandLink value="Birth Registration" action="#{district_admin_pages.distBirthApproval}"/></li>
-                                                <li><h:commandLink value="Death Registration" action="#{district_admin_pages.distDeathApproval}"/></li>
+                                                <li><h:commandLink value="Birth Registration (#{distApprovalsController.countDistBirthDetails})" action="#{district_admin_pages.distBirthApproval}"/></li>
+                                                <li><h:commandLink value="Death Registration (#{distApprovalsController.countDistDeathDetails})" action="#{district_admin_pages.distDeathApproval}"/></li>
                                             </ul>
                                         </h:panelGroup>
                                         <h:panelGroup>
                                             <h3 class="menuheader expandable">Cert. Request Approval</h3>
                                             <ul class="categoryitems nav">
-                                                <li><h:commandLink value="Birth Certificate" action="#{district_admin_pages.distBirthCertApproval}"/></li>
-                                                <li><h:commandLink value="Death Certificate" action="#{district_admin_pages.distDeathCertApproval}"/></li>
+                                                <li><h:commandLink value="Birth Certificate (#{distApprovalsController.countDistBirthCert})" action="#{district_admin_pages.distBirthCertApproval}"/></li>
+                                                <li><h:commandLink value="Death Certificate (#{distApprovalsController.countDistDeathCert})" action="#{district_admin_pages.distDeathCertApproval}"/></li>
                                             </ul>
                                         </h:panelGroup>
                                         <h:panelGroup>
@@ -171,6 +172,12 @@
 
                                 <ui:insert name="registrar">
                                     <h:panelGroup rendered="#{userAccessController.mnuConfig.registrar_tabs}"> <!-- Registrar Controls-->
+                                        <h:panelGroup>
+                                            <h3 class="menuheader expandable">System User</h3>
+                                            <ul class="categoryitems nav">
+                                                <li><h:commandLink value="Home Page" action="#{registrar_pages.showDashboard}"/></li>
+                                            </ul>
+                                        </h:panelGroup>
                                         <h:panelGroup>
                                             <h3 class="menuheader expandable">Registration Forms</h3>
                                             <ul class="categoryitems nav">

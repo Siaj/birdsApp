@@ -15,43 +15,35 @@
                             <hr/>
                         </h:panelGroup>
 
-                        <h:panelGroup layout="block" rendered="true">
+                        <h:panelGroup layout="block" rendered="#{!distApprovalsController.renderApproval}">
                             <h:panelGroup layout="block" styleClass="content">
-                                <h:panelGroup layout="block" styleClass="header">
-                                    <h4 class="title">List of Birth Registration</h4>
-                                    <hr/>
-                                </h:panelGroup>
 
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-12">
-                                        <p:dataTable var="deceased" paginator="true"
+                                        <p:dataTable var="dist_deceased" paginator="true" emptyMessage="No records currently available for approval"
                                                      paginatorPosition="top" rows="5" reflow="true"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="5,10,15">
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Deceased Id"/>
-                                                </f:facet>
+                                                     rowsPerPageTemplate="5,10,15" value="#{distApprovalsController.deceasedDetailModel}">
+                                            <f:facet name="header">
+                                                <h:outputText value="List of Deceased Registration"/>
+                                            </f:facet>
+                                            <p:column headerText="Deceased Id">
+                                                <h:outputText value="#{dist_deceased.deceasedId}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Name"/>
-                                                </f:facet>
+                                            <p:column style="width: 290px" headerText="Name">
+                                                <h:outputText value="#{dist_deceased.deceasedFullname}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Gender"/>
-                                                </f:facet>
+                                            <p:column headerText="Gender">
+                                                <h:outputText value="#{dist_deceased.gender}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Date Of Death"/>
-                                                </f:facet>
+                                            <p:column headerText="Date Of Death">
+                                                <h:outputText value="#{dist_deceased.dateOfDeath}">
+                                                    <f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy" type="date" timeStyle="short"/>
+                                                </h:outputText>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Options"/>
-                                                </f:facet>
+                                            <p:column headerText="Options">
+                                                <h:commandLink value="Select" style="color: green; text-decoration: underline"
+                                                               action="#{distApprovalsController.fetchDeathDetails}"/>
                                             </p:column>
                                         </p:dataTable>
                                     </h:panelGroup>
@@ -59,7 +51,7 @@
                             </h:panelGroup>
                         </h:panelGroup>
 
-                        <h:panelGroup layout="block" rendered="true">
+                        <h:panelGroup layout="block" rendered="#{distApprovalsController.renderApproval}">
                             <h:panelGroup layout="block" styleClass="content">
                                 <h:panelGroup layout="block" styleClass="header">
                                     <h4 class="title">Details of Deceased Registration</h4>
@@ -70,19 +62,25 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Name"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Name"
+                                                         value="#{distApprovalsController.deceasedDetail.deceasedFullname}"/>
                                         </h:panelGroup>           
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Gender"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Gender"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Gender"
+                                                         value="#{distApprovalsController.deceasedDetail.gender}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Date of Death"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Date of Death"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Date of Death"
+                                                         value="#{distApprovalsController.deceasedDetail.dateOfDeath}">
+                                                <f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy" type="date"/>
+                                            </h:inputText>
+
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -91,19 +89,22 @@
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Cause Of Death"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Cause Of Death"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Cause Of Death"
+                                                         value="#{distApprovalsController.deceasedDetail.causeOfDeath}"/>
                                         </h:panelGroup>           
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Place Of Death"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Place Of Death"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Place Of Death"
+                                                         value="#{distApprovalsController.deceasedDetail.placeOfDeath}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-4">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Nationality"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Nationality"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Nationality"
+                                                         value="#{distApprovalsController.deceasedDetail.nationality}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -119,25 +120,29 @@
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Informant's Name"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Informant's Name"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Informant's Name"
+                                                         value="#{distApprovalsController.informantDeath.informantName}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Informant's Address"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Informant's Address"/>                           
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Informant's Address"
+                                                         value="#{distApprovalsController.informantDeath.informantAddress}"/>                           
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Phone Number"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Informant's Phone Number"/>                                    
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Informant's Phone Number"
+                                                         value="#{distApprovalsController.informantDeath.informantContact}"/>                                    
                                         </h:panelGroup>
                                     </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="col-md-3">
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Relationship"/>
-                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Informant's Relation with Deceased"/>
+                                            <h:inputText styleClass="form-control" readonly="true" pt:placeholder="Informant's Relation with Deceased"
+                                                         value="#{distApprovalsController.informantDeath.relationship}"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -145,8 +150,10 @@
 
                                 <h:panelGroup layout="block">
                                     <center>
-                                        <h:commandButton value="Approve" styleClass="btn btn-success btn-fill" style="margin-right: 3px"/>
-                                        <h:commandButton value="Cancel" styleClass="btn btn-success btn-fill"/>
+                                        <h:commandButton value="Approve" styleClass="btn btn-success btn-fill" style="margin-right: 3px"
+                                                         action="#{distApprovalsController.approveDeathDetails}"/>
+                                        <h:commandButton value="Cancel" styleClass="btn btn-success btn-fill" 
+                                                         action="#{distApprovalsController.cancelRequest}"/>
                                     </center>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>

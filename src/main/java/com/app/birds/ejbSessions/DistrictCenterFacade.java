@@ -181,13 +181,63 @@ public class DistrictCenterFacade extends AbstractFacade<DistrictCenter> {
         String qryString = "";
         try {
             if (includeLogicallyDeleted == true) {
-                qryString = "SELECT e FORM DistrictCenter e WHERE e.districtUnder.districtId = '" + districtId + "'";
+                qryString = "SELECT e FROM DistrictCenter e WHERE e.districtUnder.districtId = '" + districtId + "'";
             } else if (includeLogicallyDeleted == false) {
                 qryString = "SELECT e FROM DistrictCenter e WHERE e.districtUnder.districtId = '" + districtId + "' AND e.deleted = 'NO'";
             }
             listOfCenterById = (List<DistrictCenter>) getEntityManager().createQuery(qryString).getResultList();
 
             return listOfCenterById;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public List<DistrictCenter> distictCenterFindByRegionId(boolean includeLogicallyDeleted, String regionId) {
+        List<DistrictCenter> listOfCenterByRegId;
+
+        String qryString = "";
+        try {
+            if (includeLogicallyDeleted == true) {
+                qryString = "SELECT e FROM DistrictCenter e WHERE e.districtUnder.region.regionId = '" + regionId + "'";
+            } else if (includeLogicallyDeleted == false) {
+                qryString = "SELECT e FROM DistrictCenter e WHERE e.districtUnder.region.regionId = '" + regionId + "' AND e.deleted = 'NO'";
+            }
+            listOfCenterByRegId = (List<DistrictCenter>) getEntityManager().createQuery(qryString).getResultList();
+
+            return listOfCenterByRegId;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public List<DistrictCenter> districtCenterFindWithRegionIdByAttribute(String districtCenterAttribute, Object attributeValue, String fieldType, String regionId, boolean includeLogicallyDeleted) {
+        List<DistrictCenter> listOfDistrictCenter = null;
+
+        String qryString;
+
+        qryString = "SELECT e FROM DistrictCenter e ";
+        qryString += "WHERE e." + districtCenterAttribute + " =:districtCenterAttribute ";
+
+        try {
+            if (includeLogicallyDeleted == true) {
+            } else if (includeLogicallyDeleted == false) {
+                qryString += " AND e.deleted = 'NO'";
+            }
+
+            if (fieldType.equalsIgnoreCase("NUMBER")) {
+                listOfDistrictCenter = (List<DistrictCenter>) getEntityManager().createQuery(qryString).setParameter("districtCenterAttribute", attributeValue).getResultList();
+            } else if (fieldType.equalsIgnoreCase("STRING")) {
+                qryString = "SELECT e FROM DistrictCenter e ";
+                qryString += "WHERE e." + districtCenterAttribute + " LIKE '%" + attributeValue + "%' AND e.districtUnder.region.regionId = '" + regionId + "'";
+                listOfDistrictCenter = (List<DistrictCenter>) getEntityManager().createQuery(qryString).getResultList();
+            } else if (fieldType.equalsIgnoreCase("DATE")) {
+                listOfDistrictCenter = (List<DistrictCenter>) getEntityManager().createQuery(qryString).setParameter("districtCenterAttribute", (Date) attributeValue, TemporalType.DATE).getResultList();
+            }
+
+            return listOfDistrictCenter;
         } catch (Exception e) {
             e.printStackTrace();
         }
