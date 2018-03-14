@@ -45,7 +45,7 @@ public class CommonOptions implements Serializable {
     private SelectItem[] placeOfBirth;
     private SelectItem[] placeOfDeath;
     private UserAccessController userAccessController = new UserAccessController();
-    private String distCenter = userAccessController.getUserAccount().getSystemUser().getDistrict().getDistrictId();
+    private String distCenter = userAccessController.getSystemUser().getDistrict().getDistrictId();
     int count;
     private String saveEditTest = "Save/Update";
 
@@ -131,7 +131,7 @@ public class CommonOptions implements Serializable {
     }
 
     public SelectItem[] getDistrictOptions() {
-        String region_Id = userAccessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionId();
+        String region_Id = userAccessController.getSystemUser().getDistrict().getRegion().getRegionId();
         districtOptions = new SelectItem[districtFacade.districtFindByRegion(region_Id, true).size() + 1];
         districtOptions[0] = new SelectItem("", "---Select One---");
         int c = 1;
@@ -174,7 +174,7 @@ public class CommonOptions implements Serializable {
 
     public SelectItem[] getWorkTypeOptions() {
         workTypeOptions = new SelectItem[userRoleFacade.roleGetAll(false).size() + 1];
-        workTypeOptions[0] = new SelectItem("null", "---Select One---");
+        workTypeOptions[0] = new SelectItem("", "---Select One---");
         int c = 1;
 
         try {

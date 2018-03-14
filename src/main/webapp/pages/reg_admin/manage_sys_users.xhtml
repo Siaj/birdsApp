@@ -17,83 +17,80 @@
                                 <hr/>
                             </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="header">
-
-                                <h:panelGroup layout="block" styleClass="row">
-                                    <h:panelGroup layout="block" styleClass="col-md-4">
-                                        <h:outputLabel value="Search By"/>
-                                        <h:selectOneMenu styleClass="form-control" value="#{userAccountController.searchCriteria}">
-                                            <f:selectItem itemValue="null" itemLabel="---Select One---"/>
-                                            <f:selectItem itemValue="firstName" itemLabel="Name"/>
-                                            <f:selectItem itemValue="phoneNumber" itemLabel="Phone Number"/>
-                                        </h:selectOneMenu>
-                                    </h:panelGroup>
-                                    <h:panelGroup layout="block" styleClass="col-md-4">
-                                        <h:outputLabel value="Search Text"/>
-                                        <h:inputText styleClass="form-control" pt:placeholder="Search Text"
-                                                     value="#{userAccountController.searchText}"/>
-                                    </h:panelGroup>
-                                    <h:panelGroup layout="block" styleClass="col-md-4">
-                                        <h:commandButton value="Search" action="#{userAccountController.searchAccount}"
-                                                         styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
-                                        <h:commandButton value="Reset" action="#{userAccountController.resetEntries}"
-                                                         styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
-                                    </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="row">
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:outputLabel value="Search By"/>
+                                    <h:selectOneMenu styleClass="form-control" value="#{userAccountController.searchCriteria}">
+                                        <f:selectItem itemValue="null" itemLabel="---Select One---"/>
+                                        <f:selectItem itemValue="firstName" itemLabel="Name"/>
+                                        <f:selectItem itemValue="phoneNumber" itemLabel="Phone Number"/>
+                                    </h:selectOneMenu>
                                 </h:panelGroup>
-                                <br/>
-                                <h:panelGroup layout="block" styleClass="row">
-                                    <h:panelGroup layout="block" styleClass="col-md-12">
-                                        <p:dataTable var="reg_user_account" paginator="true" reflow="true"
-                                                     paginatorPosition="top" rows="5" value="#{userAccountController.systemUserModel}"
-                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="5,10,15">
-                                            <p:column style="width: 250px">
-                                                <f:facet name="header">
-                                                    <h:outputText value="Name"/>
-                                                </f:facet>
-                                                <h:outputText value="#{reg_user_account.firstName}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Contact"/>
-                                                </f:facet>
-                                                <h:outputText value="#{reg_user_account.phoneNumber}"/>
-                                            </p:column>
-                                            <p:column >
-                                                <f:facet name="header">
-                                                    <h:outputText value="District"/>
-                                                </f:facet>
-                                                <h:outputText value="#{reg_user_account.district.districtName}"/>
-                                            </p:column>
-                                            <p:column style="width: 200px">
-                                                <f:facet name="header">
-                                                    <h:outputText value="Role"/>
-                                                </f:facet>
-                                                <h:outputText value="#{reg_user_account.userRole.roleName}"/>
-                                            </p:column>
-                                            <p:column style="color: white; background: #{(reg_user_account.userAccount.accountStatus == 'Active')? 
-                                                                                         'green':(reg_user_account.userAccount.accountStatus == 'Inactive')?'red':''}">
-                                                <f:facet name="header">
-                                                    <h:outputText value="Status"/>
-                                                </f:facet>
-                                                <h:outputText value="#{reg_user_account.userAccount.accountStatus}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Options"/>
-                                                </f:facet>
-                                                <h:commandLink value="Activate" rendered="#{reg_user_account.userAccount.accountStatus eq 'Inactive'}" 
-                                                               style="text-decoration: underline;color: green" action="#{userAccountController.activateUserAccount}"
-                                                               onclick="return confirm('Are you sure you want to activate user account for: #{reg_user_account.userAccount.systemUser.firstName}')"/>
-                                                <h:commandLink value="Deactivate" rendered="#{(reg_user_account.userAccount.accountStatus eq 'Active') and !(userAccessController.userAccount.userAccountId eq reg_user_account.userAccount.userAccountId)}" 
-                                                               style="text-decoration: underline;color: red" action="#{userAccountController.deActivateUserAccount}"
-                                                               onclick="return confirm('Are you sure you want to deactivate user account for: #{reg_user_account.userAccount.systemUser.firstName}')"/>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:outputLabel value="Search Text"/>
+                                    <h:inputText styleClass="form-control" pt:placeholder="Search Text"
+                                                 value="#{userAccountController.searchText}"/>
                                 </h:panelGroup>
-                                <!--Content styleClass ends here-->
+                                <h:panelGroup layout="block" styleClass="col-md-4">
+                                    <h:commandButton value="Search" action="#{userAccountController.searchAccount}"
+                                                     styleClass="btn btn-success btn-fill" style="margin: 23px 3px 0 0"/>
+                                    <h:commandButton value="Reset" action="#{userAccountController.resetEntries}"
+                                                     styleClass="btn btn-success btn-fill" style="margin: 23px 0 0 0"/>
+                                </h:panelGroup>
                             </h:panelGroup>
+                            <br/>
+                            <h:panelGroup layout="block" styleClass="row">
+                                <h:panelGroup layout="block" styleClass="col-md-12">
+                                    <p:dataTable var="reg_user_account" paginator="true" reflow="true"
+                                                 paginatorPosition="top" rows="5" value="#{userAccountController.systemUserModel}"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:column style="width: 250px">
+                                            <f:facet name="header">
+                                                <h:outputText value="Name"/>
+                                            </f:facet>
+                                            <h:outputText value="#{reg_user_account.firstName}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Contact"/>
+                                            </f:facet>
+                                            <h:outputText value="#{reg_user_account.phoneNumber}"/>
+                                        </p:column>
+                                        <p:column >
+                                            <f:facet name="header">
+                                                <h:outputText value="District"/>
+                                            </f:facet>
+                                            <h:outputText value="#{reg_user_account.district.districtName}"/>
+                                        </p:column>
+                                        <p:column style="width: 200px">
+                                            <f:facet name="header">
+                                                <h:outputText value="Role"/>
+                                            </f:facet>
+                                            <h:outputText value="#{reg_user_account.userRole.roleName}"/>
+                                        </p:column>
+                                        <p:column style="color: white; background: #{(reg_user_account.accountStatus eq 'Active')? 
+                                                                                     'green':(reg_user_account.accountStatus eq 'Inactive')?'red':''}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Status"/>
+                                            </f:facet>
+                                            <h:outputText value="#{reg_user_account.accountStatus}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Options"/>
+                                            </f:facet>
+                                            <h:commandLink value="Activate" rendered="#{reg_user_account.accountStatus eq 'Inactive'}" 
+                                                           style="text-decoration: underline;color: green" action="#{userAccountController.activateUserAccount}"
+                                                           onclick="return confirm('Are you sure you want to activate user account for: #{reg_user_account.firstName}')"/>
+                                            <h:commandLink value="Deactivate" rendered="#{(reg_user_account.accountStatus eq 'Active') and !(userAccessController.systemUser.systemUserId eq reg_user_account.systemUserId)}" 
+                                                           style="text-decoration: underline;color: red" action="#{userAccountController.deActivateUserAccount}"
+                                                           onclick="return confirm('Are you sure you want to deactivate user account for: #{reg_user_account.firstName}')"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <!--Content styleClass ends here-->
                             <br/><br/>
 
                             <!--For future usage-->

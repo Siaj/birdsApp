@@ -55,7 +55,7 @@ public class OfficesRegistration implements Serializable {
 
     private boolean renderSave = true;
     private boolean renderCenterSave = true;
-    private String regionName = accessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionName();
+    private String regionName = accessController.getSystemUser().getDistrict().getRegion().getRegionName();
 
     public OfficesRegistration() {
     }
@@ -71,13 +71,13 @@ public class OfficesRegistration implements Serializable {
     }
 
     public void saveDistrict() {
-        String regionId = accessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionId();
+        String regionId = accessController.getSystemUser().getDistrict().getRegion().getRegionId();
         String district_id = districtCode(1000, 9000);
 
-        accessController.getUserAccount().getSystemUser().getDistrict().getRegion().getDistrictList();
+        accessController.getSystemUser().getDistrict().getRegion().getDistrictList();
 
         district.setDistrictId(regionId + district_id);
-        district.setRegion(accessController.getUserAccount().getSystemUser().getDistrict().getRegion());
+        district.setRegion(accessController.getSystemUser().getDistrict().getRegion());
         genId.setGenTableId(CommonUtil.generateID());
         genId.setDistrictCode(district.getDistrictId());
         genId.setDistLastBirthNum(0);
@@ -246,9 +246,9 @@ public class OfficesRegistration implements Serializable {
     public List<District> getListOfDistricts() {
         if (getSearchCriteria() == null || getSearchText() == null) {
             System.out.println(accessController.getLoginUser().getDistrict());
-            listOfDistricts = districtFacade.districtFindByRegion(accessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionId(), true);
+            listOfDistricts = districtFacade.districtFindByRegion(accessController.getSystemUser().getDistrict().getRegion().getRegionId(), true);
         } else {
-            listOfDistricts = districtFacade.districtFindByAttributeforRegion(getSearchCriteria(), getSearchText(), "STRING", accessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionId(), true);
+            listOfDistricts = districtFacade.districtFindByAttributeforRegion(getSearchCriteria(), getSearchText(), "STRING", accessController.getSystemUser().getDistrict().getRegion().getRegionId(), true);
         }
         return listOfDistricts;
     }
@@ -267,7 +267,7 @@ public class OfficesRegistration implements Serializable {
     }
 
     public List<DistrictCenter> getListOfDistrictCenters() {
-        String regId = accessController.getUserAccount().getSystemUser().getDistrict().getRegion().getRegionId();
+        String regId = accessController.getSystemUser().getDistrict().getRegion().getRegionId();
         if (getCenterSearchCriteria() == null || getCenteSearchText() == null) {
             listOfDistrictCenters = centerFacade.distictCenterFindByRegionId(true, regId);
         } else {

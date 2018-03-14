@@ -86,7 +86,7 @@ algorithm in the cryptographic arena.
 
         String[] splitOname = othername.split(" ");
 
-        List<String> splittedName = new ArrayList<String>();
+        List<String> splittedName = new ArrayList<>();
 
         for (String s : splitOname) {
             if (!s.equals("")) {

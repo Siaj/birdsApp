@@ -6,9 +6,7 @@
 package com.app.birds.web.controllers;
 
 import com.app.birds.ejbSessions.SystemUserFacade;
-import com.app.birds.ejbSessions.UserAccountFacade;
 import com.app.birds.entities.SystemUser;
-import com.app.birds.entities.UserAccount;
 import com.app.birds.web.commons.GenerateIDs;
 import com.app.birds.web.commons.UserAccessController;
 import com.app.birds.web.utilities.JSFUtility;
@@ -30,12 +28,9 @@ import javax.inject.Inject;
 public class UserAccountController implements Serializable {
 
     @Inject
-    UserAccountFacade accountFacade;
-    @Inject
     SystemUserFacade userFacade;
 
     private SystemUser systemUser = new SystemUser();
-    private UserAccount userAccount = new UserAccount();
     private UserAccessController accessController = new UserAccessController();
     private String currentPassword, newPassword, confirmPassword;
     private UserAuthentication authentication = new UserAuthentication();
@@ -67,9 +62,9 @@ public class UserAccountController implements Serializable {
     }
 
     public void activateUserAccount() {
-        userAccount = systemUserModel.getRowData().getUserAccount();
-        userAccount.setAccountStatus("Active");
-        Boolean deactivated = accountFacade.userAccountUpdate(userAccount);
+        systemUser = systemUserModel.getRowData();
+        systemUser.setAccountStatus("Active");
+        Boolean deactivated = userFacade.systemUserUpdate(systemUser);
         if (deactivated) {
             JSFUtility.infoMessage("Success: ", "User Account successfully activated");
         } else {
@@ -78,9 +73,9 @@ public class UserAccountController implements Serializable {
     }
 
     public void deActivateUserAccount() {
-        userAccount = systemUserModel.getRowData().getUserAccount();
-        userAccount.setAccountStatus("Inactive");
-        Boolean deactivated = accountFacade.userAccountUpdate(userAccount);
+        systemUser = systemUserModel.getRowData();
+        systemUser.setAccountStatus("Inactive");
+        Boolean deactivated = userFacade.systemUserUpdate(systemUser);
         if (deactivated) {
             JSFUtility.infoMessage("Success: ", "User Account successfully deactivated");
         } else {
@@ -89,20 +84,20 @@ public class UserAccountController implements Serializable {
     }
 
     public void changePassword() {
-        userAccount = accessController.getUserAccount();
+        systemUser = accessController.getSystemUser();
 
         if (currentPassword.equals("")) {
             JSFUtility.warnMessage("Required: ", "Current Password required to proceed with change");
         } else {
-            if (accessController.getUserAccount().getPassword().equals(GenerateIDs.generateHash(currentPassword))) {
-                System.out.println(accessController.getUserAccount().getPassword());
+            if (accessController.getSystemUser().getPassword().equals(GenerateIDs.generateHash(currentPassword))) {
+                System.out.println(accessController.getSystemUser().getPassword());
                 System.out.println(GenerateIDs.generateHash(currentPassword));
                 if (getNewPassword().equals("")) {
                     JSFUtility.warnMessage("Required: ", "Please enter your new password to proceed with change");
                 } else {
                     if (getNewPassword().equals(getConfirmPassword())) {
-                        userAccount.setPassword(GenerateIDs.generateHash(newPassword));
-                        boolean success = accountFacade.userAccountUpdate(userAccount);
+                        systemUser.setPassword(GenerateIDs.generateHash(newPassword));
+                        boolean success = userFacade.systemUserUpdate(systemUser);
                         if (success) {
                             authentication.logOutUser();
                             JSFUtility.infoMessage("Success:", "Your Password Has Been Successfully Changed.You Should Re-Login With Your New Password");
@@ -127,7 +122,7 @@ public class UserAccountController implements Serializable {
     }
 
     public void cancelChange() {
-        String roleName = accessController.getUserAccount().getSystemUser().getUserRole().getRoleName();
+        String roleName = accessController.getSystemUser().getUserRole().getRoleName();
         System.out.println(roleName + "tried to cancel password change");
     }
 
@@ -178,14 +173,6 @@ public class UserAccountController implements Serializable {
         this.systemUserModel = systemUserModel;
     }
 
-    public UserAccountFacade getAccountFacade() {
-        return accountFacade;
-    }
-
-    public void setAccountFacade(UserAccountFacade accountFacade) {
-        this.accountFacade = accountFacade;
-    }
-
     public SystemUserFacade getUserFacade() {
         return userFacade;
     }
@@ -200,14 +187,6 @@ public class UserAccountController implements Serializable {
 
     public void setSystemUser(SystemUser systemUser) {
         this.systemUser = systemUser;
-    }
-
-    public UserAccount getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
     }
 
     public String getCurrentPassword() {

@@ -212,4 +212,55 @@ public class SystemUserFacade extends AbstractFacade<SystemUser> {
         }
         return new ArrayList<>();
     }
+    
+    public List<SystemUser> systemUserGetByRegion(boolean includeLogicallyDeleted, String regionId) {
+        List<SystemUser> listOfUsers;
+
+        String qryString = "";
+
+        try {
+            if (includeLogicallyDeleted == true) {
+                qryString = "SELECT e FROM SystemUser e WHERE e.district.region.regionId = '" + regionId + "'";
+            } else if (includeLogicallyDeleted == false) {
+                qryString = "SELECT e FROM SystemUser e WHERE e.district.region.regionId = '" + regionId + "' AND e.deleted = 'NO'";
+            }
+
+            listOfUsers = (List<SystemUser>) getEntityManager().createQuery(qryString).getResultList();
+            return listOfUsers;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+    
+    public List<SystemUser> systemUserFindByAttributeByRegion(String systemUserAttribute, Object attributeValue, String fieldType, String regionId, boolean includeLogicallyDeleted) {
+        List<SystemUser> listOfSystemUser = null;
+
+        String qryString;
+
+        qryString = "SELECT e FROM SystemUser e ";
+        qryString += "WHERE e." + systemUserAttribute + " =:systemUserAttribute AND e.district.region.regionId = '" + regionId + "'";
+
+        try {
+            if (includeLogicallyDeleted == true) {
+            } else if (includeLogicallyDeleted == false) {
+                qryString += " AND e.deleted = 'NO'";
+            }
+
+            if (fieldType.equalsIgnoreCase("NUMBER")) {
+                listOfSystemUser = (List<SystemUser>) getEntityManager().createQuery(qryString).setParameter("systemUserAttribute", attributeValue).getResultList();
+            } else if (fieldType.equalsIgnoreCase("STRING")) {
+                qryString = "SELECT e FROM SystemUser e ";
+                qryString += "WHERE e." + systemUserAttribute + " LIKE '%" + attributeValue + "%' AND e.district.region.regionId = '" + regionId + "'";
+                listOfSystemUser = (List<SystemUser>) getEntityManager().createQuery(qryString).getResultList();
+            } else if (fieldType.equalsIgnoreCase("DATE")) {
+                listOfSystemUser = (List<SystemUser>) getEntityManager().createQuery(qryString).setParameter("systemUserAttribute", (Date) attributeValue, TemporalType.DATE).getResultList();
+            }
+
+            return listOfSystemUser;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
 }

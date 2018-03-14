@@ -16,7 +16,7 @@ import com.app.birds.entities.ChildGuardian;
 import com.app.birds.entities.DeathCertRequest;
 import com.app.birds.entities.DeceasedDetail;
 import com.app.birds.entities.InformantDeath;
-import com.app.birds.entities.UserAccount;
+import com.app.birds.entities.SystemUser;
 import com.app.birds.web.commons.BirdsConstant;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
@@ -53,7 +53,7 @@ public class DistrictApprovalsController implements Serializable {
     private DeathCertRequest deathCertRequest = new DeathCertRequest();
     private ChildGuardian guardian = new ChildGuardian();
     private InformantDeath informantDeath = new InformantDeath();
-    private UserAccount userAccount = new UserAccount();
+    private SystemUser systemUser = new SystemUser();
     private List<ChildBirthDetail> birthDetailsList = new ArrayList<>();
     private List<DeceasedDetail> deceasedDetailsList = new ArrayList<>();
     private List<BirthCertRequest> birthCertRequestsList = new ArrayList<>();
@@ -68,13 +68,13 @@ public class DistrictApprovalsController implements Serializable {
     public DistrictApprovalsController() {
     }
 
-    public UserAccount getUserAccount() {
+    public SystemUser getSystemUser() {
         try {
-            userAccount = (UserAccount) JSFUtility.getSessionValue(BirdsConstant.LOGIN_USER);
+            systemUser = (SystemUser) JSFUtility.getSessionValue(BirdsConstant.LOGIN_USER);
         } catch (Exception e) {
-            userAccount = null;
+            systemUser = null;
         }
-        return userAccount;
+        return systemUser;
     }
 
     public void approveBirthDetails() {
@@ -239,7 +239,7 @@ public class DistrictApprovalsController implements Serializable {
     }
 
     public List<ChildBirthDetail> getBirthDetailsList() {
-        birthDetailsList = supportBean.listOfChildrenDetailsForDistApproval(getUserAccount().getSystemUser().getDistrict().getDistrictId());
+        birthDetailsList = supportBean.listOfChildrenDetailsForDistApproval(getSystemUser().getDistrict().getDistrictId());
         return birthDetailsList;
     }
 
@@ -248,7 +248,7 @@ public class DistrictApprovalsController implements Serializable {
     }
 
     public List<DeceasedDetail> getDeceasedDetailsList() {
-        deceasedDetailsList = supportBean.listOfDeathDetailsForDistApproval(getUserAccount().getSystemUser().getDistrict().getDistrictId());
+        deceasedDetailsList = supportBean.listOfDeathDetailsForDistApproval(getSystemUser().getDistrict().getDistrictId());
         return deceasedDetailsList;
     }
 
@@ -257,7 +257,7 @@ public class DistrictApprovalsController implements Serializable {
     }
 
     public List<BirthCertRequest> getBirthCertRequestsList() {
-        birthCertRequestsList = supportBean.listOfBirthCertForDistApproval(getUserAccount().getSystemUser().getDistrict().getDistrictId());
+        birthCertRequestsList = supportBean.listOfBirthCertForDistApproval(getSystemUser().getDistrict().getDistrictId());
         return birthCertRequestsList;
     }
 
@@ -266,7 +266,7 @@ public class DistrictApprovalsController implements Serializable {
     }
 
     public List<DeathCertRequest> getDeathCertRequestsList() {
-        deathCertRequestsList = supportBean.listOfDeathCertForDistApproval(getUserAccount().getSystemUser().getDistrict().getDistrictId());;
+        deathCertRequestsList = supportBean.listOfDeathCertForDistApproval(getSystemUser().getDistrict().getDistrictId());;
         return deathCertRequestsList;
     }
 

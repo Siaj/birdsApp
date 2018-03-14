@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,10 +32,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SystemUser.findAll", query = "SELECT s FROM SystemUser s")
+    ,@NamedQuery(name = SystemUser.FIND_BY_USERNAME_PASSWORD, query = "SELECT s FROM SystemUser s WHERE s.username = :username AND s.password = :password")
     , @NamedQuery(name = "SystemUser.findBySystemUserId", query = "SELECT s FROM SystemUser s WHERE s.systemUserId = :systemUserId")
     , @NamedQuery(name = "SystemUser.findByLastName", query = "SELECT s FROM SystemUser s WHERE s.lastName = :lastName")
     , @NamedQuery(name = "SystemUser.findByMiddleName", query = "SELECT s FROM SystemUser s WHERE s.middleName = :middleName")
     , @NamedQuery(name = "SystemUser.findByFirstName", query = "SELECT s FROM SystemUser s WHERE s.firstName = :firstName")
+    , @NamedQuery(name = "SystemUser.findByUsername", query = "SELECT s FROM SystemUser s WHERE s.username = :username")
+    , @NamedQuery(name = "SystemUser.findByPassword", query = "SELECT s FROM SystemUser s WHERE s.password = :password")
+    , @NamedQuery(name = "SystemUser.findByAccountStatus", query = "SELECT s FROM SystemUser s WHERE s.accountStatus = :accountStatus")
     , @NamedQuery(name = "SystemUser.findByGender", query = "SELECT s FROM SystemUser s WHERE s.gender = :gender")
     , @NamedQuery(name = "SystemUser.findByPhoneNumber", query = "SELECT s FROM SystemUser s WHERE s.phoneNumber = :phoneNumber")
     , @NamedQuery(name = "SystemUser.findByPlaceOfResidence", query = "SELECT s FROM SystemUser s WHERE s.placeOfResidence = :placeOfResidence")
@@ -49,11 +52,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "SystemUser.findByDeleted", query = "SELECT s FROM SystemUser s WHERE s.deleted = :deleted")})
 public class SystemUser implements Serializable {
 
-    @JoinColumn(name = "district_center", referencedColumnName = "center_id")
-    @ManyToOne
-    private DistrictCenter districtCenter;
-
     private static final long serialVersionUID = 1L;
+    public static final String FIND_BY_USERNAME_PASSWORD = "UserAccount.FIND_BY_USERNAME_PASSWORD";
+
     @Id
     @Basic(optional = false)
     @NotNull
@@ -69,6 +70,15 @@ public class SystemUser implements Serializable {
     @Size(max = 100)
     @Column(name = "first_name")
     private String firstName;
+    @Size(max = 70)
+    @Column(name = "username")
+    private String username;
+    @Size(max = 70)
+    @Column(name = "password")
+    private String password;
+    @Size(max = 50)
+    @Column(name = "account_status")
+    private String accountStatus;
     @Size(max = 10)
     @Column(name = "gender")
     private String gender;
@@ -108,15 +118,15 @@ public class SystemUser implements Serializable {
     private List<DeceasedDetail> deceasedDetailList;
     @OneToMany(mappedBy = "systemUser")
     private List<ChildBirthDetail> childBirthDetailList;
-    @JoinColumn(name = "system_user_id", referencedColumnName = "user_account_id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private UserAccount userAccount;
     @JoinColumn(name = "district", referencedColumnName = "district_id")
     @ManyToOne
     private District district;
     @JoinColumn(name = "user_role", referencedColumnName = "role_id")
     @ManyToOne
     private UserRole userRole;
+    @JoinColumn(name = "district_center", referencedColumnName = "center_id")
+    @ManyToOne
+    private DistrictCenter districtCenter;
 
     public SystemUser() {
     }
@@ -155,6 +165,30 @@ public class SystemUser implements Serializable {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
     }
 
     public String getGender() {
@@ -263,14 +297,6 @@ public class SystemUser implements Serializable {
         this.childBirthDetailList = childBirthDetailList;
     }
 
-    public UserAccount getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
-    }
-
     public District getDistrict() {
         return district;
     }
@@ -285,6 +311,14 @@ public class SystemUser implements Serializable {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public DistrictCenter getDistrictCenter() {
+        return districtCenter;
+    }
+
+    public void setDistrictCenter(DistrictCenter districtCenter) {
+        this.districtCenter = districtCenter;
     }
 
     @Override
@@ -312,12 +346,4 @@ public class SystemUser implements Serializable {
         return "com.app.birds.entities.SystemUser[ systemUserId=" + systemUserId + " ]";
     }
 
-    public DistrictCenter getDistrictCenter() {
-        return districtCenter;
-    }
-
-    public void setDistrictCenter(DistrictCenter districtCenter) {
-        this.districtCenter = districtCenter;
-    }
-    
 }

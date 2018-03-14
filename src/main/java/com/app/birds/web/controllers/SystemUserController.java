@@ -5,10 +5,15 @@
  */
 package com.app.birds.web.controllers;
 
+import com.app.birds.ejbSessions.DistrictFacade;
 import com.app.birds.ejbSessions.SystemUserFacade;
+import com.app.birds.ejbSessions.UserRoleFacade;
 import com.app.birds.entities.District;
 import com.app.birds.entities.SystemUser;
-import com.app.birds.entities.UserAccount;
+import com.app.birds.entities.UserRole;
+import com.app.birds.web.commons.GenerateIDs;
+import com.app.birds.web.commons.UserAccessController;
+import com.app.birds.web.utilities.CommonUtil;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -29,38 +34,40 @@ public class SystemUserController implements Serializable {
 
     @Inject
     private SystemUserFacade systemUserFacade;
+    @Inject
+    private DistrictFacade districtFacade;
+    @Inject
+    private UserRoleFacade roleFacade;
 
     private List<SystemUser> usersList = new ArrayList<>();
     private transient DataModel<SystemUser> usersDataTable;
     private SystemUser systemUser = new SystemUser();
-    private UserAccount userAccount = new UserAccount();
     private District district = new District();
-    private String selectedDistrict;
-    private boolean renderAccountDetails = false;
-    private boolean renderSaveButton = true;
+    private UserRole userRole = new UserRole();
+    private UserAccessController accessController = new UserAccessController();
+    private String selectedDistrict, selectedRole;
+//    private boolean renderAccountDetails = false;
+//    private boolean renderSaveButton = true;
     private String renderAccount = "false", renderSave = "true";
     private String username, surname;
     private String password, othername;
     private String searchCriteria, searchText;
+    String regId = accessController.getSystemUser().getDistrict().getRegion().getRegionId();
 
     public SystemUserController() {
     }
 
-    public void saveNewSystemUser() {
-
+    public void resetUserList() {
+        searchCriteria = null;
+        searchText = "";
+        usersList = getUsersList();
     }
 
-    public void resetButton() {
-
-    }
-
-    public void searchSystemUser() {
-        System.out.println("Searching for user");
-        if (searchCriteria == null || searchCriteria.equals("null") || searchText.equals("")) {
-            JSFUtility.warnMessage("Alert: ", "All parameters are required beforh search can proceed, please enter details to find user");
-            usersList = getDistrict().getSystemUserList();
+    public void searchUser() {
+        if (getSearchCriteria() == null || getSearchText() == null) {
+            JSFUtility.warnMessage("Required Fields: ", "All the fields are required for the search");
         } else {
-            if (getUsersList() == null) {
+            if (getUsersList().isEmpty()) {
                 JSFUtility.infoMessage("Empty List:", "No User with Such Criteria Found");
             } else {
                 usersList = getUsersList();
@@ -68,11 +75,100 @@ public class SystemUserController implements Serializable {
         }
     }
 
-    public void resetSearchFields() {
-        System.out.println("Reset user search fields");
-        searchCriteria = null;
-        searchText = "";
-        usersList = getUsersList();
+    public void saveNewUser() {
+        surname = systemUser.getLastName();
+        othername = systemUser.getMiddleName();
+        username = GenerateIDs.generateUsername(surname, othername);
+        password = GenerateIDs.generateHash(GenerateIDs.generateUsername(surname, othername));
+
+        System.out.println(GenerateIDs.generateUsername(surname, othername));
+        System.out.println(password);
+
+        String userId = CommonUtil.generateID();
+
+//        userAccount.setUserAccountId(userId);
+        systemUser.setSystemUserId(userId);
+        systemUser.setUsername(username);
+        systemUser.setPassword(password);
+        systemUser.setAccountStatus("Active");
+
+        String systemUserFullName = systemUser.getLastName().toUpperCase() + " " + systemUser.getMiddleName();
+        district = districtFacade.districtFind(selectedDistrict);
+        userRole = roleFacade.roleFind(selectedRole);
+        if (district == null || userRole == null) {
+            JSFUtility.warnMessage("Required:", "Both District and User Role Details Required For Save");
+        } else {
+            systemUser.setDistrict(district);
+            systemUser.setUserRole(userRole);
+            systemUser.setFirstName(systemUserFullName);
+
+            String systemUserSaved = systemUserFacade.systemUserCreate(systemUser);
+
+            if (systemUserSaved != null) {
+                resetButton();
+                JSFUtility.infoMessage("Success :", "User Details Have Been Saved Successfully. Account Login Details Found Below."
+                        + "Username Same As Password, Advise User to Change Password Immediately for Security Reasons");
+                renderAccount = "true";
+            } else {
+                JSFUtility.errorMessage("Error :", "User couldn't be saved due to some errors.");
+            }
+        }
+    }
+
+    public void updateUser() {
+        try {
+            district = districtFacade.districtFind(selectedDistrict);
+            userRole = roleFacade.roleFind(selectedRole);
+            if (district == null || userRole == null) {
+                JSFUtility.warnMessage("Required:", "District and User Role Needs TO Be Defined Before Save Can Proceed");
+            } else {
+                if (selectedDistrict.equals(systemUser.getDistrict().getDistrictId())) {
+                    systemUser.setDistrict(district);
+                } else {
+                    systemUser.setDistrict(district);
+                    systemUser.setDistrictCenter(null);
+                    //Send an update to district admin of arrival of a new user to district
+                }
+
+                String systemUserFullName = systemUser.getLastName().toUpperCase() + " " + systemUser.getMiddleName();
+
+                systemUser.setFirstName(systemUserFullName);
+                systemUser.setUserRole(userRole);
+            }
+
+            systemUserFacade.systemUserUpdate(getSystemUser());
+            resetButton();
+            JSFUtility.infoMessage("System User :", "System User was Successfully Update");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JSFUtility.warnMessage("System User :", "Unable to Update User Details");
+        }
+    }
+
+    public void deleteUser() {
+// May not need to delete any user from system
+    }
+
+    public void rowSelectData() {
+        systemUser = (SystemUser) usersDataTable.getRowData();
+        userRole = systemUser.getUserRole();
+        System.out.println(userRole.getRoleId() + " " + userRole.getRoleName());
+        district = systemUser.getDistrict();
+        if (district == null) {
+            selectedDistrict = null;
+        } else {
+            selectedDistrict = String.valueOf(district.getDistrictId());
+        }
+        selectedRole = String.valueOf(userRole.getRoleId());
+        renderSave = "false";
+    }
+
+    public void resetButton() {
+        systemUser = new SystemUser();
+        selectedDistrict = "";
+        selectedRole = "";
+        renderAccount = "false";
+        renderSave = "true";
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter and Setter Methods">
@@ -84,11 +180,43 @@ public class SystemUserController implements Serializable {
         this.systemUserFacade = systemUserFacade;
     }
 
+    public UserRoleFacade getRoleFacade() {
+        return roleFacade;
+    }
+
+    public void setRoleFacade(UserRoleFacade roleFacade) {
+        this.roleFacade = roleFacade;
+    }
+
+    public String getSelectedRole() {
+        return selectedRole;
+    }
+
+    public void setSelectedRole(String selectedRole) {
+        this.selectedRole = selectedRole;
+    }
+
+    public DistrictFacade getDistrictFacade() {
+        return districtFacade;
+    }
+
+    public void setDistrictFacade(DistrictFacade districtFacade) {
+        this.districtFacade = districtFacade;
+    }
+
+    public UserAccessController getAccessController() {
+        return accessController;
+    }
+
+    public void setAccessController(UserAccessController accessController) {
+        this.accessController = accessController;
+    }
+
     public List<SystemUser> getUsersList() {
-        if (searchCriteria == null || searchCriteria.equals("null") || searchText.equals("")) {
-            usersList = systemUserFacade.systemUserGetAll(false);
+        if (getSearchCriteria() == null || getSearchText().equals("")) {
+            usersList = systemUserFacade.systemUserGetByRegion(false, regId);
         } else {
-            usersList = systemUserFacade.systemUserFindByAttribute(searchCriteria, searchText, "STRING", false);
+            usersList = systemUserFacade.systemUserFindByAttributeByRegion(getSearchCriteria(), getSearchText(), "STRING", regId, false);
         }
         return usersList;
     }
@@ -114,14 +242,6 @@ public class SystemUserController implements Serializable {
         this.systemUser = systemUser;
     }
 
-    public UserAccount getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
-    }
-
     public District getDistrict() {
         return district;
     }
@@ -138,22 +258,20 @@ public class SystemUserController implements Serializable {
         this.selectedDistrict = selectedDistrict;
     }
 
-    public boolean isRenderAccountDetails() {
-        return renderAccountDetails;
-    }
-
-    public void setRenderAccountDetails(boolean renderAccountDetails) {
-        this.renderAccountDetails = renderAccountDetails;
-    }
-
-    public boolean isRenderSaveButton() {
-        return renderSaveButton;
-    }
-
-    public void setRenderSaveButton(boolean renderSaveButton) {
-        this.renderSaveButton = renderSaveButton;
-    }
-
+//    public boolean isRenderAccountDetails() {
+//        return renderAccountDetails;
+//    }
+//
+//    public void setRenderAccountDetails(boolean renderAccountDetails) {
+//        this.renderAccountDetails = renderAccountDetails;
+//    }
+//    public boolean isRenderSaveButton() {
+//        return renderSaveButton;
+//    }
+//
+//    public void setRenderSaveButton(boolean renderSaveButton) {
+//        this.renderSaveButton = renderSaveButton;
+//    }
     public String getRenderAccount() {
         return renderAccount;
     }
@@ -200,6 +318,14 @@ public class SystemUserController implements Serializable {
 
     public void setOthername(String othername) {
         this.othername = othername;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public String getSearchCriteria() {

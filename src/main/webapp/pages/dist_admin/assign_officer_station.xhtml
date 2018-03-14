@@ -51,7 +51,7 @@
                                             <f:facet name="header">
                                                 <h:outputText value="List Of District Officers"/>
                                             </f:facet>
-                                            <p:column style="width: 200px" headerText="Name">
+                                            <p:column style="width: 250px" headerText="Name">
                                                 <h:outputText value="#{reg_station.firstName}"/>
                                             </p:column>
                                             <p:column headerText="Contact">
@@ -63,9 +63,9 @@
                                             <p:column style="width: 200px" headerText="Role">
                                                 <h:outputText value="#{reg_station.userRole.roleName}"/>
                                             </p:column>
-                                            <p:column headerText="Status" style="color: white; background: #{(reg_station.userAccount.accountStatus == 'Active')? 
-                                                                                                             'green':(reg_station.userAccount.accountStatus == 'Inactive')?'red':''}">
-                                                <h:outputText value="#{reg_station.userAccount.accountStatus}"/>
+                                            <p:column headerText="Status" style="color: white; background: #{(reg_station.accountStatus == 'Active')? 
+                                                                                                             'green':(reg_station.accountStatus == 'Inactive')?'red':''}">
+                                                <h:outputText value="#{reg_station.accountStatus}"/>
                                             </p:column>
                                             <p:column headerText="Options">
                                                 <h:commandLink style="color: green;text-decoration: underline" value="Select"

@@ -95,15 +95,15 @@
                                         <h:panelGroup>
                                             <h3 class="menuheader expandable">Registration Approval</h3>
                                             <ul class="categoryitems nav">
-                                                <li><h:commandLink value="Birth Registration" action="#{reg_admin_pages.approveBirths}"/></li>
-                                                <li><h:commandLink value="Death Registration" action="#{reg_admin_pages.approveDeaths}"/></li>
+                                                <li><h:commandLink value="Birth Registration (#{regApprovalsController.noOfRegBirths()})" action="#{reg_admin_pages.approveBirths}"/></li>
+                                                <li><h:commandLink value="Death Registration (#{regApprovalsController.noOfRegDeaths()})" action="#{reg_admin_pages.approveDeaths}"/></li>
                                             </ul>
                                         </h:panelGroup>
                                         <h:panelGroup>
                                             <h3 class="menuheader expandable">Certificate Request</h3>
                                             <ul class="categoryitems nav">
-                                                <li><h:commandLink value="Birth Certificate" action="#{reg_admin_pages.birthCertApprovePrint}"/></li>
-                                                <li><h:commandLink value="Death Certificate" action="#{reg_admin_pages.deathCertApprovePrint}"/></li>
+                                                <li><h:commandLink value="Birth Certificate (#{regApprovalsController.noOfRegBirthCertRequests()})" action="#{reg_admin_pages.birthCertApprovePrint}"/></li>
+                                                <li><h:commandLink value="Death Certificate (#{regApprovalsController.noOfRegDeathCertRequests()})" action="#{reg_admin_pages.deathCertApprovePrint}"/></li>
                                             </ul>
                                         </h:panelGroup>
                                         <h:panelGroup rendered="false">
@@ -238,18 +238,18 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <p>
-                                                #{userAccessController.userAccount.systemUser.firstName}
+                                                #{userAccessController.systemUser.firstName}
                                                 <b class="caret"></b>
                                             </p>
 
                                         </a>
                                         <ul class="dropdown-menu">
 
-                                            <li style="text-align: center"><a href="#"><h:outputText value="Username: #{userAccessController.userAccount.username}"/></a></li>
-                                            <li style="text-align: center"><a href="#"><h:outputText value="#{userAccessController.userAccount.systemUser.email}"/></a></li>
+                                            <li style="text-align: center"><a href="#"><h:outputText value="Username: #{userAccessController.systemUser.username}"/></a></li>
+                                            <li style="text-align: center"><a href="#"><h:outputText value="#{userAccessController.systemUser.email}"/></a></li>
                                             <li class="divider"></li>
-                                            <li style="text-align: center"><a href="#"><h:outputText value="#{userAccessController.userAccount.systemUser.userRole.roleName}"/></a></li>
-                                            <li style="text-align: center"><a href="#"><h:outputText value="Region: #{userAccessController.userAccount.systemUser.district.region.regionName}"/></a></li>
+                                            <li style="text-align: center"><a href="#"><h:outputText value="#{userAccessController.systemUser.userRole.roleName}"/></a></li>
+                                            <li style="text-align: center"><a href="#"><h:outputText value="Region: #{userAccessController.systemUser.district.region.regionName}"/></a></li>
                                             <li class="divider"></li>
                                             <li style="text-align: center">
                                                 <ui:insert name="change-password">

@@ -87,7 +87,7 @@
                                                 </f:facet>
                                                 <h:commandLink value="View" style="text-decoration: underline;color: green" action="#{generalSearch.fetchBirthRowData}"/>
                                                 <h:commandLink value="Edit" style="text-decoration: underline; color: red" action="#{generalSearch.fetchBirthRowData}" 
-                                                               rendered="#{userAccessController.userAccount.systemUser.userRole.roleName eq 'Registrar'}" styleClass="pull-right"/>
+                                                               rendered="#{userAccessController.systemUser.userRole.roleName eq 'Registrar'}" styleClass="pull-right"/>
                                             </p:column>
                                         </p:dataTable>
                                     </h:panelGroup>
@@ -135,7 +135,7 @@
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Surname"/>
                                             <h:inputText styleClass="form-control" 
-                                                         readonly="#{!(userAccessController.userAccount.systemUser.userRole.roleName eq 'Registrar')}" 
+                                                         readonly="#{!(userAccessController.systemUser.userRole.roleName eq 'Registrar')}" 
                                                          value="#{generalSearch.birthDetail.surname}" pt:placeholder="Surname"/>
                                         </h:panelGroup>           
                                     </h:panelGroup>
@@ -143,7 +143,7 @@
                                         <h:panelGroup layout="block" styleClass="form-group">
                                             <h:outputLabel value="Othernames"/>
                                             <h:inputText styleClass="form-control" 
-                                                         readonly="#{!(userAccessController.userAccount.systemUser.userRole.roleName eq 'Registrar')}" 
+                                                         readonly="#{!(userAccessController.systemUser.userRole.roleName eq 'Registrar')}" 
                                                          value="#{generalSearch.birthDetail.othername}" pt:placeholder="Othernames"/>
                                         </h:panelGroup>           
                                     </h:panelGroup>
@@ -257,7 +257,7 @@
                                 <h:panelGroup layout="block">
                                     <!--These are just test cases-->
                                     <h:commandButton value="Save/Edit" styleClass="btn btn-success btn-fill" style="margin-right: 3px"
-                                                     rendered="#{userAccessController.userAccount.systemUser.userRole.roleName eq 'Registrar'}"
+                                                     rendered="#{userAccessController.systemUser.userRole.roleName eq 'Registrar'}"
                                                      action="#{generalSearch.ammendBirthDetails}"/>
                                     <h:commandButton value="Close Search" action="#{generalSearch.closeBirthSearch}" styleClass="btn btn-success btn-fill" style="margin-right: 3px"/>
                                 </h:panelGroup>

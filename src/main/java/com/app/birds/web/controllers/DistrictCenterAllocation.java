@@ -11,7 +11,6 @@ import com.app.birds.ejbSessions.SystemUserFacade;
 import com.app.birds.entities.District;
 import com.app.birds.entities.DistrictCenter;
 import com.app.birds.entities.SystemUser;
-import com.app.birds.entities.UserAccount;
 import com.app.birds.web.commons.UserAccessController;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
@@ -43,7 +42,6 @@ public class DistrictCenterAllocation implements Serializable {
     private SystemUser systemUser = new SystemUser();
     private District district = new District();
     private DistrictCenter districtCenter = new DistrictCenter();
-    private UserAccount userAccount = new UserAccount();
     private UserAccessController accessController = new UserAccessController();
 
     private boolean renderSave = false;
@@ -181,14 +179,6 @@ public class DistrictCenterAllocation implements Serializable {
 
     public void setDistrictCenter(DistrictCenter districtCenter) {
         this.districtCenter = districtCenter;
-    }
-
-    public UserAccount getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
     }
 
     public UserAccessController getAccessController() {

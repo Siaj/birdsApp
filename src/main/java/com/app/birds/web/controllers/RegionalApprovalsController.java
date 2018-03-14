@@ -15,8 +15,8 @@ import com.app.birds.entities.DeathCertRequest;
 import com.app.birds.entities.DeceasedDetail;
 import com.app.birds.entities.InformantDeath;
 import com.app.birds.entities.SystemUser;
-import com.app.birds.entities.UserAccount;
 import com.app.birds.web.commons.BirdsConstant;
+import com.app.birds.web.commons.UserAccessController;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -48,8 +48,8 @@ public class RegionalApprovalsController implements Serializable {
     private DeathCertRequest deathCertRequest = new DeathCertRequest();
     private ChildGuardian guardian = new ChildGuardian();
     private InformantDeath informantDeath = new InformantDeath();
-    private UserAccount userAccount = new UserAccount();
     private SystemUser systemUser = new SystemUser();
+    private UserAccessController accessController = new UserAccessController();
     private List<ChildBirthDetail> birthDetailsList = new ArrayList<>();
     private List<DeceasedDetail> deceasedDetailsList = new ArrayList<>();
     private List<BirthCertRequest> birthCertRequestsList = new ArrayList<>();
@@ -59,21 +59,21 @@ public class RegionalApprovalsController implements Serializable {
     private DataModel<BirthCertRequest> birthCertModel;
     private DataModel<DeathCertRequest> deathCertModel;
     private boolean renderApproval = false;
-    private int distBirthDetails = 0, distDeathDetails = 0, distBirthCert = 0, distDeathCert = 0;
+    private String regId = accessController.getSystemUser().getDistrict().getRegion().getRegionId();
+    private int countRegBirthDetails = 0, countRegDeathDetails = 0, countRegBirthCert = 0, countRegDeathCert = 0;
     private String selectedDistrict;
 
     public RegionalApprovalsController() {
     }
 
-    public UserAccount getUserAccount() {
-        try {
-            userAccount = (UserAccount) JSFUtility.getSessionValue(BirdsConstant.LOGIN_USER);
-        } catch (Exception e) {
-            userAccount = null;
-        }
-        return userAccount;
-    }
-
+//    public SystemUser getSystemUser() {
+//        try {
+//            systemUser = (SystemUser) JSFUtility.getSessionValue(BirdsConstant.LOGIN_USER);
+//        } catch (Exception e) {
+//            systemUser = null;
+//        }
+//        return systemUser;
+//    }
     public void approveBirthDetails() {
         birthDetail.setRegionalApproved("YES");
         boolean saved = birthDetailFacade.updateBirthDetails(birthDetail);
@@ -133,25 +133,41 @@ public class RegionalApprovalsController implements Serializable {
         renderApproval = false;
     }
 
-//    public int noOfBirths() {
-//        List<ChildBirthDetail> listOfChild;
-//        DataModel<ChildBirthDetail> childModel;
-//
-//        listOfChild = new ArrayList<ChildBirthDetail>(birdsSessionBean.childBirthDetailNumber());
-//        childModel = new ListDataModel<>(listOfChild);
-//        distBirthDetails = childModel.getRowCount();
-//        return distBirthDetails;
-//
-//    }
-//    public int noOfDeaths() {
-//        List<DeceasedDetail> listOfDeath = null;
-//        DataModel<DeceasedDetail> deathModel = null;
-//
-//        listOfDeath = new ArrayList<DeceasedDetail>(birdsSessionBean.deceasedDetailNumber());
-//        deathModel = new ListDataModel<DeceasedDetail>(listOfDeath);
-//        distDeathDetails = deathModel.getRowCount();
-//        return distDeathDetails;
-//    }
+    public int noOfRegBirths() {
+        List<ChildBirthDetail> listOfChild;
+        DataModel<ChildBirthDetail> childModel;
+
+        listOfChild = new ArrayList<>(supportBean.regionalBirthDetailNumber(regId));
+        childModel = new ListDataModel<>(listOfChild);
+        countRegBirthDetails = childModel.getRowCount();
+        return countRegBirthDetails;
+
+    }
+
+    public int noOfRegDeaths() {
+        List<DeceasedDetail> listOfDeath;
+        DataModel<DeceasedDetail> deathModel;
+
+        listOfDeath = new ArrayList<>(supportBean.regionalDeceasedDetailNumber(regId));
+        deathModel = new ListDataModel<>(listOfDeath);
+        countRegDeathDetails = deathModel.getRowCount();
+        return countRegDeathDetails;
+    }
+
+    public int noOfRegBirthCertRequests() {
+        List<BirthCertRequest> listOfBirthCertReq;
+        DataModel<BirthCertRequest> birthCertModel;
+
+        return countRegBirthCert;
+    }
+
+    public int noOfRegDeathCertRequests() {
+        List<DeathCertRequest> listOfDeathCertsReq;
+        DataModel<DeathCertRequest> deathCertModel;
+
+        return countRegDeathCert;
+    }
+
     public void loadBirths() {
         birthDetailsList = supportBean.listOfChildrenDetailsForRegApproval(selectedDistrict);
         birthDetailModel = new ListDataModel<>(birthDetailsList);
@@ -341,36 +357,52 @@ public class RegionalApprovalsController implements Serializable {
         this.renderApproval = renderApproval;
     }
 
-    public int getDistBirthDetails() {
-        return distBirthDetails;
+    public UserAccessController getAccessController() {
+        return accessController;
     }
 
-    public void setDistBirthDetails(int distBirthDetails) {
-        this.distBirthDetails = distBirthDetails;
+    public void setAccessController(UserAccessController accessController) {
+        this.accessController = accessController;
     }
 
-    public int getDistDeathDetails() {
-        return distDeathDetails;
+    public String getRegId() {
+        return regId;
     }
 
-    public void setDistDeathDetails(int distDeathDetails) {
-        this.distDeathDetails = distDeathDetails;
+    public void setRegId(String regId) {
+        this.regId = regId;
     }
 
-    public int getDistBirthCert() {
-        return distBirthCert;
+    public int getCountRegBirthDetails() {
+        return countRegBirthDetails;
     }
 
-    public void setDistBirthCert(int distBirthCert) {
-        this.distBirthCert = distBirthCert;
+    public void setCountRegBirthDetails(int countRegBirthDetails) {
+        this.countRegBirthDetails = countRegBirthDetails;
     }
 
-    public int getDistDeathCert() {
-        return distDeathCert;
+    public int getCountRegDeathDetails() {
+        return countRegDeathDetails;
     }
 
-    public void setDistDeathCert(int distDeathCert) {
-        this.distDeathCert = distDeathCert;
+    public void setCountRegDeathDetails(int countRegDeathDetails) {
+        this.countRegDeathDetails = countRegDeathDetails;
+    }
+
+    public int getCountRegBirthCert() {
+        return countRegBirthCert;
+    }
+
+    public void setCountRegBirthCert(int countRegBirthCert) {
+        this.countRegBirthCert = countRegBirthCert;
+    }
+
+    public int getCountRegDeathCert() {
+        return countRegDeathCert;
+    }
+
+    public void setCountRegDeathCert(int countRegDeathCert) {
+        this.countRegDeathCert = countRegDeathCert;
     }
 
     public String getSelectedDistrict() {

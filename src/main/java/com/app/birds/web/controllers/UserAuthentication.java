@@ -5,9 +5,9 @@
  */
 package com.app.birds.web.controllers;
 
-import com.app.birds.entities.UserAccount;
+import com.app.birds.ejbSessions.SupportBean;
+import com.app.birds.entities.SystemUser;
 import com.app.birds.web.commons.BirdsConstant;
-import com.app.birds.web.commons.BirdsSingletonDataSource;
 import com.app.birds.web.commons.GenerateIDs;
 import com.app.birds.web.commons.LoginUser;
 import com.app.birds.web.commons.UserAccessController;
@@ -18,6 +18,7 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,26 +30,23 @@ import javax.servlet.http.HttpServletRequest;
 @SessionScoped
 public class UserAuthentication implements Serializable {
 
+    @Inject
+    private SupportBean supportBean;
+
     private static final long serialVersionUID = 7090138834846165429L;
-    protected UserAccount userAccount = new UserAccount();
+
+    protected SystemUser systemUser = new SystemUser();
     protected BirdsMenuConfiguration mnuConfig = new BirdsMenuConfiguration();
     private UserAccessController accessController = new UserAccessController();
-//    private boolean userLoggedIn = accessController.isIsLogin();
     private String username = "";
     private String password = "";
-
-//    @EJB
-//    private SupportBean supportBean;
 
     public UserAuthentication() {
     }
 
     public String authenticateUser() {
 
-//            FacesContext facesContext = FacesContext.getCurrentInstance();
-//            HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
         try {
-//            request.login(username, password);
             if (username == null || "".equals(username)) {
                 JSFUtility.warnMessage("Login: ", "Username is required");
                 return "index.xhtml";
@@ -58,21 +56,21 @@ public class UserAuthentication implements Serializable {
             } else {
                 password = GenerateIDs.generateHash(password);
                 System.out.println("Hashed Password: " + password);
-                userAccount = BirdsSingletonDataSource.getSupportSessionBean().authenticateUser(username, password);
-                if (userAccount != null) {
+                systemUser = supportBean.authenticateUser(username, password);
+                if (systemUser != null) {
                     LoginUser loginUser = new LoginUser();
 
-                    if (null == userAccount.getSystemUser().getUserRole().getRoleName()) {
+                    if (null == systemUser.getUserRole().getRoleName()) {
                         JSFUtility.errorMessage("Role: ", "Your role is not defined, contact systems administrator");
                         return "index.xhtml?faces-redirect=true";
                     } else {
-                        System.out.println("Role: " + userAccount.getSystemUser().getUserRole().getRoleName());
-                        switch (userAccount.getSystemUser().getUserRole().getRoleName()) {
+                        System.out.println("Role: " + systemUser.getUserRole().getRoleName());
+                        switch (systemUser.getUserRole().getRoleName()) {
                             case "Regional Administrator":
                                 loginUser.setAccessFor("Regional Administrator");
-                                loginUser.setUserLogin(userAccount);
+                                loginUser.setUserLogin(systemUser);
                                 loginUser.setUserScreenName(username);
-                                loginUser.setDistrict(userAccount.getSystemUser().getDistrict().getDistrictId());
+                                loginUser.setDistrict(systemUser.getDistrict().getDistrictId());
                                 loginUser.setIsLogin(true);
                                 loginUser.setIsAdmin(true);
 
@@ -81,14 +79,14 @@ public class UserAuthentication implements Serializable {
 
                                 JSFUtility.putSessionValue(BirdsConstant.ADMIN_USER, loginUser);
                                 JSFUtility.putSessionValue(BirdsConstant.ADMIN_MENU, mnuConfig);
-                                JSFUtility.putSessionValue(BirdsConstant.LOGIN_USER, userAccount);
+                                JSFUtility.putSessionValue(BirdsConstant.LOGIN_USER, systemUser);
 
                                 return "pages/reg_admin/regional_admin.xhtml?faces-redirect=true";
                             case "District Administrator":
                                 loginUser.setAccessFor("District Administrator");
-                                loginUser.setUserLogin(userAccount);
+                                loginUser.setUserLogin(systemUser);
                                 loginUser.setUserScreenName(username);
-                                loginUser.setDistrict(userAccount.getSystemUser().getDistrict().getDistrictId());
+                                loginUser.setDistrict(systemUser.getDistrict().getDistrictId());
                                 loginUser.setIsLogin(true);
                                 loginUser.setIsAdmin(false);
 
@@ -96,14 +94,14 @@ public class UserAuthentication implements Serializable {
 
                                 JSFUtility.putSessionValue(BirdsConstant.ADMIN_USER, loginUser);
                                 JSFUtility.putSessionValue(BirdsConstant.ADMIN_MENU, mnuConfig);
-                                JSFUtility.putSessionValue(BirdsConstant.LOGIN_USER, userAccount);
+                                JSFUtility.putSessionValue(BirdsConstant.LOGIN_USER, systemUser);
 
                                 return "pages/dist_admin/district_admin.xhtml?faces-redirect=true";
                             case "Registrar":
                                 loginUser.setAccessFor("Registrar");
-                                loginUser.setUserLogin(userAccount);
+                                loginUser.setUserLogin(systemUser);
                                 loginUser.setUserScreenName(username);
-                                loginUser.setDistrict(userAccount.getSystemUser().getDistrict().getDistrictId());
+                                loginUser.setDistrict(systemUser.getDistrict().getDistrictId());
                                 loginUser.setIsLogin(true);
                                 loginUser.setIsAdmin(false);
 
@@ -111,7 +109,7 @@ public class UserAuthentication implements Serializable {
 
                                 JSFUtility.putSessionValue(BirdsConstant.ADMIN_USER, loginUser);
                                 JSFUtility.putSessionValue(BirdsConstant.ADMIN_MENU, mnuConfig);
-                                JSFUtility.putSessionValue(BirdsConstant.LOGIN_USER, userAccount);
+                                JSFUtility.putSessionValue(BirdsConstant.LOGIN_USER, systemUser);
 
                                 return "pages/registrar/registrar.xhtml?faces-redirect=true";
                             default:
@@ -141,7 +139,7 @@ public class UserAuthentication implements Serializable {
             nav.performNavigation("/index.xhtml?faces-redirect=true");
         } else {
             System.out.println("User Logged-In: " + accessController.isIsLogin());
-            System.out.println(accessController.getUserAccount().getSystemUser().getUserRole().getRoleName());
+            System.out.println(accessController.getSystemUser().getUserRole().getRoleName());
             System.out.println(accessController.getLoginUser().getAccessFor());
 
             String accessFor = accessController.getLoginUser().getAccessFor();
@@ -157,7 +155,7 @@ public class UserAuthentication implements Serializable {
         try {
             JSFUtility.putSessionValue(BirdsConstant.LOGIN_USER, null);
             JSFUtility.destroySession();
-            this.userAccount = null;
+            this.systemUser = null;
             request.logout();
         } catch (ServletException e) {
             e.printStackTrace();
@@ -186,7 +184,6 @@ public class UserAuthentication implements Serializable {
 //    public void setSupportBean(SupportBean supportBean) {
 //        this.supportBean = supportBean;
 //    }
-
     public String getUsername() {
         return username;
     }
@@ -203,12 +200,20 @@ public class UserAuthentication implements Serializable {
         this.password = password;
     }
 
-    public UserAccount getUserAccount() {
-        return userAccount;
+    public SupportBean getSupportBean() {
+        return supportBean;
     }
 
-    public void setUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
+    public void setSupportBean(SupportBean supportBean) {
+        this.supportBean = supportBean;
+    }
+
+    public SystemUser getSystemUser() {
+        return systemUser;
+    }
+
+    public void setSystemUser(SystemUser systemUser) {
+        this.systemUser = systemUser;
     }
 
     public UserAccessController getAccessController() {

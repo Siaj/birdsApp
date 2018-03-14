@@ -9,7 +9,7 @@ import com.app.birds.entities.BirthCertRequest;
 import com.app.birds.entities.ChildBirthDetail;
 import com.app.birds.entities.DeathCertRequest;
 import com.app.birds.entities.DeceasedDetail;
-import com.app.birds.entities.UserAccount;
+import com.app.birds.entities.SystemUser;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -26,9 +26,9 @@ public class SupportBean {
     @PersistenceContext(unitName = "birds-ejbPU")
     private EntityManager em;
 
-    public UserAccount authenticateUser(String username, String password) {
+    public SystemUser authenticateUser(String username, String password) {
         try {
-            return (UserAccount) em.createNamedQuery(UserAccount.FIND_BY_USERNAME_PASSWORD).setParameter("username", username).setParameter("password", password).getSingleResult();
+            return (SystemUser) em.createNamedQuery(SystemUser.FIND_BY_USERNAME_PASSWORD).setParameter("username", username).setParameter("password", password).getSingleResult();
         } catch (Exception e) {
             System.out.println("Did not get any Results for entry");
 //            e.printStackTrace(); used during developmental testing
@@ -146,13 +146,14 @@ public class SupportBean {
         return new ArrayList<>();
     }
 
-    public List<ChildBirthDetail> childBirthDetailNumber() {
+    public List<ChildBirthDetail> regionalBirthDetailNumber(String regionId) {
         List<ChildBirthDetail> listOfChildBirthDetail;
 
         String qryString;
 
         try {
-            qryString = "SELECT e FROM ChildBirthDetail e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO'";
+            qryString = "SELECT e FROM ChildBirthDetail e WHERE e.districtApproved = 'YES' AND "
+                    + "e.regionalApproved = 'NO' AND e.systemUser.district.region.regionId = '" + regionId + "'";
             listOfChildBirthDetail = (List<ChildBirthDetail>) em.createQuery(qryString).getResultList();
 
             return listOfChildBirthDetail;
@@ -162,13 +163,14 @@ public class SupportBean {
         return new ArrayList<>();
     }
 
-    public List<DeceasedDetail> deceasedDetailNumber() {
+    public List<DeceasedDetail> regionalDeceasedDetailNumber(String regionId) {
         List<DeceasedDetail> listOfDeathDetail;
 
         String qryString;
 
         try {
-            qryString = "SELECT e FROM DeceasedDetail e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO'";
+            qryString = "SELECT e FROM DeceasedDetail e WHERE e.districtApproved = 'YES' AND "
+                    + "e.regionalApproved = 'NO' AND e.systemUser.district.region.regionId = '" + regionId + "'";
             listOfDeathDetail = (List<DeceasedDetail>) em.createQuery(qryString).getResultList();
 
             return listOfDeathDetail;
@@ -177,4 +179,38 @@ public class SupportBean {
         }
         return new ArrayList<>();
     }
+    
+//    public List<ChildBirthDetail> regionalBirthCertNumber(String regionId) {
+//        List<ChildBirthDetail> listOfChildBirthDetail;
+//
+//        String qryString;
+//
+//        try {
+//            qryString = "SELECT e FROM BirthCertRequest e WHERE e.districtApproved = 'YES'"
+//                    + " AND e.regionalApproved = 'NO' AND e.SystemUserId.district.region.regionId '" + regionId + "'";
+//            listOfChildBirthDetail = (List<ChildBirthDetail>) em.createQuery(qryString).getResultList();
+//
+//            return listOfChildBirthDetail;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return new ArrayList<>();
+//    }
+//    
+//    public List<ChildBirthDetail> regionalDeathCertNumber(String regionId) {
+//        List<ChildBirthDetail> listOfChildBirthDetail;
+//
+//        String qryString;
+//
+//        try {
+//            qryString = "SELECT e FROM ChildBirthDetail e WHERE e.districtApproved = 'YES' AND "
+//                    + "e.regionalApproved = 'NO' AND e.systemUser.district.region.regionId = '" + regionId + "'";
+//            listOfChildBirthDetail = (List<ChildBirthDetail>) em.createQuery(qryString).getResultList();
+//
+//            return listOfChildBirthDetail;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return new ArrayList<>();
+//    }
 }

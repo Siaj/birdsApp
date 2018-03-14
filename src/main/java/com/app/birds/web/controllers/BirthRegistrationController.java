@@ -71,15 +71,15 @@ public class BirthRegistrationController implements Serializable {
     }
 
     public String generateBirthRegistryId() {
-        System.out.println("District Id: " + accessController.getUserAccount().getSystemUser().getDistrict().getDistrictId());
-        genId = genIdFacade.findWithDistrictId(accessController.getUserAccount().getSystemUser().getDistrict().getDistrictId());
+        System.out.println("District Id: " + accessController.getSystemUser().getDistrict().getDistrictId());
+        genId = genIdFacade.findWithDistrictId(accessController.getSystemUser().getDistrict().getDistrictId());
         if (genId != null) {
             System.out.println("LBN = " + genId.getDistLastBirthNum());
             Integer entry_number = genId.getDistLastBirthNum() + 1;
             String entry_year = String.valueOf(calendar.get(Calendar.YEAR));
 
 //        Generated BirthId for the registration being entered
-            approved_birth_id = accessController.getUserAccount().getSystemUser().getDistrict().getDistrictId() + "-"
+            approved_birth_id = accessController.getSystemUser().getDistrict().getDistrictId() + "-"
                     + entry_number.toString() + "-" + entry_year;
             System.out.println("Approved Birth Id: " + approved_birth_id);
 
@@ -96,7 +96,7 @@ public class BirthRegistrationController implements Serializable {
     }
 
     public void saveBirthRegistryDetails() {
-        districtCenter = centerFacade.districtCenterFind(accessController.getUserAccount().getSystemUser().getDistrictCenter().getCenterId());
+        districtCenter = centerFacade.districtCenterFind(accessController.getSystemUser().getDistrictCenter().getCenterId());
         System.out.println("Selected Center: " + districtCenter.getCenterId() + " " + districtCenter.getCenterName());
 
         String birthId = generateBirthRegistryId();
@@ -109,7 +109,7 @@ public class BirthRegistrationController implements Serializable {
         informantBirth.setInformantBirthId(CommonUtil.generateID());
         birthDetail.setInformantBirth(informantBirth);
 
-        birthDetail.setSystemUser(accessController.getUserAccount().getSystemUser());
+        birthDetail.setSystemUser(accessController.getSystemUser());
 
         birthDetail.setBirthId(birthId);
         birthDetail.setCenterRegistered(districtCenter.getCenterName());
@@ -151,7 +151,7 @@ public class BirthRegistrationController implements Serializable {
                 informantBirth.setRelationship(birthInformantRelation);
                 switch (birthInformantRelation) {
                     case "Self":
-                        informantBirth.setInformantName(accessController.getUserAccount().getSystemUser().getFirstName());
+                        informantBirth.setInformantName(accessController.getSystemUser().getFirstName());
                         break;
                     case "Mother":
                         String mumName = childGuardian.getMumSurname().toUpperCase() + " " + childGuardian.getMumOthername();

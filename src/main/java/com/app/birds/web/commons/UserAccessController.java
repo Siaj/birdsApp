@@ -4,7 +4,7 @@
  */
 package com.app.birds.web.commons;
 
-import com.app.birds.entities.UserAccount;
+import com.app.birds.entities.SystemUser;
 import com.app.birds.web.utilities.BirdsMenuConfiguration;
 import com.app.birds.web.utilities.JSFUtility;
 import java.io.Serializable;
@@ -29,7 +29,7 @@ public class UserAccessController implements Serializable{
     private String loginUsername = "";
     private String district = null;
     private BirdsMenuConfiguration mnuConfig = null;
-    private UserAccount userAccount = null;
+    private SystemUser systemUser = null;
     
 public String showURL(){
     String url = JSFUtility.getCurrentContext().getExternalContext().getRequestPathInfo();
@@ -151,17 +151,17 @@ public String showURL(){
         this.mnuConfig = mnuConfig;
     }
 
-    public UserAccount getUserAccount() {
+    public SystemUser getSystemUser() {
         try {
-            userAccount = (UserAccount) JSFUtility.getSessionValue(BirdsConstant.LOGIN_USER);
+            systemUser = (SystemUser) JSFUtility.getSessionValue(BirdsConstant.LOGIN_USER);
         } catch (Exception e) {
-            userAccount = null;
+            systemUser = null;
         }
-        return userAccount;
+        return systemUser;
     }
 
-    public void setUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
+    public void setSystemUser(SystemUser systemUser) {
+        this.systemUser = systemUser;
     }
     
     

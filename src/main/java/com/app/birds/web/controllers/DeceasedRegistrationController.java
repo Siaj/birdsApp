@@ -66,15 +66,15 @@ public class DeceasedRegistrationController implements Serializable {
     }
 
     public String generateDeceasedRegistryId() {
-        System.out.println("District Id: " + accessController.getUserAccount().getSystemUser().getDistrict().getDistrictId());
-        genId = genIdFacade.findWithDistrictId(accessController.getUserAccount().getSystemUser().getDistrict().getDistrictId());
+        System.out.println("District Id: " + accessController.getSystemUser().getDistrict().getDistrictId());
+        genId = genIdFacade.findWithDistrictId(accessController.getSystemUser().getDistrict().getDistrictId());
         if (genId != null) {
             System.out.println("LDN = " + genId.getDistLastBirthNum());
             Integer entry_number = genId.getDistLastBirthNum() + 1;
             String entry_year = String.valueOf(calendar.get(Calendar.YEAR));
 
 //        Generated BirthId for the registration being entered
-            approved_deceased_id = accessController.getUserAccount().getSystemUser().getDistrict().getDistrictId() + "-"
+            approved_deceased_id = accessController.getSystemUser().getDistrict().getDistrictId() + "-"
                     + entry_number.toString() + "-" + entry_year;
             System.out.println("Approved Birth Id: " + approved_deceased_id);
 
@@ -91,7 +91,7 @@ public class DeceasedRegistrationController implements Serializable {
     }
 
     public void deceasedRegistration() {
-        districtCenter = centerFacade.districtCenterFind(accessController.getUserAccount().getSystemUser().getDistrictCenter().getCenterId());
+        districtCenter = centerFacade.districtCenterFind(accessController.getSystemUser().getDistrictCenter().getCenterId());
         System.out.println("Selected Center: " + districtCenter.getCenterId() + " " + districtCenter.getCenterName());
 
         String deceasedId = generateDeceasedRegistryId();
@@ -99,7 +99,7 @@ public class DeceasedRegistrationController implements Serializable {
         informantDeath.setInformantDeathId(CommonUtil.generateID());
         deceasedDetail.setInformantDeath(informantDeath);
 
-        deceasedDetail.setSystemUser(accessController.getUserAccount().getSystemUser());
+        deceasedDetail.setSystemUser(accessController.getSystemUser());
 
         deceasedDetail.setDeceasedId(deceasedId);
         deceasedDetail.setCenterRegistered(districtCenter.getCenterName());
