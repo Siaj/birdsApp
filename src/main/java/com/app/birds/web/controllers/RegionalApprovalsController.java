@@ -15,7 +15,6 @@ import com.app.birds.entities.DeathCertRequest;
 import com.app.birds.entities.DeceasedDetail;
 import com.app.birds.entities.InformantDeath;
 import com.app.birds.entities.SystemUser;
-import com.app.birds.web.commons.BirdsConstant;
 import com.app.birds.web.commons.UserAccessController;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
@@ -156,14 +155,22 @@ public class RegionalApprovalsController implements Serializable {
 
     public int noOfRegBirthCertRequests() {
         List<BirthCertRequest> listOfBirthCertReq;
-        DataModel<BirthCertRequest> birthCertModel;
+        DataModel<BirthCertRequest> birthCertRequestsModel;
+
+        listOfBirthCertReq = new ArrayList<>(supportBean.regionalBirthCertNumber(regId));
+        birthCertRequestsModel = new ListDataModel<>(listOfBirthCertReq);
+        countRegBirthCert = birthCertRequestsModel.getRowCount();
 
         return countRegBirthCert;
     }
 
     public int noOfRegDeathCertRequests() {
         List<DeathCertRequest> listOfDeathCertsReq;
-        DataModel<DeathCertRequest> deathCertModel;
+        DataModel<DeathCertRequest> deathCertRequestModel;
+
+        listOfDeathCertsReq = new ArrayList<>(supportBean.regionalDeathCertNumber(regId));
+        deathCertRequestModel = new ListDataModel<>(listOfDeathCertsReq);
+        countRegDeathCert = deathCertRequestModel.getRowCount();
 
         return countRegDeathCert;
     }

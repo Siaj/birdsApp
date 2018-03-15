@@ -53,7 +53,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class SystemUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    public static final String FIND_BY_USERNAME_PASSWORD = "UserAccount.FIND_BY_USERNAME_PASSWORD";
+    public static final String FIND_BY_USERNAME_PASSWORD = "SystemUser.FIND_BY_USERNAME_PASSWORD";
 
     @Id
     @Basic(optional = false)

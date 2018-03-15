@@ -96,7 +96,7 @@ public class SupportBean {
         String qry;
         List<BirthCertRequest> listOfBirthCert;
         try {
-            qry = "SELECT e FROM BirthCertRequest e WHERE e.districtApproved = 'NO' AND e.district = '" + distId + "'";
+            qry = "SELECT e FROM BirthCertRequest e WHERE e.districtApproved = 'NO' AND e.district.districtId = '" + distId + "'";
             listOfBirthCert = (List<BirthCertRequest>) em.createQuery(qry).getResultList();
             return listOfBirthCert;
         } catch (Exception e) {
@@ -109,7 +109,7 @@ public class SupportBean {
         String qry;
         List<BirthCertRequest> listOfBirthCert;
         try {
-            qry = "SELECT e FROM BirthCertRequest e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO' AND e.district = '" + selectedDistrict + "'";
+            qry = "SELECT e FROM BirthCertRequest e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO' AND e.district.districtId = '" + selectedDistrict + "'";
             listOfBirthCert = (List<BirthCertRequest>) em.createQuery(qry).getResultList();
             return listOfBirthCert;
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public class SupportBean {
         List<DeathCertRequest> listOfDeathCert;
 
         try {
-            qry = "SELECT e FROM DeathCertRequest e WHERE e.districtApproved = 'NO' AND e.district = '" + distId + "'";
+            qry = "SELECT e FROM DeathCertRequest e WHERE e.districtApproved = 'NO' AND e.district.districtId = '" + distId + "'";
             listOfDeathCert = (List<DeathCertRequest>) em.createQuery(qry).getResultList();
             return listOfDeathCert;
         } catch (Exception e) {
@@ -137,7 +137,7 @@ public class SupportBean {
         List<DeathCertRequest> listOfDeathCert;
 
         try {
-            qry = "SELECT e FROM DeathCertRequest e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO' AND e.district = '" + selectedDist + "'";
+            qry = "SELECT e FROM DeathCertRequest e WHERE e.districtApproved = 'YES' AND e.regionalApproved = 'NO' AND e.district.districtId = '" + selectedDist + "'";
             listOfDeathCert = (List<DeathCertRequest>) em.createQuery(qry).getResultList();
             return listOfDeathCert;
         } catch (Exception e) {
@@ -180,37 +180,37 @@ public class SupportBean {
         return new ArrayList<>();
     }
     
-//    public List<ChildBirthDetail> regionalBirthCertNumber(String regionId) {
-//        List<ChildBirthDetail> listOfChildBirthDetail;
-//
-//        String qryString;
-//
-//        try {
-//            qryString = "SELECT e FROM BirthCertRequest e WHERE e.districtApproved = 'YES'"
-//                    + " AND e.regionalApproved = 'NO' AND e.SystemUserId.district.region.regionId '" + regionId + "'";
-//            listOfChildBirthDetail = (List<ChildBirthDetail>) em.createQuery(qryString).getResultList();
-//
-//            return listOfChildBirthDetail;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new ArrayList<>();
-//    }
-//    
-//    public List<ChildBirthDetail> regionalDeathCertNumber(String regionId) {
-//        List<ChildBirthDetail> listOfChildBirthDetail;
-//
-//        String qryString;
-//
-//        try {
-//            qryString = "SELECT e FROM ChildBirthDetail e WHERE e.districtApproved = 'YES' AND "
-//                    + "e.regionalApproved = 'NO' AND e.systemUser.district.region.regionId = '" + regionId + "'";
-//            listOfChildBirthDetail = (List<ChildBirthDetail>) em.createQuery(qryString).getResultList();
-//
-//            return listOfChildBirthDetail;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new ArrayList<>();
-//    }
+    public List<BirthCertRequest> regionalBirthCertNumber(String regionId) {
+        List<BirthCertRequest> listOfBirthCertRequests;
+
+        String qryString;
+
+        try {
+            qryString = "SELECT e FROM BirthCertRequest e WHERE e.districtApproved = 'YES'"
+                    + " AND e.regionalApproved = 'NO' AND e.district.region.regionId = '" + regionId + "'";
+            listOfBirthCertRequests = (List<BirthCertRequest>) em.createQuery(qryString).getResultList();
+
+            return listOfBirthCertRequests;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+    
+    public List<DeathCertRequest> regionalDeathCertNumber(String regionId) {
+        List<DeathCertRequest> listOfDeathCertRequests;
+
+        String qryString;
+
+        try {
+            qryString = "SELECT e FROM DeathCertRequest e WHERE e.districtApproved = 'YES' AND "
+                    + "e.regionalApproved = 'NO' AND e.district.region.regionId = '" + regionId + "'";
+            listOfDeathCertRequests = (List<DeathCertRequest>) em.createQuery(qryString).getResultList();
+
+            return listOfDeathCertRequests;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
 }

@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DeathCertRequest.findAll", query = "SELECT d FROM DeathCertRequest d")
     , @NamedQuery(name = "DeathCertRequest.findByDeathCertRequestId", query = "SELECT d FROM DeathCertRequest d WHERE d.deathCertRequestId = :deathCertRequestId")
     , @NamedQuery(name = "DeathCertRequest.findBySystemUser", query = "SELECT d FROM DeathCertRequest d WHERE d.systemUser = :systemUser")
-    , @NamedQuery(name = "DeathCertRequest.findByDistrict", query = "SELECT d FROM DeathCertRequest d WHERE d.district = :district")
     , @NamedQuery(name = "DeathCertRequest.findByDistrictApproved", query = "SELECT d FROM DeathCertRequest d WHERE d.districtApproved = :districtApproved")
     , @NamedQuery(name = "DeathCertRequest.findByRegionalApproved", query = "SELECT d FROM DeathCertRequest d WHERE d.regionalApproved = :regionalApproved")
     , @NamedQuery(name = "DeathCertRequest.findByCertPrinted", query = "SELECT d FROM DeathCertRequest d WHERE d.certPrinted = :certPrinted")
@@ -48,9 +47,6 @@ public class DeathCertRequest implements Serializable {
     @Size(max = 70)
     @Column(name = "system_user")
     private String systemUser;
-    @Size(max = 70)
-    @Column(name = "district")
-    private String district;
     @Size(max = 10)
     @Column(name = "district_approved")
     private String districtApproved;
@@ -69,6 +65,9 @@ public class DeathCertRequest implements Serializable {
     @JoinColumn(name = "deceased_details", referencedColumnName = "deceased_id")
     @ManyToOne
     private DeceasedDetail deceasedDetails;
+    @JoinColumn(name = "district", referencedColumnName = "district_id")
+    @ManyToOne
+    private District district;
 
     public DeathCertRequest() {
     }
@@ -91,14 +90,6 @@ public class DeathCertRequest implements Serializable {
 
     public void setSystemUser(String systemUser) {
         this.systemUser = systemUser;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
     }
 
     public String getDistrictApproved() {
@@ -147,6 +138,14 @@ public class DeathCertRequest implements Serializable {
 
     public void setDeceasedDetails(DeceasedDetail deceasedDetails) {
         this.deceasedDetails = deceasedDetails;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     @Override

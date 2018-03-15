@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BirthCertRequest.findAll", query = "SELECT b FROM BirthCertRequest b")
     , @NamedQuery(name = "BirthCertRequest.findByBirthCertRequestId", query = "SELECT b FROM BirthCertRequest b WHERE b.birthCertRequestId = :birthCertRequestId")
     , @NamedQuery(name = "BirthCertRequest.findBySystemUserId", query = "SELECT b FROM BirthCertRequest b WHERE b.systemUserId = :systemUserId")
-    , @NamedQuery(name = "BirthCertRequest.findByDistrict", query = "SELECT b FROM BirthCertRequest b WHERE b.district = :district")
     , @NamedQuery(name = "BirthCertRequest.findByDistrictApproved", query = "SELECT b FROM BirthCertRequest b WHERE b.districtApproved = :districtApproved")
     , @NamedQuery(name = "BirthCertRequest.findByRegionalApproved", query = "SELECT b FROM BirthCertRequest b WHERE b.regionalApproved = :regionalApproved")
     , @NamedQuery(name = "BirthCertRequest.findByCertPrinted", query = "SELECT b FROM BirthCertRequest b WHERE b.certPrinted = :certPrinted")
@@ -50,11 +49,6 @@ public class BirthCertRequest implements Serializable {
     @Size(min = 1, max = 70)
     @Column(name = "system_user_id")
     private String systemUserId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "district")
-    private String district;
     @Size(max = 10)
     @Column(name = "district_approved")
     private String districtApproved;
@@ -73,6 +67,9 @@ public class BirthCertRequest implements Serializable {
     @JoinColumn(name = "birth_applicant_id", referencedColumnName = "birth_id")
     @ManyToOne(optional = false)
     private ChildBirthDetail birthApplicantId;
+    @JoinColumn(name = "district", referencedColumnName = "district_id")
+    @ManyToOne(optional = false)
+    private District district;
 
     public BirthCertRequest() {
     }
@@ -81,10 +78,9 @@ public class BirthCertRequest implements Serializable {
         this.birthCertRequestId = birthCertRequestId;
     }
 
-    public BirthCertRequest(String birthCertRequestId, String systemUserId, String district) {
+    public BirthCertRequest(String birthCertRequestId, String systemUserId) {
         this.birthCertRequestId = birthCertRequestId;
         this.systemUserId = systemUserId;
-        this.district = district;
     }
 
     public String getBirthCertRequestId() {
@@ -101,14 +97,6 @@ public class BirthCertRequest implements Serializable {
 
     public void setSystemUserId(String systemUserId) {
         this.systemUserId = systemUserId;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
     }
 
     public String getDistrictApproved() {
@@ -157,6 +145,14 @@ public class BirthCertRequest implements Serializable {
 
     public void setBirthApplicantId(ChildBirthDetail birthApplicantId) {
         this.birthApplicantId = birthApplicantId;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     @Override

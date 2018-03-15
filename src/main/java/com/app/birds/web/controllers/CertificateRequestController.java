@@ -101,7 +101,7 @@ public class CertificateRequestController implements Serializable {
 
         birthCertRequest.setBirthCertRequestId(CommonUtil.generateID());
 
-        birthCertRequest.setDistrict(district.getDistrictId());
+        birthCertRequest.setDistrict(district);
         birthCertRequest.setSystemUserId(systemUser.getSystemUserId());
         birthCertRequest.setDistrictApproved("NO");
         birthCertRequest.setRegionalApproved("NO");
@@ -126,7 +126,7 @@ public class CertificateRequestController implements Serializable {
 
         deathCertRequest.setDeathCertRequestId(CommonUtil.generateID());
 
-        deathCertRequest.setDistrict(district.getDistrictId());
+        deathCertRequest.setDistrict(district);
         deathCertRequest.setSystemUser(systemUser.getSystemUserId());
         deathCertRequest.setDistrictApproved("NO");
         deathCertRequest.setRegionalApproved("NO");

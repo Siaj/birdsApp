@@ -8,6 +8,7 @@ package com.app.birds.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -68,6 +69,10 @@ public class District implements Serializable {
     private String deleted;
     @OneToMany(mappedBy = "districtUnder")
     private List<DistrictCenter> districtCenterList;
+    @OneToMany(mappedBy = "district")
+    private List<DeathCertRequest> deathCertRequestList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "district")
+    private List<BirthCertRequest> birthCertRequestList;
     @JoinColumn(name = "region", referencedColumnName = "region_id")
     @ManyToOne
     private Region region;
@@ -144,6 +149,24 @@ public class District implements Serializable {
 
     public void setDistrictCenterList(List<DistrictCenter> districtCenterList) {
         this.districtCenterList = districtCenterList;
+    }
+
+    @XmlTransient
+    public List<DeathCertRequest> getDeathCertRequestList() {
+        return deathCertRequestList;
+    }
+
+    public void setDeathCertRequestList(List<DeathCertRequest> deathCertRequestList) {
+        this.deathCertRequestList = deathCertRequestList;
+    }
+
+    @XmlTransient
+    public List<BirthCertRequest> getBirthCertRequestList() {
+        return birthCertRequestList;
+    }
+
+    public void setBirthCertRequestList(List<BirthCertRequest> birthCertRequestList) {
+        this.birthCertRequestList = birthCertRequestList;
     }
 
     public Region getRegion() {
