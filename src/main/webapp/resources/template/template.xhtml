@@ -73,10 +73,10 @@
                     </ul>
 
                     <ui:insert name="left">
-                        <h:form>
+                        <h:form id="menulist">
                             <div class="arrowlistmenu">
                                 <ui:insert name="reg_admin">
-                                    <h:panelGroup rendered="#{userAccessController.mnuConfig.render_reg_admin_tabs}">
+                                    <h:panelGroup id="admin" rendered="#{userAccessController.mnuConfig.render_reg_admin_tabs}">
                                         <h:panelGroup>
                                             <h3 class="menuheader expandable">System User</h3>
                                             <ul class="categoryitems nav">
@@ -295,7 +295,7 @@
                 <footer class="footer">
                     <div class="container-fluid">
                         <p class="copyright pull-right">
-                            &copy; <script>document.write(new Date().getFullYear());</script> <a href="http://www.uregina.ca" target="_blank">University of Regina</a> - Birth and Death Registry Automation System
+                            <script>document.write(new Date().getFullYear());</script> <a href="http://www.uregina.ca" target="_blank">University of Regina</a> - Birth and Death Registry Automation System
                         </p>
                     </div>
                 </footer>

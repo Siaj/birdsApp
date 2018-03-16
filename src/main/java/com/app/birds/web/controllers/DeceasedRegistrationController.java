@@ -15,6 +15,7 @@ import com.app.birds.entities.GenId;
 import com.app.birds.entities.InformantDeath;
 import com.app.birds.entities.SystemUser;
 import com.app.birds.web.commons.UserAccessController;
+import com.app.birds.web.controllers.qualifiers.Create;
 import com.app.birds.web.utilities.CommonUtil;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
@@ -25,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.enterprise.event.Event;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 
@@ -35,6 +37,10 @@ import javax.inject.Inject;
 @Named(value = "deceased_registration_model")
 @SessionScoped
 public class DeceasedRegistrationController implements Serializable {
+
+    @Inject
+    @Create
+    Event<DeceasedDetail> deceasedDetailsCreate;
 
     @Inject
     private DeceasedDetailFacade deceasedDetailFacade;
@@ -113,6 +119,7 @@ public class DeceasedRegistrationController implements Serializable {
         String deceasedDetailSaved = deceasedDetailFacade.deceasedDetailCreate(deceasedDetail);
 
         if (informantSaved != null && deceasedDetailSaved != null) {
+            deceasedDetailsCreate.fire(deceasedDetail);
             JSFUtility.infoMessage("Success:", "Registration Successful.Deceased Details Has Been Successfully Saved, pending updates from Regional Office");
             resetButton();
         } else {

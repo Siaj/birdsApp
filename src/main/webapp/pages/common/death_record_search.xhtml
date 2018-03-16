@@ -6,7 +6,9 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <h:body>
-        <h:form>
+        <h:form id="deceasedSearchForm">
+
+            <p:growl id="message" widgetVar="DeceasedDetails" showDetail="true" autoUpdate="true" life="1" />
             <h:panelGroup layout="block" styleClass="row">
                 <h:panelGroup layout="block" styleClass="col-md-12">
                     <h:panelGroup layout="block" styleClass="card">
@@ -39,7 +41,7 @@
                                 <br/>
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-12">
-                                        <p:dataTable var="deaths_search" paginator="true" reflow="true"
+                                        <p:dataTable id="deceasedsearch" var="deaths_search" paginator="true" reflow="true"
                                                      paginatorPosition="top" rows="5" value="#{generalSearch.deceasedDataModel}"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                      rowsPerPageTemplate="5,10,15">
@@ -220,6 +222,20 @@
                 </h:panelGroup>
             </h:panelGroup>
         </h:form>
+
+        <p:socket onMessage="handleMessage" channel="/deceasedDetails">
+            <p:ajax event="message" update=":deceasedSearchForm:deceasedsearch"/>
+        </p:socket>
+
+        <script type="text/javascript">
+            function handleMessage(facesmessage) {
+                facesmessage.severity = 'info';
+                console.log(facesmessage);
+
+                PF('DeceasedDetails').show([facesmessage]);
+            }
+        </script>
+
     </h:body>
 </html>
 

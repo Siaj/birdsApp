@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="09834533-47bb-4ce5-8512-59401e88b284">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="title" class="java.lang.String"/>
+	<field name="child_name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="473" splitType="Stretch">
+			<textField>
+				<reportElement x="207" y="24" width="100" height="20" uuid="d3fc4f19-541a-439d-ac5c-f9dcd9336988"/>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="104" width="470" height="20" uuid="dd864881-2c19-40cc-9a57-28494e0e2159"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{child_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="157" y="436" width="219" height="20" uuid="daf12eac-3f11-4e62-b4f2-5f605e4de7c8"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Thanks for passing by!!! SIAJ]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

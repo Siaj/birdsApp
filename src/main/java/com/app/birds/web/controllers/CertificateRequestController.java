@@ -17,6 +17,7 @@ import com.app.birds.entities.DeceasedDetail;
 import com.app.birds.entities.District;
 import com.app.birds.entities.InformantDeath;
 import com.app.birds.entities.SystemUser;
+import com.app.birds.web.controllers.qualifiers.Create;
 import com.app.birds.web.utilities.CommonUtil;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
@@ -24,6 +25,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.event.Event;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -35,6 +37,14 @@ import javax.inject.Inject;
 @Named(value = "certificateRequest")
 @SessionScoped
 public class CertificateRequestController implements Serializable {
+    
+    @Inject
+    @Create
+    Event<BirthCertRequest> createBirthCertRequest;
+    
+    @Inject
+    @Create
+    Event<DeathCertRequest> createDeathCertRequest;
 
     @Inject
     private BirthCertRequestFacade birthCertRequestFacade;
@@ -109,6 +119,7 @@ public class CertificateRequestController implements Serializable {
 
         String saved = birthCertRequestFacade.birthCertRequestCreate(birthCertRequest);
         if (saved != null) {
+            createBirthCertRequest.fire(birthCertRequest);
             cancelBirthCertRequest();
             JSFUtility.infoMessage("Success:", "Birth Certificate request Has Been Successfully Sent For Approval and Printing.");
         } else {
@@ -134,6 +145,7 @@ public class CertificateRequestController implements Serializable {
 
         String saved = deathCertRequestFacade.deathCertRequestCreate(deathCertRequest);
         if (saved != null) {
+            createDeathCertRequest.fire(deathCertRequest);
             cancelDeathCertRequest();
             JSFUtility.infoMessage("Success:", "Death Certificate request Has Been Successfully Sent For Approval and Printing.");
         } else {

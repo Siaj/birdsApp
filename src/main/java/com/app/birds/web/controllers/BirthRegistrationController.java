@@ -16,6 +16,7 @@ import com.app.birds.entities.DistrictCenter;
 import com.app.birds.entities.GenId;
 import com.app.birds.entities.InformantBirth;
 import com.app.birds.web.commons.UserAccessController;
+import com.app.birds.web.controllers.qualifiers.Create;
 import com.app.birds.web.utilities.CommonUtil;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.enterprise.event.Event;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
@@ -37,6 +39,10 @@ import javax.inject.Inject;
 @Named(value = "birth_registration_model")
 @SessionScoped
 public class BirthRegistrationController implements Serializable {
+
+    @Inject
+    @Create
+    Event<ChildBirthDetail> birthDetailsCreate;
 
     @Inject
     private ChildBirthDetailFacade birthDetailFacade;
@@ -126,6 +132,7 @@ public class BirthRegistrationController implements Serializable {
 
         if (guardianSaved != null || informantSaved != null || birthDetailSaved != null) {
             JSFUtility.infoMessage("Success: ", "Birth Registration Successfully Saved and sent for further approvals");
+            birthDetailsCreate.fire(birthDetail);
             resetButton();
         } else {
             JSFUtility.warnMessage("Error: ", "Registration Failed.Couldn't Save Child Detail.Please Check Your Entries and Try Again");

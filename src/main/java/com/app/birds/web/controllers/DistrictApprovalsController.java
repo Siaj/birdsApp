@@ -18,12 +18,15 @@ import com.app.birds.entities.DeceasedDetail;
 import com.app.birds.entities.InformantDeath;
 import com.app.birds.entities.SystemUser;
 import com.app.birds.web.commons.BirdsConstant;
+import com.app.birds.web.controllers.qualifiers.DistAdmin;
+import com.app.birds.web.controllers.qualifiers.Update;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.event.Event;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -35,6 +38,26 @@ import javax.inject.Inject;
 @Named(value = "distApprovalsController")
 @SessionScoped
 public class DistrictApprovalsController implements Serializable {
+
+    @Inject
+    @Update
+    @DistAdmin
+    Event<ChildBirthDetail> approveBirthDetails;
+
+    @Inject
+    @Update
+    @DistAdmin
+    Event<DeceasedDetail> approveDeathDetails;
+
+    @Inject
+    @Update
+    @DistAdmin
+    Event<BirthCertRequest> approveBirthCert;
+
+    @Inject
+    @Update
+    @DistAdmin
+    Event<DeathCertRequest> approveDeathCert;
 
     @Inject
     private ChildBirthDetailFacade birthDetailFacade;
@@ -81,6 +104,7 @@ public class DistrictApprovalsController implements Serializable {
         birthDetail.setDistrictApproved("YES");
         boolean saved = birthDetailFacade.updateBirthDetails(birthDetail);
         if (saved) {
+            approveBirthDetails.fire(birthDetail);
             cancelRequest();
             JSFUtility.infoMessage("Success:", "Child Birth Details Has Been Successfully Saved");
         } else {
@@ -92,6 +116,7 @@ public class DistrictApprovalsController implements Serializable {
         birthCertRequest.setDistrictApproved("YES");
         boolean saved = birthCertRequestFacade.birthCertRequestUpdate(birthCertRequest);
         if (saved) {
+            approveBirthCert.fire(birthCertRequest);
             cancelRequest();
             JSFUtility.infoMessage("Success:", "Child Birth Certificate Request Has Been Successfuly Approve And Submited For Printing");
         } else {
@@ -103,6 +128,7 @@ public class DistrictApprovalsController implements Serializable {
         deceasedDetail.setDistrictApproved("YES");
         boolean saved = deceasedDetailFacade.deceasedDetailUpdate(deceasedDetail);
         if (saved) {
+            approveDeathDetails.fire(deceasedDetail);
             cancelRequest();
             JSFUtility.infoMessage("Success:", "Deceased Details Has Been Successfully Approved.");
         } else {
@@ -114,6 +140,7 @@ public class DistrictApprovalsController implements Serializable {
         deathCertRequest.setDistrictApproved("YES");
         boolean saved = deathCertRequestFacade.deathCertRequestUpdate(deathCertRequest);
         if (saved) {
+            approveDeathCert.fire(deathCertRequest);
             cancelRequest();
             JSFUtility.infoMessage("Success:", "Deceased Certificate Request Has Been Successfully Approved And Submitted For Printing");
         } else {

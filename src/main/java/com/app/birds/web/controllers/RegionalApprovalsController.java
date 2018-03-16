@@ -5,9 +5,12 @@
  */
 package com.app.birds.web.controllers;
 
+import com.app.birds.ejbSessions.BirthCertRequestFacade;
 import com.app.birds.ejbSessions.ChildBirthDetailFacade;
+import com.app.birds.ejbSessions.DeathCertRequestFacade;
 import com.app.birds.ejbSessions.DeceasedDetailFacade;
 import com.app.birds.ejbSessions.SupportBean;
+import com.app.birds.ejbSessions.SystemUserFacade;
 import com.app.birds.entities.BirthCertRequest;
 import com.app.birds.entities.ChildBirthDetail;
 import com.app.birds.entities.ChildGuardian;
@@ -16,12 +19,17 @@ import com.app.birds.entities.DeceasedDetail;
 import com.app.birds.entities.InformantDeath;
 import com.app.birds.entities.SystemUser;
 import com.app.birds.web.commons.UserAccessController;
+import com.app.birds.web.controllers.qualifiers.RegAdmin;
+import com.app.birds.web.controllers.qualifiers.Update;
+import com.app.birds.web.detailedClass.BirthDetailedClass;
+import com.app.birds.web.reports.ReportController;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.event.Event;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -33,6 +41,16 @@ import javax.inject.Inject;
 @Named(value = "regApprovalsController")
 @SessionScoped
 public class RegionalApprovalsController implements Serializable {
+    
+    @Inject 
+    @Update
+    @RegAdmin
+    Event<ChildBirthDetail> birthDetailsApprove;
+    
+    @Inject 
+    @Update
+    @RegAdmin
+    Event<DeceasedDetail> deceasedDetailsApprove;
 
     @Inject
     private ChildBirthDetailFacade birthDetailFacade;
@@ -40,6 +58,12 @@ public class RegionalApprovalsController implements Serializable {
     private DeceasedDetailFacade deceasedDetailFacade;
     @Inject
     private SupportBean supportBean;
+    @Inject
+    private SystemUserFacade systemUserFacade;
+    @Inject
+    private BirthCertRequestFacade birthCertRequestFacade;
+    @Inject
+    private DeathCertRequestFacade deathCertRequestFacade;
 
     private ChildBirthDetail birthDetail = new ChildBirthDetail();
     private DeceasedDetail deceasedDetail = new DeceasedDetail();
@@ -77,6 +101,7 @@ public class RegionalApprovalsController implements Serializable {
         birthDetail.setRegionalApproved("YES");
         boolean saved = birthDetailFacade.updateBirthDetails(birthDetail);
         if (saved) {
+            birthDetailsApprove.fire(birthDetail);
             cancelRequest();
             loadBirths();
             JSFUtility.infoMessage("Success:", "Child Birth Details Has Been Successfully Saved");
@@ -89,6 +114,7 @@ public class RegionalApprovalsController implements Serializable {
         deceasedDetail.setRegionalApproved("YES");
         boolean saved = deceasedDetailFacade.deceasedDetailUpdate(deceasedDetail);
         if (saved) {
+            deceasedDetailsApprove.fire(deceasedDetail);
             cancelRequest();
             loadDeceased();
             JSFUtility.infoMessage("Success:", "Deceased Details Has Been Successfully Approved.");
@@ -195,8 +221,33 @@ public class RegionalApprovalsController implements Serializable {
         deathCertModel = new ListDataModel<>(deathCertRequestsList);
     }
 
-    public void printBirthCert() {
+    public void testPrint() {
+        List<BirthDetailedClass> bdcsList = null;
 
+        ReportController.getInstance().loadDefaultParameters();
+        ReportController.getInstance().showReport(bdcsList, getClass().getResourceAsStream(ReportController.BIRTH_CERTIFICATE));
+    }
+
+    public void printBirthCert() {
+        List<BirthDetailedClass> bdcsList = null;
+
+        birthCertRequest = (BirthCertRequest) birthCertModel.getRowData();
+        String user_id = birthCertRequest.getBirthApplicantId().getSystemUser().getSystemUserId();
+        System.out.println(user_id);
+        systemUser = systemUserFacade.systemUserFind(user_id);
+        System.out.println(systemUser.getFirstName());
+        BirthDetailedClass birthDetailedClass = new BirthDetailedClass();
+
+        bdcsList = birthDetailedClass.loadBirth(birthCertRequest, systemUser);
+
+        System.out.println(bdcsList);
+
+//        birthCertRequest.setRegionalApproved("YES");
+//        birthCertRequest.setCertPrinted("YES");
+//        birthCertRequestFacade.birthCertRequestUpdate(birthCertRequest);
+        ReportController.getInstance().loadDefaultParameters();
+//        ReportController.getInstance().showReport(bdcsList, getClass().getResourceAsStream(ReportController.BIRTH_CERTIFICATE));
+        ReportController.getInstance().showReport(bdcsList, ReportController.BIRTH_CERTIFICATE);
     }
 
     public void printDeathCert() {

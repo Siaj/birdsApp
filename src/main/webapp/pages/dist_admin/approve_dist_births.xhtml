@@ -6,8 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <h:body>  
-        <h:form>
-
+        <h:form id="dist_approve_birth">
+            <p:growl id="message" widgetVar="DistBirthsDetails" showDetail="true" autoUpdate="true" life="1" />
             <h:panelGroup layout="block" styleClass="row">
                 <h:panelGroup layout="block" styleClass="col-md-12">
                     <h:panelGroup layout="block" styleClass="card">
@@ -24,7 +24,7 @@
                                         <p:dataTable var="district_births" paginator="true" paginatorPosition="top" rows="5" reflow="true"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                      rowsPerPageTemplate="5,10,15" value="#{distApprovalsController.birthDetailModel}"
-                                                     emptyMessage="No records currently available for approval">
+                                                     emptyMessage="No records currently available for approval" id="dist_b_list">
                                             <f:facet name="header">
                                                 <h:outputText value="List of Birth Registration"/>
                                             </f:facet>
@@ -204,6 +204,20 @@
                 </h:panelGroup>
             </h:panelGroup>
         </h:form>
+
+        <p:socket onMessage="handleMessage" channel="/districtAdmin">
+            <p:ajax event="message" update=":dist_approve_birth:dist_b_list"/>
+        </p:socket>
+
+        <script type="text/javascript">
+            function handleMessage(facesmessage) {
+                facesmessage.severity = 'info';
+                console.log(facesmessage);
+
+                PF('DistBirthsDetails').show([facesmessage]);
+            }
+        </script>
+
     </h:body>
 </html>
 

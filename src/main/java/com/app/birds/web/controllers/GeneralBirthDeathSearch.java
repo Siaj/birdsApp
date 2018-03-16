@@ -16,12 +16,15 @@ import com.app.birds.entities.DeceasedDetail;
 import com.app.birds.entities.InformantDeath;
 import com.app.birds.entities.SystemUser;
 import com.app.birds.web.commons.UserAccessController;
+import com.app.birds.web.controllers.qualifiers.Registrar;
+import com.app.birds.web.controllers.qualifiers.Update;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.event.Event;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -33,6 +36,11 @@ import javax.inject.Inject;
 @Named(value = "generalSearch")
 @SessionScoped
 public class GeneralBirthDeathSearch implements Serializable {
+
+    @Inject
+    @Update
+    @Registrar
+    Event<ChildBirthDetail> birthDetailsUpdate;
 
     @Inject
     ChildBirthDetailFacade birthDetailFacade;
@@ -108,6 +116,7 @@ public class GeneralBirthDeathSearch implements Serializable {
 
         boolean ammended = birthDetailFacade.updateBirthDetails(getBirthDetail());
         if (ammended) {
+            birthDetailsUpdate.fire(getBirthDetail());
             renderBirthDetails = false;
             JSFUtility.infoMessage("Success: ", "Birth Registration Details Succesfully Updated");
         } else {

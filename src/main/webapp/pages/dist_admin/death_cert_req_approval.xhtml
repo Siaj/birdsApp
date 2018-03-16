@@ -6,7 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <h:body>  
-        <h:form>
+        <h:form id="dist_death_cert">
+            <p:growl id="message" widgetVar="DistDeathCerts" showDetail="true" autoUpdate="true" life="1" />
             <h:panelGroup layout="block" styleClass="row">
                 <h:panelGroup layout="block" styleClass="col-md-12">
                     <h:panelGroup layout="block" styleClass="card">
@@ -19,7 +20,7 @@
                             <h:panelGroup layout="block" styleClass="content">
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-12">
-                                        <p:dataTable var="dist_death_certs" paginator="true" reflow="true"
+                                        <p:dataTable id="dist_d_cert_list" var="dist_death_certs" paginator="true" reflow="true"
                                                      paginatorPosition="top" rows="5" emptyMessage="No records currently available for approval"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                      rowsPerPageTemplate="5,10,15" value="#{distApprovalsController.deathCertModel}">
@@ -164,6 +165,20 @@
                 </h:panelGroup>
             </h:panelGroup>
         </h:form>
+
+        <p:socket onMessage="handleMessage" channel="/districtAdmin">
+            <p:ajax event="message" update=":dist_death_cert:dist_d_cert_list"/>
+        </p:socket>
+
+        <script type="text/javascript">
+            function handleMessage(facesmessage) {
+                facesmessage.severity = 'info';
+                console.log(facesmessage);
+
+                PF('DistDeathCerts').show([facesmessage]);
+            }
+        </script>
+
     </h:body>
 </html>
 
