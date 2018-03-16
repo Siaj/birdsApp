@@ -22,6 +22,7 @@ import com.app.birds.web.commons.UserAccessController;
 import com.app.birds.web.controllers.qualifiers.RegAdmin;
 import com.app.birds.web.controllers.qualifiers.Update;
 import com.app.birds.web.detailedClass.BirthDetailedClass;
+import com.app.birds.web.detailedClass.DeceasedDetailClass;
 import com.app.birds.web.reports.ReportController;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
@@ -41,13 +42,13 @@ import javax.inject.Inject;
 @Named(value = "regApprovalsController")
 @SessionScoped
 public class RegionalApprovalsController implements Serializable {
-    
-    @Inject 
+
+    @Inject
     @Update
     @RegAdmin
     Event<ChildBirthDetail> birthDetailsApprove;
-    
-    @Inject 
+
+    @Inject
     @Update
     @RegAdmin
     Event<DeceasedDetail> deceasedDetailsApprove;
@@ -77,10 +78,10 @@ public class RegionalApprovalsController implements Serializable {
     private List<DeceasedDetail> deceasedDetailsList = new ArrayList<>();
     private List<BirthCertRequest> birthCertRequestsList = new ArrayList<>();
     private List<DeathCertRequest> deathCertRequestsList = new ArrayList<>();
-    private DataModel<ChildBirthDetail> birthDetailModel;
-    private DataModel<DeceasedDetail> deceasedDetailModel;
-    private DataModel<BirthCertRequest> birthCertModel;
-    private DataModel<DeathCertRequest> deathCertModel;
+    private transient DataModel<ChildBirthDetail> birthDetailModel;
+    private transient DataModel<DeceasedDetail> deceasedDetailModel;
+    private transient DataModel<BirthCertRequest> birthCertModel;
+    private transient DataModel<DeathCertRequest> deathCertModel;
     private boolean renderApproval = false;
     private String regId = accessController.getSystemUser().getDistrict().getRegion().getRegionId();
     private int countRegBirthDetails = 0, countRegDeathDetails = 0, countRegBirthCert = 0, countRegDeathCert = 0;
@@ -229,7 +230,7 @@ public class RegionalApprovalsController implements Serializable {
     }
 
     public void printBirthCert() {
-        List<BirthDetailedClass> bdcsList = null;
+        List<BirthDetailedClass> bdcsList;
 
         birthCertRequest = (BirthCertRequest) birthCertModel.getRowData();
         String user_id = birthCertRequest.getBirthApplicantId().getSystemUser().getSystemUserId();
@@ -245,13 +246,28 @@ public class RegionalApprovalsController implements Serializable {
 //        birthCertRequest.setRegionalApproved("YES");
 //        birthCertRequest.setCertPrinted("YES");
 //        birthCertRequestFacade.birthCertRequestUpdate(birthCertRequest);
+
         ReportController.getInstance().loadDefaultParameters();
-//        ReportController.getInstance().showReport(bdcsList, getClass().getResourceAsStream(ReportController.BIRTH_CERTIFICATE));
-        ReportController.getInstance().showReport(bdcsList, ReportController.BIRTH_CERTIFICATE);
+        ReportController.getInstance().showReport(bdcsList, getClass().getResourceAsStream(ReportController.BIRTH_CERTIFICATE));
     }
 
     public void printDeathCert() {
+        List<DeceasedDetailClass> ddcs;
 
+        deathCertRequest = (DeathCertRequest) deathCertModel.getRowData();
+        String user_id = deathCertRequest.getDeceasedDetails().getSystemUser().getSystemUserId();
+        systemUser = systemUserFacade.systemUserFind(user_id);
+
+        DeceasedDetailClass deceasedDetailClass = new DeceasedDetailClass();
+
+        ddcs = deceasedDetailClass.loadDeceased(deathCertRequest, systemUser);
+
+//        deathCertRequest.setRegionalApproved("YES");
+//        deathCertRequest.setCertPrinted("YES");
+//        deathCertRequestFacade.deathCertRequestUpdate(deathCertRequest);
+
+        ReportController.getInstance().loadDefaultParameters();
+        ReportController.getInstance().showReport(ddcs, getClass().getResourceAsStream(ReportController.DEATH_CERTIFICATE));
     }
 
     public void resetDistrictSelected() {

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="death_certificate" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="befac985-fb94-4133-b525-a97f9c674281">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="deathTitle" class="java.lang.String"/>
+	<field name="deceased_id" class="java.lang.String"/>
+	<field name="entry_number" class="java.lang.String"/>
+	<field name="deceased_name" class="java.lang.String"/>
+	<field name="deceased_gender" class="java.lang.String"/>
+	<field name="age" class="java.lang.Integer"/>
+	<field name="nationality" class="java.lang.String"/>
+	<field name="place_of_deceased" class="java.lang.String"/>
+	<field name="place_of_death" class="java.lang.String"/>
+	<field name="date_of_death" class="java.util.Date"/>
+	<field name="cause_of_death" class="java.lang.String"/>
+	<field name="date_of_registration" class="java.util.Date"/>
+	<field name="informant_name" class="java.lang.String"/>
+	<field name="relationship" class="java.lang.String"/>
+	<field name="place_of_burial" class="java.lang.String"/>
+	<field name="town_of_burial" class="java.lang.String"/>
+	<field name="sign_of_regis" class="java.lang.String"/>
+	<field name="district" class="java.lang.String"/>
+	<field name="margin" class="java.lang.String"/>
+	<field name="district_center" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="659" splitType="Stretch">
+			<line>
+				<reportElement x="149" y="163" width="1" height="86" uuid="7c57f3f3-9df2-4a07-a886-54e910607798"/>
+			</line>
+			<staticText>
+				<reportElement x="8" y="168" width="75" height="20" uuid="1da760ff-930d-4997-8ce8-8b87938a74f0"/>
+				<text><![CDATA[        NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="188" width="128" height="13" uuid="90383201-d920-4fb0-a2ee-3b20411886ab"/>
+				<textElement>
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(Name in full.Surname first)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="396" y="164" width="1" height="47" uuid="fc30d5d9-ca0e-4ce7-9e73-c19a74bc24cf"/>
+			</line>
+			<staticText>
+				<reportElement x="409" y="168" width="25" height="20" uuid="6f06384c-2ab0-4e6e-be6d-4d661b861f6c"/>
+				<text><![CDATA[Sex:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="9" y="210" width="526" height="1" uuid="22830d3f-306a-47ca-9c69-991b4364404a"/>
+			</line>
+			<line>
+				<reportElement x="149" y="250" width="1" height="297" uuid="8d4a62ba-546d-42e1-b554-f6177ed3c292"/>
+			</line>
+			<staticText>
+				<reportElement x="16" y="217" width="22" height="20" uuid="071506c9-0a81-4899-b581-189c02d6e632"/>
+				<text><![CDATA[Age]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="220" width="54" height="20" uuid="196f5555-8b5d-468c-a5ea-8f6df2cf2f05"/>
+				<text><![CDATA[Nationality]]></text>
+			</staticText>
+			<line>
+				<reportElement x="9" y="240" width="526" height="1" uuid="f8079fe1-d97f-42c5-8e7f-9268c7321bae"/>
+			</line>
+			<line>
+				<reportElement x="226" y="210" width="1" height="28" uuid="3652faee-754b-45df-acc4-a67b9ff5d6f5"/>
+			</line>
+			<line>
+				<reportElement x="9" y="304" width="526" height="1" uuid="cd8575e7-9d87-4bd1-9dad-d328c09b48f4"/>
+			</line>
+			<staticText>
+				<reportElement x="16" y="308" width="81" height="20" uuid="8de3c9a7-4a2f-46b4-90a1-23659e9e626f"/>
+				<text><![CDATA[Place of Death]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="330" width="526" height="1" uuid="b43d5ed8-dccd-431c-aff2-3a6e3caa255f"/>
+			</line>
+			<line>
+				<reportElement x="9" y="358" width="526" height="1" uuid="b6394129-cab0-4889-984f-580228d7b064"/>
+			</line>
+			<line>
+				<reportElement x="8" y="386" width="526" height="1" uuid="30f5363e-87c3-4280-adf0-b338c078e0e2"/>
+			</line>
+			<staticText>
+				<reportElement x="16" y="341" width="93" height="14" uuid="7ebf7184-68a9-4c2a-89b7-c78ac36c6e18"/>
+				<text><![CDATA[Date of Death]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="364" width="100" height="20" uuid="e80785b2-15c6-43e1-a20e-46b19fecbf91"/>
+				<text><![CDATA[Cause of Death]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="415" width="526" height="1" uuid="9fecc57a-58bc-4751-9963-7263cfd1a5d8"/>
+			</line>
+			<staticText>
+				<reportElement x="23" y="434" width="100" height="16" uuid="90d7d317-94f6-48af-94a3-dc50ccc78297"/>
+				<text><![CDATA[Name of Informant]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="458" width="526" height="1" uuid="32ad14f1-93cc-4c8a-b6b3-4167fb408b5f"/>
+			</line>
+			<staticText>
+				<reportElement x="12" y="395" width="115" height="13" uuid="d47da22b-dda8-496c-af2a-adc2cf339615"/>
+				<text><![CDATA[Date of Registration]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="507" width="100" height="14" uuid="212fefa8-e283-49d2-a67c-fddf77728782"/>
+				<text><![CDATA[Sign of Registration]]></text>
+			</staticText>
+			<line>
+				<reportElement x="9" y="524" width="526" height="1" uuid="0bc9b2e1-e158-41ee-9678-5d6de3b04cf6"/>
+			</line>
+			<line>
+				<reportElement x="8" y="498" width="526" height="1" uuid="19421057-b0f3-425b-885d-e36f1d06f884"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="161" y="181" width="207" height="20" uuid="133e7fa5-d514-437b-99bc-038cc9986010"/>
+				<textFieldExpression><![CDATA[$F{deceased_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="410" y="188" width="110" height="20" uuid="dac4b887-125e-47e2-9d60-bad552f6511f"/>
+				<textFieldExpression><![CDATA[$F{deceased_gender}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="234" y="219" width="254" height="20" uuid="13ea0798-3ce8-4d7b-8097-a5379a0288a1"/>
+				<textFieldExpression><![CDATA[$F{nationality}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="163" y="308" width="242" height="20" uuid="faccc6c6-bd6a-4752-8c96-f098da8082d7"/>
+				<textFieldExpression><![CDATA[$F{place_of_death}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="163" y="363" width="274" height="20" uuid="937a3440-6b0f-4b92-837f-3d874d09f152"/>
+				<textFieldExpression><![CDATA[$F{cause_of_death}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="161" y="430" width="207" height="20" uuid="8bfe4e31-13e3-4604-b500-815cc97945df"/>
+				<textFieldExpression><![CDATA[$F{informant_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="368" y="8" width="50" height="20" uuid="dcd0be2e-3649-4298-8d39-ad1f550aee91"/>
+				<text><![CDATA[Death Id:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="144" width="75" height="20" uuid="256991fa-9e2a-4d29-9a58-4ae83b735cd5"/>
+				<text><![CDATA[Entry Number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="143" width="42" height="20" uuid="ed45d973-6ddc-4184-9c2f-af0bb567e562"/>
+				<text><![CDATA[Registry:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="9" y="163" width="526" height="1" uuid="1955fa61-84bd-422f-84ba-34dd522ae568"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="415" y="8" width="120" height="20" uuid="cf491953-fcb4-4b0a-a652-0dfe81f4079a"/>
+				<textFieldExpression><![CDATA[$F{deceased_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="161" y="336" width="207" height="20" uuid="a3b7dece-8fe2-40d9-96aa-32ef98573e82"/>
+				<textFieldExpression><![CDATA[$F{date_of_death}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="163" y="393" width="173" height="20" uuid="0ad946ce-6942-4f1e-9edd-00036eea0163"/>
+				<textFieldExpression><![CDATA[$F{date_of_registration}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="83" y="144" width="143" height="20" uuid="bac965f8-b554-429b-b8b8-63fa3406ad4a"/>
+				<textFieldExpression><![CDATA[$F{entry_number}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="161" y="502" width="274" height="20" uuid="9b44487f-0c3c-4548-9c76-a3dea142b9c5"/>
+				<textFieldExpression><![CDATA[$F{sign_of_regis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="38" y="217" width="36" height="20" uuid="44537a84-d10f-4214-b965-306b2174e3c7"/>
+				<textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="76" y="217" width="66" height="20" uuid="4520d1a2-c896-4275-b803-8da3d6db96ce"/>
+				<text><![CDATA[years]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="245" width="127" height="15" uuid="fcd8e218-c719-40f8-94b6-ce4b3a1d562d"/>
+				<text><![CDATA[Place and address of
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="260" width="100" height="15" uuid="4ed8fde9-f66b-4a4b-bb30-ca9171e4d9da"/>
+				<text><![CDATA[deceased]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="275" width="128" height="15" uuid="255cc61b-a5c4-4e5d-941c-35115a9a31d5"/>
+				<text><![CDATA[(Write no. of house,name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="289" width="127" height="15" uuid="adbe1266-5ebc-4ead-a45d-6fbb2b63919b"/>
+				<text><![CDATA[of street or part of town)]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="163" y="249" width="164" height="41" uuid="241dfad0-ddd7-41a7-9649-40592ae49fda"/>
+				<textFieldExpression><![CDATA[$F{place_of_deceased}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="374" y="421" width="1" height="39" uuid="8ad14e7d-946c-4bf6-b0c1-64516c04b8bf"/>
+			</line>
+			<staticText>
+				<reportElement x="379" y="421" width="147" height="15" uuid="3ba07416-6888-46af-839d-f9008d514c6c"/>
+				<text><![CDATA[Relationship to the deceased]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="379" y="439" width="147" height="18" uuid="add4d113-73e2-4a28-9d9f-360160575c5e"/>
+				<textFieldExpression><![CDATA[$F{relationship}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="463" width="134" height="15" uuid="c125e9f5-a159-43a5-9949-06f6b8b1940c"/>
+				<text><![CDATA[Place of Burial (Write name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="479" width="128" height="15" uuid="547d3bcc-a2af-46fc-987a-aedc8059642a"/>
+				<text><![CDATA[of cemetery and town)]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="161" y="462" width="175" height="17" uuid="756ee90f-0561-46a5-92ef-6bbe35db8577"/>
+				<textFieldExpression><![CDATA[$F{place_of_burial}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="161" y="480" width="175" height="17" uuid="820fc183-bf8d-4c1d-80db-95ee524649b3"/>
+				<textFieldExpression><![CDATA[$F{town_of_burial}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="360" y="601" width="128" height="1" uuid="b9287083-195e-43fb-9f32-b179da1e016e"/>
+			</line>
+			<staticText>
+				<reportElement x="142" y="570" width="389" height="15" uuid="903eacdb-1290-4ce0-ad90-307d4e3b883b"/>
+				<text><![CDATA[,Registrar of the Births and Deaths for Ghana do hereby certify that the foregoing]]></text>
+			</staticText>
+			<line>
+				<reportElement x="27" y="580" width="115" height="1" uuid="b7477fee-9047-47c2-b347-3e990b2c86e7"/>
+			</line>
+			<staticText>
+				<reportElement x="495" y="590" width="31" height="16" uuid="b8492cd3-3728-4ca1-9199-e0137eb0f5c6"/>
+				<text><![CDATA[in the ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="27" y="568" width="115" height="16" uuid="b9f10fbd-3039-48bb-9219-e5cbe736f6af"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Iddrisu Sibdow]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="614" width="361" height="16" uuid="f101674b-576b-4dac-8ee2-f3ca3f98bd6e"/>
+				<text><![CDATA[Registration District in Ghana, and the Register is now legally in my custody.]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="187" y="601" width="42" height="1" uuid="cd20828b-e791-4f2f-8124-7e88bc255de6"/>
+			</line>
+			<staticText>
+				<reportElement x="18" y="590" width="167" height="13" uuid="167aa859-447c-47bf-a913-cdb67ca955b7"/>
+				<text><![CDATA[is a true copy of the entry NUMBER]]></text>
+			</staticText>
+			<line>
+				<reportElement x="18" y="624" width="153" height="1" uuid="bba565d8-e8ff-4c38-8ed3-d2753175e2c2"/>
+			</line>
+			<staticText>
+				<reportElement x="18" y="570" width="9" height="20" uuid="16332a38-c5e4-41a5-81b8-b17e9e9d1a2f"/>
+				<text><![CDATA[ I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="232" y="591" width="126" height="13" uuid="536863e7-9bc7-429e-a83f-a7de4eab9c81"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[in the Register of Births for]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="41" y="614" width="100" height="16" uuid="0488a37f-2823-4948-a849-b63ff86afeb8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{district}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="188" y="592" width="46" height="16" uuid="9da33bd3-b3b9-423e-9891-934b3dcfba26"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entry_number}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="8" y="548" width="526" height="1" uuid="b681f29c-a747-4762-9ee9-50df44f5ca9a"/>
+			</line>
+			<staticText>
+				<reportElement x="23" y="531" width="100" height="14" uuid="46b8d0f0-2015-494d-9f15-25b2905e9de0"/>
+				<text><![CDATA[Margin]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="162" y="528" width="290" height="20" uuid="4e1a9c65-5478-499e-af14-c97ad33c2bf0"/>
+				<textFieldExpression><![CDATA[$F{margin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="113" width="526" height="24" uuid="9e4845f8-57c3-48bc-b92e-412e539d03ce"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{deathTitle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="373" y="590" width="100" height="20" uuid="0c41a398-2b1b-4a45-9d0c-79f7718baeba"/>
+				<textFieldExpression><![CDATA[$F{district_center}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="334" y="144" width="100" height="20" uuid="976aab22-57ca-4f4c-bd05-0bf90bf07573"/>
+				<textFieldExpression><![CDATA[$F{district_center}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="209" y="12" width="117" height="85" uuid="4fdf358c-70f3-48d5-aeee-89fe3796c62a"/>
+				<imageExpression><![CDATA["D:\\U of R\\02. Winter 2018\\CS 872 - Software Engineering\\03. Project\\Software\\birds-app\\src\\main\\resources\\jasper\\templates\\Coat_of_arms.png"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

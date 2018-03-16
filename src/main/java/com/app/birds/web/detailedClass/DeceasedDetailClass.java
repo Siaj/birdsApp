@@ -39,6 +39,7 @@ public class DeceasedDetailClass implements Serializable {
     private String town_of_burial;
     private String sign_of_regis;
     private String district;
+    private String district_center;
     private SystemUser systemUser = new SystemUser();
 
     public DeceasedDetailClass() {
@@ -64,6 +65,7 @@ public class DeceasedDetailClass implements Serializable {
         deceasedDetailedClass.setDeceased_gender(d.getDeceasedDetails().getGender());
         deceasedDetailedClass.setDeceased_name(d.getDeceasedDetails().getDeceasedFullname());
         deceasedDetailedClass.setDistrict(systemUser.getDistrict().getDistrictName());
+        deceasedDetailedClass.setDistrict_center(systemUser.getDistrictCenter().getCenterName());
         deceasedDetailedClass.setEntry_number(entry_num);
         deceasedDetailedClass.setInformant_name(d.getDeceasedDetails().getInformantDeath().getInformantName());
         deceasedDetailedClass.setNationality(d.getDeceasedDetails().getNationality());
@@ -232,5 +234,15 @@ public class DeceasedDetailClass implements Serializable {
     public void setTown_of_burial(String town_of_burial) {
         this.town_of_burial = town_of_burial;
     }
+
+    public String getDistrict_center() {
+        return district_center;
+    }
+
+    public void setDistrict_center(String district_center) {
+        this.district_center = district_center;
+    }
+    
+    
 
 }

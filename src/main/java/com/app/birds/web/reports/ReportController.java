@@ -26,10 +26,10 @@ public class ReportController extends JasperReportManager implements Serializabl
     public static Map<String, Object> rptParam = new HashMap<String, Object>();
     String msg = "";
 
-    private static final String REPORT_BASE_DIR = "\\com\\app\\birds\\web\\reports\\";
+    private static final String REPORT_BASE_DIR = "/jasper/templates/";
     private static final ReportController reportManager = new ReportController();
-    public static final String BIRTH_CERTIFICATE = "birth_certificate.jasper";
-    public static final String DEATH_CERTIFICATE = REPORT_BASE_DIR + "death_certificate.jasper";
+    public static final String BIRTH_CERTIFICATE = REPORT_BASE_DIR + "birth_certificate.jasper";
+    public static final String DEATH_CERTIFICATE = REPORT_BASE_DIR + "death_cert.jasper";
 
     static {
         reportManager.setReportOutput(ReportOutputFileType.PDF);

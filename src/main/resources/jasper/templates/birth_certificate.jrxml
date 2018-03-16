@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="birth_cert" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcfb1be7-fd70-420d-8d99-5bf911b7a90c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="title" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="child_birth_id" class="java.lang.String"/>
+	<field name="child_name" class="java.lang.String"/>
+	<field name="gender" class="java.lang.String"/>
+	<field name="father_name" class="java.lang.String"/>
+	<field name="father_nationality" class="java.lang.String"/>
+	<field name="mother_name" class="java.lang.String"/>
+	<field name="mum_nationality" class="java.lang.String"/>
+	<field name="date_of_birth" class="java.util.Date"/>
+	<field name="town_delivered" class="java.lang.String"/>
+	<field name="informant_name" class="java.lang.String"/>
+	<field name="date_of_registration" class="java.util.Date"/>
+	<field name="entry_number" class="java.lang.String"/>
+	<field name="sign_of_regis" class="java.lang.String"/>
+	<field name="district" class="java.lang.String"/>
+	<field name="relationship" class="java.lang.String"/>
+	<field name="district_center" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="607" splitType="Stretch">
+			<line>
+				<reportElement x="149" y="178" width="1" height="57" uuid="2094ee6e-ac5f-407c-a343-7498fa9059c9"/>
+			</line>
+			<staticText>
+				<reportElement x="8" y="193" width="75" height="20" uuid="18a12d9d-8ad3-4d71-a7b9-d3866afc9d34"/>
+				<text><![CDATA[CHILD'S NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="213" width="128" height="13" uuid="65da95df-8120-4058-b8a1-5787b7af4fbb"/>
+				<textElement>
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(Name in full.Surname first)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="396" y="178" width="1" height="57" uuid="647aa30d-9067-4994-91f4-c3db84101475"/>
+			</line>
+			<staticText>
+				<reportElement x="409" y="193" width="25" height="20" uuid="72595a17-843e-4f58-9e50-267c64f8cd66"/>
+				<text><![CDATA[Sex:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="236" width="526" height="1" uuid="91efafe2-137c-4e4f-b094-39f944036769"/>
+			</line>
+			<line>
+				<reportElement x="149" y="236" width="1" height="293" uuid="a72ccb13-ca56-4182-92cc-e1861a777957"/>
+			</line>
+			<staticText>
+				<reportElement x="38" y="267" width="45" height="20" uuid="99556a39-7227-4d4f-b758-90e39a69223d"/>
+				<text><![CDATA[FATHER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="247" width="42" height="20" uuid="89caa783-8a0b-4159-9c97-9b0a0fb86731"/>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="274" width="65" height="20" uuid="17ef7ecb-e2b8-4603-8ce0-6870ddd864d2"/>
+				<text><![CDATA[Nationality:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="150" y="266" width="384" height="1" uuid="562987a3-1b40-4e36-88b7-95547b16e33f"/>
+			</line>
+			<line>
+				<reportElement x="226" y="237" width="1" height="115" uuid="7b1d5b3c-b683-4dad-87ce-71e7f23cbb80"/>
+			</line>
+			<line>
+				<reportElement x="8" y="295" width="526" height="1" uuid="c868f7ac-034d-4de8-a475-0ae69b7e78e9"/>
+			</line>
+			<staticText>
+				<reportElement x="38" y="311" width="57" height="20" uuid="bd707df9-db6f-4f0d-88ed-47ffa6fde69f"/>
+				<text><![CDATA[MOTHER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="300" width="42" height="20" uuid="51ad7f0d-a550-411a-a12e-f810ae66591c"/>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="328" width="65" height="20" uuid="1e179379-7adb-492d-8bb6-bf62f4e2a064"/>
+				<text><![CDATA[Nationality:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="150" y="323" width="384" height="1" uuid="4c59de31-d6b1-489c-9bbf-6cc53133ca31"/>
+			</line>
+			<line>
+				<reportElement x="8" y="351" width="526" height="1" uuid="1b0bddc6-590d-4204-b90b-9b0bddeefad1"/>
+			</line>
+			<staticText>
+				<reportElement x="23" y="359" width="100" height="20" uuid="b7bc6e8f-20ea-4fa2-8ca6-d290e76dec0b"/>
+				<text><![CDATA[Date of Birth]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="381" width="526" height="1" uuid="7ec1f898-e3c4-43af-b55d-7f3e0ee201f0"/>
+			</line>
+			<staticText>
+				<reportElement x="23" y="385" width="60" height="14" uuid="756af11c-2ae6-426b-a695-5ac1c04a8308"/>
+				<text><![CDATA[Where Born]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="399" width="100" height="16" uuid="e96a6a2c-0a22-4cca-a2b8-38d4d38a937f"/>
+				<text><![CDATA[(Write Address in full)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="414" width="526" height="1" uuid="190c0d8f-e032-40df-b3df-d6dc35553f3c"/>
+			</line>
+			<staticText>
+				<reportElement x="23" y="424" width="100" height="13" uuid="91dba440-831e-40cc-8d2a-5baaa027ee26"/>
+				<text><![CDATA[Name of Informant]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="455" width="526" height="1" uuid="b6639eb0-83d8-434f-a02e-52a376acf606"/>
+			</line>
+			<staticText>
+				<reportElement x="23" y="460" width="115" height="13" uuid="6914870c-0734-417e-8382-43d0daaca54c"/>
+				<text><![CDATA[Date of Registration]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="485" width="100" height="14" uuid="24964b3c-7be0-47c8-a80d-6dd0454aca35"/>
+				<text><![CDATA[Sign of Registration]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="507" width="526" height="1" uuid="f04de5e7-014f-4a89-8b2f-f8275518a8a8"/>
+			</line>
+			<staticText>
+				<reportElement x="27" y="542" width="7" height="20" uuid="bc2052d8-5b8a-4e5f-90e4-28df461b6a2d"/>
+				<text><![CDATA[ I]]></text>
+			</staticText>
+			<line>
+				<reportElement x="34" y="552" width="115" height="1" uuid="b835aac2-7989-4dae-a0ef-2b860cb4fb78"/>
+			</line>
+			<staticText>
+				<reportElement x="149" y="542" width="389" height="15" uuid="015213c2-2acd-4e07-a35f-35735b52643a"/>
+				<text><![CDATA[,Registrar of the Births and Deaths for Ghana do hereby certify that the foregoing]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="562" width="167" height="13" uuid="7a8b2a55-fd06-4045-a81c-1184aba7c8ed"/>
+				<text><![CDATA[is a true copy of the entry NUMBER]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="192" y="573" width="42" height="1" uuid="b2c0a7dd-a2ca-460e-9eb8-19f7cdff714d"/>
+			</line>
+			<staticText>
+				<reportElement x="237" y="563" width="126" height="13" uuid="9cb4dc11-85d3-4c33-b836-6b0da868024f"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[in the Register of Births for]]></text>
+			</staticText>
+			<line>
+				<reportElement x="365" y="573" width="131" height="1" uuid="84960266-3a9f-41be-83df-1fa8ea0c18f7"/>
+			</line>
+			<staticText>
+				<reportElement x="505" y="562" width="31" height="16" uuid="be3dfa79-2c49-48dc-bd5d-ccccccf82e83"/>
+				<text><![CDATA[in the ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="23" y="596" width="153" height="1" uuid="2781742d-5384-4123-baa9-6c1f223b8a38"/>
+			</line>
+			<staticText>
+				<reportElement x="178" y="586" width="361" height="16" uuid="28a6da4b-b9e2-482f-8dbd-445a8d59bffb"/>
+				<text><![CDATA[Registration District in Ghana, and the Register is now legally in my custody.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="479" width="526" height="1" uuid="c89a6de3-f4e0-4602-bd88-f4c4b6df8aa7"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="161" y="206" width="207" height="20" uuid="f21ba221-2cd6-4f44-89fa-01f39d2d1f62"/>
+				<textFieldExpression><![CDATA[$F{child_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="409" y="215" width="85" height="20" uuid="550b41a4-31dc-42de-90dd-a773af06b69e"/>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="234" y="246" width="242" height="20" uuid="3d2bf35b-bb85-42f3-a764-834791e76569"/>
+				<textFieldExpression><![CDATA[$F{father_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="234" y="274" width="242" height="20" uuid="14de991d-e030-49ef-8358-2e0fd35e7cef"/>
+				<textFieldExpression><![CDATA[$F{father_nationality}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="234" y="300" width="242" height="20" uuid="0025edd8-d047-467f-8c23-db7be78c446e"/>
+				<textFieldExpression><![CDATA[$F{mother_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="234" y="328" width="163" height="20" uuid="118a48eb-34a9-4d6f-937d-9e0127cc6b85"/>
+				<textFieldExpression><![CDATA[$F{mum_nationality}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="161" y="393" width="274" height="20" uuid="5b66eca6-56ca-4651-8f64-440d55809d9d"/>
+				<textFieldExpression><![CDATA[$F{town_delivered}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="161" y="421" width="173" height="20" uuid="afa60850-955a-443a-a535-9190d8b7b9e5"/>
+				<textFieldExpression><![CDATA[$F{informant_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="35" y="540" width="115" height="16" uuid="57a2a5cf-f0a4-4390-b264-7cd04b3a0afe"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Iddrisu Sibdow]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="8" width="41" height="20" uuid="62dd6cff-34c7-4d16-8a1d-f3ecd9b536ca"/>
+				<text><![CDATA[Birth Id:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="160" width="75" height="20" uuid="6e32389e-6535-4784-bb29-0442d76b1e5c"/>
+				<text><![CDATA[Entry Number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="159" width="42" height="20" uuid="eae8e671-517c-4291-ab9a-037dbd01f578"/>
+				<text><![CDATA[Registry:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="9" y="178" width="526" height="1" uuid="87cfb3cd-4d7c-4f4d-9f77-fb3111f7cfdb"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="436" y="8" width="111" height="20" uuid="1329396f-339f-4433-a5ae-6b10f0aa5e8c"/>
+				<textFieldExpression><![CDATA[$F{child_birth_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="161" y="359" width="207" height="20" uuid="fd5df8f9-e8cb-48c6-a4a8-5900470b52d6"/>
+				<textFieldExpression><![CDATA[$F{date_of_birth}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="161" y="459" width="235" height="16" uuid="219ab521-c19e-4198-ab61-2602d54fe554"/>
+				<textFieldExpression><![CDATA[$F{date_of_registration}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="83" y="160" width="143" height="20" uuid="1d014d9c-7af0-4785-b980-db1efed2a6ee"/>
+				<textFieldExpression><![CDATA[$F{entry_number}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="161" y="484" width="274" height="16" uuid="43f464e9-0ebd-43aa-af2f-214b234cc72a"/>
+				<textFieldExpression><![CDATA[$F{sign_of_regis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="563" width="46" height="16" uuid="06bffe87-4932-44bc-be65-35715dc4fbaf"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entry_number}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="46" y="586" width="100" height="16" uuid="dcbd477b-c8b6-4aea-bbdf-296dc1cacf92"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{district}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="347" y="417" width="129" height="15" uuid="74a0f1ec-4a7b-4d67-a1bd-1dca0112849e"/>
+				<text><![CDATA[Relationship to the child]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="347" y="435" width="147" height="18" uuid="12f3e489-6081-4fe9-be06-ebc701858bfc"/>
+				<textFieldExpression><![CDATA[$F{relationship}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="342" y="414" width="1" height="40" uuid="a65a5c4d-8b68-49d7-b055-e18c3f30f6a1"/>
+			</line>
+			<line>
+				<reportElement x="9" y="528" width="525" height="1" uuid="f3090b0c-eaf7-4452-887d-eda3566a1934"/>
+			</line>
+			<staticText>
+				<reportElement x="27" y="509" width="100" height="15" uuid="dfeafa13-2d11-4480-8b4f-10575ae039eb"/>
+				<text><![CDATA[Margin]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="9" y="126" width="538" height="22" uuid="9e818306-8fac-41d3-9564-fd61a1b7ae11"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="334" y="159" width="100" height="20" uuid="50cd908a-47a8-4a7e-bb77-44904ebbf12c"/>
+				<textFieldExpression><![CDATA[$F{district_center}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="372" y="561" width="100" height="20" uuid="adccff10-76d7-430a-943f-5b97f49ce5a6"/>
+				<textFieldExpression><![CDATA[$F{district_center}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="223" y="8" width="111" height="99" uuid="a08ecb35-aad1-420c-9041-4cbb05f5ef5a"/>
+				<imageExpression><![CDATA["D:\\U of R\\02. Winter 2018\\CS 872 - Software Engineering\\03. Project\\Software\\birds-app\\src\\main\\resources\\jasper\\templates\\Coat_of_arms.png"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>
