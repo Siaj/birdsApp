@@ -62,7 +62,10 @@ public class UserAuthentication implements Serializable {
 
                     if (null == systemUser.getUserRole().getRoleName()) {
                         JSFUtility.errorMessage("Role: ", "Your role is not defined, contact systems administrator");
-                        return "index.xhtml?faces-redirect=true";
+                        return "index.xhtml";
+                    } else if (systemUser.getAccountStatus().equals("Inactive")) {
+                        JSFUtility.errorMessage("Account Status: ", "Your account is currently disabled, contact systems administrator");
+                        return "index.xhtml";
                     } else {
                         System.out.println("Role: " + systemUser.getUserRole().getRoleName());
                         switch (systemUser.getUserRole().getRoleName()) {

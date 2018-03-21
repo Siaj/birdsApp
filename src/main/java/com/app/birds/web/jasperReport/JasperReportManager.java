@@ -51,7 +51,7 @@ public class JasperReportManager implements Serializable {
 
     public void showReport(Collection reportData, InputStream inputStream) {
         this.reportData = reportData;
-  //      System.out.println("Report Data Passed Success: " + reportData.size());
+        //      System.out.println("Report Data Passed Success: " + reportData.size());
 //        System.out.println(inputStream);
         createJasperPrint(inputStream);
         outputReport();
@@ -218,7 +218,6 @@ public class JasperReportManager implements Serializable {
         }
         if (this.reportFileType == ReportDesignFileType.INPUTSTREAM) {
             InputStream inputStream = null;
-            System.out.println("Jasper: " + rptIns);
             if (rptIns != null) {
                 inputStream = rptIns;
             } else {
@@ -244,9 +243,9 @@ public class JasperReportManager implements Serializable {
                 Logger.getLogger(JasperReportManager.class.getName()).log(Level.INFO, this.msg);
 
                 this.jasperPrint = JasperFillManager.fillReport(inputStream, this.reportParamenters, this.jrCollectionDataSource);
-                JasperPrintManager.printReport(this.jasperPrint, false);
+                JasperPrintManager.printReport(this.jasperPrint, true);
             } catch (Exception e) {
-                Logger.getLogger(JasperReportManager.class.getName()).log(Level.SEVERE, "Error Creating JasperPrint for " + this.jasperFile + "\n" + e.toString(), e);
+//                Logger.getLogger(JasperReportManager.class.getName()).log(Level.SEVERE, "Error Creating JasperPrint for " + this.jasperFile + "\n" + e.toString(), e);
             }
         } else if (this.reportFileType != ReportDesignFileType.STRING_FILE) {
         }

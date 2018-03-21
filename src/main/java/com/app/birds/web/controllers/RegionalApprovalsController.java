@@ -23,7 +23,9 @@ import com.app.birds.web.controllers.qualifiers.RegAdmin;
 import com.app.birds.web.controllers.qualifiers.Update;
 import com.app.birds.web.detailedClass.BirthDetailedClass;
 import com.app.birds.web.detailedClass.DeceasedDetailClass;
-import com.app.birds.web.reports.ReportController;
+import com.app.birds.web.reports.CertificateTemplate;
+import com.app.birds.web.reports.GenerateBirthCert;
+import com.app.birds.web.reports.GenerateDeathCertificate;
 import com.app.birds.web.utilities.JSFUtility;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -43,15 +45,17 @@ import javax.inject.Inject;
 @SessionScoped
 public class RegionalApprovalsController implements Serializable {
 
-    @Inject
-    @Update
-    @RegAdmin
+    @Inject @Update @RegAdmin
     Event<ChildBirthDetail> birthDetailsApprove;
 
-    @Inject
-    @Update
-    @RegAdmin
+    @Inject @Update @RegAdmin
     Event<DeceasedDetail> deceasedDetailsApprove;
+
+    @Inject @Update @RegAdmin
+    Event<BirthCertRequest> birthCertApprove;
+
+    @Inject @Update @RegAdmin
+    Event<DeathCertRequest> deathCertApprove;
 
     @Inject
     private ChildBirthDetailFacade birthDetailFacade;
@@ -90,14 +94,6 @@ public class RegionalApprovalsController implements Serializable {
     public RegionalApprovalsController() {
     }
 
-//    public SystemUser getSystemUser() {
-//        try {
-//            systemUser = (SystemUser) JSFUtility.getSessionValue(BirdsConstant.LOGIN_USER);
-//        } catch (Exception e) {
-//            systemUser = null;
-//        }
-//        return systemUser;
-//    }
     public void approveBirthDetails() {
         birthDetail.setRegionalApproved("YES");
         boolean saved = birthDetailFacade.updateBirthDetails(birthDetail);
@@ -222,52 +218,42 @@ public class RegionalApprovalsController implements Serializable {
         deathCertModel = new ListDataModel<>(deathCertRequestsList);
     }
 
-    public void testPrint() {
-        List<BirthDetailedClass> bdcsList = null;
-
-        ReportController.getInstance().loadDefaultParameters();
-        ReportController.getInstance().showReport(bdcsList, getClass().getResourceAsStream(ReportController.BIRTH_CERTIFICATE));
-    }
-
     public void printBirthCert() {
+        // Call Certificate template to help generate the Birth Certificate 
+        CertificateTemplate birthTemplate = new GenerateBirthCert();
+
         List<BirthDetailedClass> bdcsList;
 
+        //Get data to be passed to template in order to generate certificate
         birthCertRequest = (BirthCertRequest) birthCertModel.getRowData();
         String user_id = birthCertRequest.getBirthApplicantId().getSystemUser().getSystemUserId();
-        System.out.println(user_id);
         systemUser = systemUserFacade.systemUserFind(user_id);
-        System.out.println(systemUser.getFirstName());
-        BirthDetailedClass birthDetailedClass = new BirthDetailedClass();
 
-        bdcsList = birthDetailedClass.loadBirth(birthCertRequest, systemUser);
+        // Use of Certificate Template to Generate a Birth Certificate for a Client
+        bdcsList = birthTemplate.loadPrintDetails(birthCertRequest, systemUser);
+        birthTemplate.printCertificate(birthCertRequest, systemUser, bdcsList, birthCertRequestFacade);
 
-        System.out.println(bdcsList);
-
-//        birthCertRequest.setRegionalApproved("YES");
-//        birthCertRequest.setCertPrinted("YES");
-//        birthCertRequestFacade.birthCertRequestUpdate(birthCertRequest);
-
-        ReportController.getInstance().loadDefaultParameters();
-        ReportController.getInstance().showReport(bdcsList, getClass().getResourceAsStream(ReportController.BIRTH_CERTIFICATE));
+        //Fire Event for Observers interested to take action
+        birthCertApprove.fire(birthCertRequest);
     }
 
     public void printDeathCert() {
-        List<DeceasedDetailClass> ddcs;
+        // Call Certificate template to help generate the Birth Certificate 
+        CertificateTemplate deathCertTemplate = new GenerateDeathCertificate();
 
+        List<DeceasedDetailClass> ddcsList;
+
+        //Get data to be passed to template in order to generate certificate
         deathCertRequest = (DeathCertRequest) deathCertModel.getRowData();
         String user_id = deathCertRequest.getDeceasedDetails().getSystemUser().getSystemUserId();
         systemUser = systemUserFacade.systemUserFind(user_id);
 
-        DeceasedDetailClass deceasedDetailClass = new DeceasedDetailClass();
+        // Use of Certificate Template to Generate a Death Certificate for a Client
+        ddcsList = deathCertTemplate.loadPrintDetails(deathCertRequest, systemUser);
+        deathCertTemplate.printCertificate(deathCertRequest, systemUser, ddcsList, deathCertRequestFacade);
 
-        ddcs = deceasedDetailClass.loadDeceased(deathCertRequest, systemUser);
-
-//        deathCertRequest.setRegionalApproved("YES");
-//        deathCertRequest.setCertPrinted("YES");
-//        deathCertRequestFacade.deathCertRequestUpdate(deathCertRequest);
-
-        ReportController.getInstance().loadDefaultParameters();
-        ReportController.getInstance().showReport(ddcs, getClass().getResourceAsStream(ReportController.DEATH_CERTIFICATE));
+        //Fire Event for Observers interested to take action
+        deathCertApprove.fire(deathCertRequest);
     }
 
     public void resetDistrictSelected() {

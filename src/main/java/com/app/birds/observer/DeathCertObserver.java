@@ -5,8 +5,11 @@
  */
 package com.app.birds.observer;
 
+import com.app.birds.entities.BirthCertRequest;
 import com.app.birds.entities.DeathCertRequest;
 import com.app.birds.web.controllers.qualifiers.Create;
+import com.app.birds.web.controllers.qualifiers.RegAdmin;
+import com.app.birds.web.controllers.qualifiers.Update;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -23,7 +26,6 @@ import org.primefaces.push.EventBusFactory;
 @ApplicationScoped
 public class DeathCertObserver {
 
-    String GENERAL_BIRTH_SEARCH_CHANNEL = "/birthDetails";
     String DISTRICT_ADMIN_CHANNEL = "/districtAdmin";
     String REGIONAL_ADMIN_CHANNEL = "/regionalAdmin";
 
@@ -36,6 +38,15 @@ public class DeathCertObserver {
 
         EventBus eventBus = EventBusFactory.getDefault().eventBus();
         eventBus.publish(DISTRICT_ADMIN_CHANNEL, new FacesMessage(StringEscapeUtils.escapeHtml3(summary),
+                StringEscapeUtils.escapeHtml3(details)));
+    }
+
+    public void onDeathCertApprovePrint(@Observes @Update @RegAdmin DeathCertRequest deathCertRequest) {
+        String summary = "Approved";
+        String details = "Death Cert Approved and Printed";
+
+        EventBus eventBus = EventBusFactory.getDefault().eventBus();
+        eventBus.publish(REGIONAL_ADMIN_CHANNEL, new FacesMessage(StringEscapeUtils.escapeHtml3(summary),
                 StringEscapeUtils.escapeHtml3(details)));
     }
 }

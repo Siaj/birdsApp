@@ -7,13 +7,18 @@ package com.app.birds.web.commons;
 
 import com.app.birds.ejbSessions.DistrictCenterFacade;
 import com.app.birds.ejbSessions.DistrictFacade;
+import com.app.birds.ejbSessions.SecurityQuestionFacade;
 import com.app.birds.ejbSessions.UserRoleFacade;
 import com.app.birds.entities.District;
 import com.app.birds.entities.DistrictCenter;
+import com.app.birds.entities.SecurityQuestion;
 import com.app.birds.entities.UserRole;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+import java.util.Date;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
@@ -31,6 +36,8 @@ public class CommonOptions implements Serializable {
     private DistrictCenterFacade districtCenterFacade;
     @Inject
     private UserRoleFacade userRoleFacade;
+    @Inject
+    private SecurityQuestionFacade securityQuestionFacade;
 
     private SelectItem[] genderOptions;
     private SelectItem[] idTypeOptions;
@@ -44,6 +51,10 @@ public class CommonOptions implements Serializable {
     private SelectItem[] informantRelation;
     private SelectItem[] placeOfBirth;
     private SelectItem[] placeOfDeath;
+    private SelectItem[] securityQuestions;
+    private SelectItem[] daysOfMonth;
+    private SelectItem[] monthsOfYear;
+    private SelectItem[] calenderYears;
     private UserAccessController userAccessController = new UserAccessController();
     private String distCenter = userAccessController.getSystemUser().getDistrict().getDistrictId();
     int count;
@@ -242,6 +253,72 @@ public class CommonOptions implements Serializable {
         placeOfDeath[4] = new SelectItem("Spiritual/Traditional Home", "Spiritual/Traditional Home");
         placeOfDeath[5] = new SelectItem("Others", "Others");
         return placeOfDeath;
+    }
+
+    public SelectItem[] getSecurityQuestions() {
+        securityQuestions = new SelectItem[securityQuestionFacade.questionGetAll(true).size() + 1];
+        securityQuestions[0] = new SelectItem("", "---Select One---");
+
+        int c = 1;
+
+        try {
+            for (SecurityQuestion sq : securityQuestionFacade.questionGetAll(true)) {
+                securityQuestions[c] = new SelectItem(sq.getQuestionId(), sq.getQuestion());
+                c++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return securityQuestions;
+    }
+
+    public void setSecurityQuestions(SelectItem[] securityQuestions) {
+        this.securityQuestions = securityQuestions;
+    }
+
+    public SelectItem[] getDaysOfMonth() {
+        daysOfMonth = new SelectItem[32];
+        daysOfMonth[0] = new SelectItem("", "-DD-");
+        for (int i = 1; i <= 31; i++) {
+            daysOfMonth[i] = new SelectItem(i, Integer.toString(i));
+        }
+        return daysOfMonth;
+    }
+
+    public void setDaysOfMonth(SelectItem[] daysOfMonth) {
+        this.daysOfMonth = daysOfMonth;
+    }
+
+    public SelectItem[] getMonthsOfYear() {
+        monthsOfYear = new SelectItem[13];
+        String[] months = new DateFormatSymbols().getMonths();
+        monthsOfYear[0] = new SelectItem("", "-MM-");
+        for (int i = 1; i <= 12; i++) {
+            monthsOfYear[i] = new SelectItem(i, months[i]);
+        }
+        return monthsOfYear;
+    }
+
+    public void setMonthsOfYear(SelectItem[] monthsOfYear) {
+        this.monthsOfYear = monthsOfYear;
+    }
+
+    public SelectItem[] getCalenderYears() {
+        Calendar c = Calendar.getInstance();
+        System.out.println(Calendar.getInstance().get(Calendar.YEAR) - 1970);
+        System.out.println(Calendar.getInstance().get(Calendar.YEAR));
+        int startYr = 1970;
+        calenderYears = new SelectItem[(Calendar.getInstance().get(Calendar.YEAR) - 1970) + 2];
+        calenderYears[0] = new SelectItem("", "-YY-");
+        for (int i = 1; i <= (Calendar.getInstance().get(Calendar.YEAR) - 1970) + 1; i++) {
+            calenderYears[i] = new SelectItem(startYr, Integer.toString(startYr));
+            startYr++;
+        }
+        return calenderYears;
+    }
+
+    public void setCalenderYears(SelectItem[] calenderYears) {
+        this.calenderYears = calenderYears;
     }
 
     public void setPlaceOfDeath(SelectItem[] placeOfDeath) {

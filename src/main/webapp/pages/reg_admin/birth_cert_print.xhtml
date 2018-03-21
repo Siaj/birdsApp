@@ -5,7 +5,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>  
-        <h:form>
+        <h:form id="reg_birth_cert">
+            <p:growl id="message" widgetVar="RegBirthCerts" showDetail="true" autoUpdate="true" life="1" />
             <h:panelGroup layout="block" styleClass="row">
                 <h:panelGroup layout="block" styleClass="col-md-12">
                     <h:panelGroup layout="block" styleClass="card">
@@ -35,7 +36,7 @@
 
                                 <h:panelGroup layout="block" styleClass="row">
                                     <h:panelGroup layout="block" styleClass="col-md-12">
-                                        <p:dataTable var="birth_certs" paginator="true" paginatorPosition="top" rows="5" reflow="true"
+                                        <p:dataTable id="reg_b_cert_list" var="birth_certs" paginator="true" paginatorPosition="top" rows="5" reflow="true"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}  {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                      rowsPerPageTemplate="5,10,15" value="#{regApprovalsController.birthCertModel}">
                                             <f:facet name="header">
@@ -68,6 +69,20 @@
                 </h:panelGroup>
             </h:panelGroup>
         </h:form>
+
+        <p:socket onMessage="handleMessage" channel="/regionalAdmin">
+            <p:ajax event="message" update=":reg_birth_cert:reg_b_cert_list"/>
+        </p:socket>
+
+        <script type="text/javascript">
+            function handleMessage(facesmessage) {
+                facesmessage.severity = 'info';
+                console.log(facesmessage);
+
+                PF('RegBirthCerts').show([facesmessage]);
+            }
+        </script>
+
     </h:body>
 </html>
 
