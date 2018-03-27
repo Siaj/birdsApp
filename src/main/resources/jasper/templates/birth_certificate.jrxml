@@ -291,9 +291,9 @@
 				<reportElement x="372" y="561" width="100" height="20" uuid="adccff10-76d7-430a-943f-5b97f49ce5a6"/>
 				<textFieldExpression><![CDATA[$F{district_center}]]></textFieldExpression>
 			</textField>
-			<image>
+			<image onErrorType="Blank">
 				<reportElement x="223" y="8" width="111" height="99" uuid="a08ecb35-aad1-420c-9041-4cbb05f5ef5a"/>
-				<imageExpression><![CDATA["D:\\U of R\\02. Winter 2018\\CS 872 - Software Engineering\\03. Project\\Software\\birds-app\\src\\main\\resources\\jasper\\templates\\Coat_of_arms.png"]]></imageExpression>
+				<imageExpression><![CDATA["Coat_of_arms.png"]]></imageExpression>
 			</image>
 		</band>
 	</detail>

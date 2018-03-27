@@ -3757,7 +3757,7 @@ fieldset[disabled] .btn-neutral.active {
         border-bottom-color: white;
         border-top-color: white;
     }
-    .dropdown-menu {
+    .dropdown .dropdown-menu { /*.dropdown added*/
         display: none;
     }
     .navbar-fixed-top {

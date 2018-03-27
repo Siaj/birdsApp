@@ -177,11 +177,11 @@
 				<textFieldExpression><![CDATA[$F{sign_of_regis}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="38" y="217" width="36" height="20" uuid="44537a84-d10f-4214-b965-306b2174e3c7"/>
+				<reportElement x="57" y="217" width="36" height="20" uuid="44537a84-d10f-4214-b965-306b2174e3c7"/>
 				<textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="76" y="217" width="66" height="20" uuid="4520d1a2-c896-4275-b803-8da3d6db96ce"/>
+				<reportElement x="95" y="217" width="53" height="20" uuid="4520d1a2-c896-4275-b803-8da3d6db96ce"/>
 				<text><![CDATA[years]]></text>
 			</staticText>
 			<staticText>
@@ -316,9 +316,9 @@
 				<reportElement x="334" y="144" width="100" height="20" uuid="976aab22-57ca-4f4c-bd05-0bf90bf07573"/>
 				<textFieldExpression><![CDATA[$F{district_center}]]></textFieldExpression>
 			</textField>
-			<image>
+			<image onErrorType="Blank">
 				<reportElement x="209" y="12" width="117" height="85" uuid="4fdf358c-70f3-48d5-aeee-89fe3796c62a"/>
-				<imageExpression><![CDATA["D:\\U of R\\02. Winter 2018\\CS 872 - Software Engineering\\03. Project\\Software\\birds-app\\src\\main\\resources\\jasper\\templates\\Coat_of_arms.png"]]></imageExpression>
+				<imageExpression><![CDATA["Coat_of_arms.png"]]></imageExpression>
 			</image>
 		</band>
 	</detail>

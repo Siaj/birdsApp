@@ -180,13 +180,6 @@ public class UserAuthentication implements Serializable {
         this.mnuConfig = mnuConfig;
     }
 
-//    public SupportBean getSupportBean() {
-//        return supportBean;
-//    }
-//
-//    public void setSupportBean(SupportBean supportBean) {
-//        this.supportBean = supportBean;
-//    }
     public String getUsername() {
         return username;
     }
@@ -226,12 +219,4 @@ public class UserAuthentication implements Serializable {
     public void setAccessController(UserAccessController accessController) {
         this.accessController = accessController;
     }
-
-//    public boolean isUserLoggedIn() {
-//        return userLoggedIn;
-//    }
-//
-//    public void setUserLoggedIn(boolean userLoggedIn) {
-//        this.userLoggedIn = userLoggedIn;
-//    }
 }

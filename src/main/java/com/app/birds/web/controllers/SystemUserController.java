@@ -46,8 +46,6 @@ public class SystemUserController implements Serializable {
     private UserRole userRole = new UserRole();
     private UserAccessController accessController = new UserAccessController();
     private String selectedDistrict, selectedRole;
-//    private boolean renderAccountDetails = false;
-//    private boolean renderSaveButton = true;
     private String renderAccount = "false", renderSave = "true";
     private String username, surname;
     private String password, othername;
@@ -86,7 +84,6 @@ public class SystemUserController implements Serializable {
 
         String userId = CommonUtil.generateID();
 
-//        userAccount.setUserAccountId(userId);
         systemUser.setSystemUserId(userId);
         systemUser.setUsername(username);
         systemUser.setPassword(password);
